@@ -1,5 +1,4 @@
 import useMap from "../../hooks/useMap";
-// import { FaFishFins } from "react-icons/fa6";
 import React from "react";
 import Link from "next/link";
 import SwitchToggle from "./Switch";

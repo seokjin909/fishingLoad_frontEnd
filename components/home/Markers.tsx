@@ -24,11 +24,11 @@ const Markers = () => {
           <Marker
             map={map}
             coordinates={store.coordinates}
-            icon={generateStoreMarkerIcon(store.season, false)}
+            icon={generateStoreMarkerIcon(store.category.id, false)}
             onClick={() => {
               setCurrentStore(store);
             }}
-            key={store.nid}
+            key={store.id}
           />
         );
       })}
@@ -36,9 +36,9 @@ const Markers = () => {
         <Marker
           map={map}
           coordinates={currentStore.coordinates}
-          icon={generateStoreMarkerIcon(currentStore.season, true)}
+          icon={generateStoreMarkerIcon(currentStore.category.id, true)}
           onClick={clearCurrentStore}
-          key={currentStore.nid}
+          key={currentStore.id}
         />
       )}
     </>
@@ -48,7 +48,7 @@ export default Markers;
 
 const MARKER_HEIGHT = 64;
 const MARKER_WIDTH = 54;
-const NUMBER_OF_MARKER = 13;
+const NUMBER_OF_MARKER = 2;
 const SCALE = 2 / 3;
 
 const SCALED_MARKER_WIDTH = MARKER_WIDTH * SCALE;
