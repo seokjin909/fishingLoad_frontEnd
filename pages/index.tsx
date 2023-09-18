@@ -6,6 +6,7 @@ import { Store } from "../types/store";
 import useStores from "../hooks/usePoint";
 import HomeHeader from "@/components/home/Header";
 import DetailSection from "@/components/home/DetailSection";
+import useCurrentType from "@/hooks/useFilter";
 
 interface Props {
   stores: Store[];
@@ -13,10 +14,12 @@ interface Props {
 
 const Home: NextPage<Props> = ({ stores }) => {
   const { initializeStores } = useStores();
+  const { initializeTypes } = useCurrentType();
 
   useEffect(() => {
     initializeStores(stores);
-  }, [initializeStores, stores]);
+    initializeTypes();
+  }, [initializeStores,initializeTypes,stores]);
 
   return (
     <Fragment>
@@ -32,11 +35,10 @@ const Home: NextPage<Props> = ({ stores }) => {
 export default Home;
 
 export async function getStaticProps() {
-  /** TODO: next api routes로 불러오기 */
   const stores = (await import("../public/stores.json")).default;
 
   return {
     props: { stores },
-    revalidate: 60 * 60,
+    revalidate: 5,
   };
 }

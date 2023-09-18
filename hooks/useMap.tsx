@@ -15,7 +15,6 @@ const useMap = () => {
   }, []);
 
   const resetMapOptions = useCallback(() => {
-    /** https://navermaps.github.io/maps.js.ncp/docs/naver.maps.Map.html#morph__anchor */
     map.morph(new naver.maps.LatLng(...INITIAL_CENTER), INITIAL_ZOOM);
   }, [map]);
 

@@ -18,5 +18,25 @@
       "Locationdate": "경기도 안산시 단원구 대부북동 642-171",
       "category" : { "id" : 1, "name" : "바다"},
       "contents" : "바다 낚시터"
+    },
+    {
+      "id": 921173731,
+      "title": "강촌낚시터",
+      "userId": "admin",
+      "coordinates": [37.4269694, 126.7127636],
+      "fishtype": "붕어, 망둥어",
+      "Locationdate": "인천광역시 남동구 남촌도림동 582",
+      "category" : { "id" : 2, "name" : "민물"},
+      "contents" : "고기들이 입질 잘해주고 손맛 좋습니다."
+    },
+    {
+      "id": 921173732,
+      "title": "북동낚시터",
+      "userId": "admin",
+      "coordinates": [37.2562788, 126.5812356],
+      "fishtype": "붕어, 망둥어",
+      "Locationdate": "안산시",
+      "category" : { "id" : 2, "name" : "민물"},
+      "contents" : "손맛 좋습니다."
     }
   ]
