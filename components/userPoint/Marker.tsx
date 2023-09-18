@@ -5,6 +5,7 @@ const Marker = ({ map, coordinates, icon, onClick }: Marker): null => {
   useEffect(() => {
     let marker: naver.maps.Marker | null = null;
     if (map) {
+      /** https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-Marker.html */
       marker = new naver.maps.Marker({
         map: map,
         position: new naver.maps.LatLng(...coordinates),
