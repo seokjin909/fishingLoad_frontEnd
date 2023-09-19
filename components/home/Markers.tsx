@@ -18,14 +18,14 @@ const Markers = () => {
   const { data: type } = useSWR<Type>(CURRENT_TYPE_KEY);
   const { setCurrentStore, clearCurrentStore } = useCurrentStore();
 
-  if (!map || !stores || !type) return null;
+  if (!map || !stores || !type ) return null;
   return (
     <>
       {stores.filter(item => item.category.id === type).map((store) => {
         return (
           <Marker
             map={map}
-            coordinates={store.coordinates}
+            coordinates={store.coordinates || [0,0]}
             icon={generateStoreMarkerIcon(store.category.id, false)}
             onClick={() => {
               setCurrentStore(store);
@@ -37,7 +37,7 @@ const Markers = () => {
       {currentStore && (
         <Marker
           map={map}
-          coordinates={currentStore.coordinates}
+          coordinates={currentStore.coordinates || [0,0]}
           icon={generateStoreMarkerIcon(currentStore.category.id, true)}
           onClick={clearCurrentStore}
           key={currentStore.id}

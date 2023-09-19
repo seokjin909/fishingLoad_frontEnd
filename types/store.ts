@@ -1,5 +1,6 @@
 type Lat = number;
 type Lng = number;
+
 export type Comment = {
   createTime : string;
   modifiedTime : string;

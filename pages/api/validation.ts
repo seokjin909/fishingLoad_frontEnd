@@ -1,3 +1,4 @@
+'use clinet'
 export function isValidUserId(userId: string) {
   const regex = /^[a-zA-Z0-9]{4,15}$/;
   return regex.test(userId);

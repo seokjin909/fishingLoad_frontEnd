@@ -1,3 +1,6 @@
+/* eslint-disable */
+'use client'
+
 import { useEffect, useState } from "react";
 import { getMyInfo, getMyPage, modifierUser } from "../api/myinfo";
 import { resign } from "../api/myinfo";
