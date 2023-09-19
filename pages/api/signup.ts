@@ -1,3 +1,4 @@
+'use client'
 import axios from "axios";
 interface IData {
   userId: string;

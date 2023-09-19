@@ -22,7 +22,7 @@ const UserMarkers = () => {
         return (
           <Marker
             map={map}
-            coordinates={store.coordinates}
+            coordinates={store.coordinates || [0,0]}
             icon={generateStoreMarkerIcon(store.category.id, false)}
             onClick={() => {
               setCurrentStore(store);
@@ -34,7 +34,7 @@ const UserMarkers = () => {
       {currentStore && (
         <Marker
           map={map}
-          coordinates={currentStore.coordinates}
+          coordinates={currentStore.coordinates || [0,0]}
           icon={generateStoreMarkerIcon(currentStore.category.id, true)}
           onClick={clearCurrentStore}
           key={currentStore.id}

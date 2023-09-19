@@ -1,5 +1,8 @@
+/* eslint-disable */
+'use client'
+
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import { findId } from "./../api/find";
 
 export default function findUserId() {

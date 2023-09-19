@@ -1,3 +1,5 @@
+/* eslint-disable */
+'use client'
 import axios from "axios";
 
 // 마이페이지
