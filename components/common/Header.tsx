@@ -13,10 +13,10 @@ const HeaderComponent = () => {
         <p className={BUTTON_CLASS}>나만의 포인트</p>
         <p className={BUTTON_CLASS}>커뮤니티</p>
       </nav>
-        <nav className="flex items-center gap-4 font-semibold">
+      <nav className="flex items-center gap-4 font-semibold">
         <button className={BUTTON_CLASS}>로그인</button>
         <button className={BUTTON_CLASS}>회원가입</button>
-        </nav>
+      </nav>
     </header>
   );
 };
