@@ -7,6 +7,7 @@ import useStores from "../hooks/usePoint";
 import HomeHeader from "@/components/home/Header";
 import DetailSection from "@/components/home/DetailSection";
 import useCurrentType from "@/hooks/useFilter";
+import PointsSection from "@/components/home/PointsSection";
 
 interface Props {
   stores: Store[];
@@ -24,10 +25,11 @@ const Home: NextPage<Props> = ({ stores }) => {
   return (
     <Fragment>
       <Header />
-      <main className="w-full h-full items-center flex flex-col mt-10">
+      <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center">
         <HomeHeader />
         <MapSection />
         <DetailSection />
+        <PointsSection />
       </main>
     </Fragment>
   );
