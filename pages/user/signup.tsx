@@ -1,6 +1,12 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { checkUserId, userSignUp } from "../api/signup";
+import {
+  isValidEmail,
+  isValidNickname,
+  isValidPassword,
+  isValidUserId,
+} from "./../api/validation";
 export default function SignUp() {
   const [userId, setUserId] = useState("");
   const [nickname, setNickName] = useState("");
@@ -35,23 +41,6 @@ export default function SignUp() {
       validateEmail(email);
     }
   };
-  function isValidUserId(userId: string) {
-    const regex = /^[a-zA-Z0-9]{4,15}$/;
-    return regex.test(userId);
-  }
-  function isValidPassword(password: string) {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-    return regex.test(password);
-  }
-  function isValidNickname(nickname: string) {
-    const regex = /^[a-zA-Z0-9가-힣]{2,10}$/;
-    return regex.test(nickname);
-  }
-  function isValidEmail(email: string) {
-    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return regex.test(email);
-  }
 
   const validateUserId = (userId: string) => {
     if (!isValidUserId(userId)) {
@@ -69,15 +58,6 @@ export default function SignUp() {
       setPasswordError("");
     }
   };
-  // checkPw
-  // const validateVerifyPassword = async () => {
-  //   const response = await checkUserPw({ userId, password });
-  //   try {
-  //     console.log(response.data.message);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const validateNickname = (nickname: string) => {
     if (!isValidNickname(nickname)) {
@@ -101,13 +81,18 @@ export default function SignUp() {
         alert(response.data.message);
       }
     } catch (error) {
-      if (error) {
-        alert(response.data.message);
-      }
+      alert(response.data.message);
+      setUserId("");
     }
   };
+
   const onSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    // 아이디가 비어있거나 유효성 검사 오류가 있는지 확인해서 중복확인 시도토록.
+    if (!userId || userIdError) {
+      alert("아이디 중복확인을 해주세요");
+      return;
+    }
     // 모든 필드에 대한 유효성 검사를 추가
     validateUserId(userId);
     validatePassword(password);
@@ -117,8 +102,9 @@ export default function SignUp() {
     // 모든 필드가 유효한지 확인
     if (userIdError || passwordError || nicknameError || emailError) {
       alert("입력값을 다시 확인하세요"); // 하나라도 유효하지 않으면 제출을 중지합니다.
-    }
-    if (userVerifyPassword === password) {
+    } else if (userVerifyPassword !== password) {
+      alert("비밀번호를 확인하세요");
+    } else {
       try {
         const response = await userSignUp({
           userId,
@@ -128,7 +114,6 @@ export default function SignUp() {
           admin,
           adminToken,
         });
-        console.log(response);
         if (response.status === 200) {
           alert(response.data.message);
           router.push("/user/login");
@@ -136,8 +121,6 @@ export default function SignUp() {
       } catch (error) {
         console.log(error);
       }
-    } else {
-      alert("비밀번호를 확인하세요");
     }
   };
 
@@ -159,7 +142,7 @@ export default function SignUp() {
             중복확인
           </button>
           <br />
-          <span>{userIdError}</span>
+          <span className="text-red-500">{userIdError}</span>
           <br />
           <label>닉네임 : </label>
           <input
@@ -170,7 +153,7 @@ export default function SignUp() {
             required
           />
           <br />
-          <span>{nicknameError}</span>
+          <span className="text-red-500">{nicknameError}</span>
           <br />
           <label>비밀번호 : </label>
           <input
@@ -181,7 +164,7 @@ export default function SignUp() {
             required
           />
           <br />
-          <span>{passwordError}</span>
+          <span className="text-red-500">{passwordError}</span>
           <br />
           <label>비밀번호 확인 : </label>
           <input
@@ -200,7 +183,7 @@ export default function SignUp() {
             required
           />
           <br />
-          <span>{emailError}</span>
+          <span className="text-red-500">{emailError}</span>
           <br />
           <button onClick={onSubmit}>가입하기</button>
         </form>

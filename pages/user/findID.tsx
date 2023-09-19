@@ -4,6 +4,7 @@ import { findId } from "./../api/find";
 
 export default function findUserId() {
   const [email, setEmail] = useState("");
+  const [findUserId, setUserFindId] = useState("");
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value);
   };
@@ -11,7 +12,7 @@ export default function findUserId() {
     event.preventDefault();
     const response = await findId({ email });
     try {
-      alert(response.data.userId);
+      setUserFindId(response.data.userId);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +30,9 @@ export default function findUserId() {
           />
           <button>찾기</button>
         </form>
-        {/* <div><span>{response.data.userId }</span></div> */}
+        <div>
+          <span>{findUserId}</span>
+        </div>
         <Link href="/user/login">로그인 페이지로</Link>
       </div>
     </>

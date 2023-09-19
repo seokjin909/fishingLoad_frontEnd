@@ -11,10 +11,6 @@ interface ICheck {
   email: string;
   userId: string;
 }
-interface IPwCheck {
-  userId: string;
-  password: string;
-}
 
 export const checkUserId = async (data: ICheck) => {
   console.log(data);
@@ -34,13 +30,3 @@ export const userSignUp = async (data: IData) => {
   );
   return response;
 };
-
-// export const checkUserPw = async (data: IPwCheck) => {
-//   console.log(data);
-//   const response = await axios.post(
-//     "http://3.39.195.241:8080/api/account/checkpw",
-//     data,
-//     { withCredentials: true },
-//   );
-//   return response;
-// };

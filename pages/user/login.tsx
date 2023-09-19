@@ -15,18 +15,17 @@ export default function Login() {
   };
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     try {
       const response = await loginFetcher({ userId, password });
       if (response.status === 200) {
         const accessToken = response.headers.authorization;
         const refreshToken = response.headers.authorization_refresh;
 
-        localStorage.setItem("access", accessToken);
-        localStorage.setItem("refresh", refreshToken);
+        localStorage.setItem("authorization", accessToken);
+        localStorage.setItem("authorization_refresh", refreshToken);
 
         alert("로그인 성공");
-        router.push("/user/myinfo");
+        router.push("/user/login");
       }
     } catch (error) {
       console.log(error);
@@ -57,6 +56,7 @@ export default function Login() {
         <button>
           <Link href="/user/signup"> 회원가입</Link>
         </button>
+        <br />
         <button>
           <Link href="/user/myinfo">마이페이지로</Link>
         </button>

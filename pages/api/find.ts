@@ -8,7 +8,6 @@ interface IFindPwData {
 }
 
 export const findId = async (data: IFindIdData) => {
-  console.log(data);
   const response = await axios.post(
     "http://3.39.195.241:8080/api/user/findID",
     data,
@@ -17,10 +16,10 @@ export const findId = async (data: IFindIdData) => {
 };
 
 export const findPw = async (data: IFindPwData) => {
-  console.log(data);
   const response = await axios.post(
     "http://3.39.195.241:8080/api/user/findPW",
     data,
   );
+  console.log(response);
   return response;
 };
