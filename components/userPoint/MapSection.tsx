@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { useRouter } from "next/router";
 import Map from "./Map";
-import Markers from "./Markers";
 import useMap, { INITIAL_CENTER, INITIAL_ZOOM } from "../../hooks/useMap";
 import useCurrentStore from "../../hooks/useCurrentPoint";
 import type { NaverMap } from "../../types/map";
 import type { Coordinates } from "../../types/store";
+import UserMarkers from "./UserMarkers";
 
 const MapSection = () => {
   const router = useRouter();
@@ -37,7 +37,7 @@ const MapSection = () => {
         initialZoom={initialZoom}
         initialCenter={initialCenter}
       />
-      <Markers />
+      <UserMarkers />
     </>
   );
 };

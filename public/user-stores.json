@@ -1,0 +1,33 @@
+[
+    {
+      "id": 921173730,
+      "title": "울산바다낚시터",
+      "userId": "test01",
+      "coordinates": [35.3910125, 129.3424688],
+      "fishtype": "광어, 우럭",
+      "Locationdate": "서생면 진하리 97-1번지 울주군 울산광역시 KR",
+      "category" : { "id" : 1, "name" : "바다"},
+      "contents" : "아주 나이스하고 잘나오는 곳입니다."
+    },
+    {
+      "id": 921173731,
+      "title": "남촌손맛낚시터",
+      "userId": "test01",
+      "coordinates": [37.4269692, 126.7127633],
+      "fishtype": "붕어, 망둥어",
+      "Locationdate": "인천광역시 남동구 남촌도림동 582",
+      "category" : { "id" : 2, "name" : "민물"},
+      "contents" : "고기들이 입질 잘해주고 손맛 좋습니다."
+    }
+    ,
+    {
+      "id": 921173731,
+      "title": "강촌낚시터",
+      "userId": "test02",
+      "coordinates": [37.4269694, 126.7127636],
+      "fishtype": "붕어, 망둥어",
+      "Locationdate": "인천광역시 남동구 남촌도림동 582",
+      "category" : { "id" : 2, "name" : "민물"},
+      "contents" : "고기들이 입질 잘해주고 손맛 좋습니다."
+    }
+  ]
