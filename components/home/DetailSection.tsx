@@ -9,7 +9,7 @@ const DetailSection = () => {
 
   return (
     <div
-      className="p-4 border border-gray-300 w-full flex justify-center"
+      className="border border-gray-300 flex justify-center w-[400px] h-[400px] items-center relative"
     >
       <DetailContent currentStore={currentStore} />
     </div>
