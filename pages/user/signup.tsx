@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -127,69 +127,96 @@ export default function SignUp() {
   };
 
   return (
-    <>
-      <div>로고</div>
-      <div>
-        <form>
-          <label>아이디 : </label>
-          <input
-            type="text"
-            value={userId}
-            onChange={onChange}
-            name="userId"
-            required
-          />
+    <div className="flex flex-col items-center justify-center h-screen w-screen">
+      <div className="w-40 bg-slate-200 h-40 text-center shadow-lg rounded-xl">
+        로고
+      </div>
+      <div className="w-4/12 mt-10">
+        <form className="flex flex-col justify-start">
+          <div className="flex">
+            <label className="text-2xl font-bold">
+              아이디 : &nbsp;&nbsp;
+              <input
+                className="mt-6 shadow-md h-8 hover:scale-110"
+                type="text"
+                value={userId}
+                onChange={onChange}
+                name="userId"
+                required
+              />
+            </label>
+            <button
+              className="ml-4 text-2xl w-3/12 font-bold mt-6 shadow-md h-10 bg-orange-300 rounded-md hover:bg-orange-600 hover:scale-110 active:bg-yellow-400 transition-all"
+              type="button"
+              onClick={checkBtn}
+            >
+              중복확인
+            </button>
+          </div>
+          <span className="text-red-500 font-bold text-lg">{userIdError}</span>
+          <label className="text-2xl font-bold">
+            닉네임 : &nbsp;&nbsp;
+            <input
+              className="mt-6 shadow-md h-8 hover:scale-110"
+              type="text"
+              value={nickname}
+              onChange={onChange}
+              name="userNickName"
+              required
+            />
+          </label>
 
-          <button type="button" onClick={checkBtn}>
-            중복확인
+          <span className="text-red-500 font-bold text-lg">
+            {nicknameError}
+          </span>
+          <label className="text-2xl font-bold">
+            비밀번호 : &nbsp;&nbsp;
+            <input
+              className="mt-6 shadow-md h-8 hover:scale-110"
+              type="password"
+              value={password}
+              onChange={onChange}
+              name="userPassword"
+              required
+            />
+          </label>
+
+          <span className="text-red-500 font-bold text-lg">
+            {passwordError}
+          </span>
+          <label className="text-2xl font-bold">
+            비밀번호 확인 : &nbsp;&nbsp;
+            <input
+              className="mt-6 shadow-md h-8 hover:scale-110"
+              type="password"
+              value={userVerifyPassword}
+              onChange={onChange}
+              name="userVerifyPassword"
+              required
+            />
+          </label>
+
+          <label className="text-2xl font-bold">
+            이메일 : &nbsp;&nbsp;
+            <input
+              className="mt-6 shadow-md h-8 hover:scale-110"
+              type="email"
+              value={email}
+              onChange={onChange}
+              name="userEmail"
+              required
+            />
+          </label>
+
+          <span className="text-red-500 font-bold text-lg">{emailError}</span>
+          <button
+            className="text-2xl font-bold mt-6 shadow-md h-12 bg-orange-300 rounded-md px-5 hover:bg-orange-600 hover:scale-110 active:bg-yellow-400 transition-all"
+            onClick={onSubmit}
+          >
+            가입하기
           </button>
-          <br />
-          <span className="text-red-500">{userIdError}</span>
-          <br />
-          <label>닉네임 : </label>
-          <input
-            type="text"
-            value={nickname}
-            onChange={onChange}
-            name="userNickName"
-            required
-          />
-          <br />
-          <span className="text-red-500">{nicknameError}</span>
-          <br />
-          <label>비밀번호 : </label>
-          <input
-            type="password"
-            value={password}
-            onChange={onChange}
-            name="userPassword"
-            required
-          />
-          <br />
-          <span className="text-red-500">{passwordError}</span>
-          <br />
-          <label>비밀번호 확인 : </label>
-          <input
-            type="password"
-            value={userVerifyPassword}
-            onChange={onChange}
-            name="userVerifyPassword"
-            required
-          />
-          <label>이메일 : </label>
-          <input
-            type="email"
-            value={email}
-            onChange={onChange}
-            name="userEmail"
-            required
-          />
-          <br />
-          <span className="text-red-500">{emailError}</span>
-          <br />
-          <button onClick={onSubmit}>가입하기</button>
         </form>
       </div>
-    </>
+    </div>
   );
 }

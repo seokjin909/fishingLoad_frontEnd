@@ -1,14 +1,13 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import { useState } from "react";
 import { loginFetcher } from "../api/login";
-import { useRouter } from "next/router";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [password, setUserPassword] = useState("");
-  const router = useRouter();
+
   const onIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(event.currentTarget.value);
   };
@@ -27,7 +26,8 @@ export default function Login() {
         localStorage.setItem("authorization_refresh", refreshToken);
 
         alert("로그인 성공");
-        router.push("/user/login");
+        setUserId("");
+        setUserPassword("");
       }
     } catch (error) {
       console.log(error);
@@ -35,34 +35,50 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div>로고</div>
-      <div>
-        <form onSubmit={onSubmit}>
+    <div className="flex flex-col items-center justify-center h-screen w-screen">
+      <div className="w-40 bg-slate-200 h-40 text-center shadow-lg rounded-xl">
+        로고
+      </div>
+      <div className="flex flex-col justify-center">
+        <form
+          onSubmit={onSubmit}
+          className="flex flex-col items-center justify-center"
+        >
           <input
+            className="text-2xl font-bold mt-6 shadow-md h-12 hover:scale-110"
             type="text"
             value={userId}
             placeholder="아이디 :"
             onChange={onIdChange}
           />
           <input
+            className="text-2xl font-bold mt-6 shadow-md h-12 hover:scale-110"
             type="password"
             value={password}
             placeholder="비밀번호 :"
             onChange={onPwChange}
           />
-          <button>로그인</button>
+          <button className="text-2xl font-bold mt-6 shadow-md h-12 bg-orange-300 rounded-md px-5 hover:bg-orange-600 hover:scale-110 active:bg-yellow-400 transition-all">
+            로그인
+          </button>
         </form>
-        <Link href="/user/findPW">비밀번호 찾기 |</Link>
-        <Link href="/user/findID">아이디 찾기 | </Link>
-        <button>
-          <Link href="/user/signup"> 회원가입</Link>
-        </button>
-        <br />
-        <button>
-          <Link href="/user/myinfo">마이페이지로</Link>
-        </button>
+        <div className="flex items-center justify-between space-x-8 w-12/12 mt-6">
+          <Link href="/user/findPW">
+            <span className="font-bold text-lg">비밀번호 찾기</span>
+          </Link>
+          <Link href="/user/findID">
+            <span className="font-bold text-lg">아이디 찾기</span>
+          </Link>
+          <button>
+            <Link href="/user/signup">
+              <span className="font-bold text-lg">회원가입</span>
+            </Link>
+          </button>
+          <button className="font-bold text-lg">
+            <Link href="/user/myinfo">마이페이지로</Link>
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
