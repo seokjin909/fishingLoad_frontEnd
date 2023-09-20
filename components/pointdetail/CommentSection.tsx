@@ -1,6 +1,7 @@
 import { Store } from '@/types/store'
 import React from 'react'
 import Comment from './Comment';
+import AddComment from './AddComment';
 interface Props {
     comment : Store['commentList']
 }
@@ -16,6 +17,7 @@ export const CommentSection = ({comment}:Props) => {
                 return <Comment key={data.id} data={data} />
             })}
         </div>
+        <AddComment />
     </div>
   )
 }

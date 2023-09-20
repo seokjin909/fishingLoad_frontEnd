@@ -12,7 +12,7 @@ type Props = {
 const DetailContent = ({ currentStore }: Props) => {
   const router= useRouter();
   const onClickHandler = () => {
-    router.push(`/detail/${currentStore?.id}`);
+    router.push(`/detail/point/${currentStore?.id}`);
   }
   return (
       <div className="truncate">
