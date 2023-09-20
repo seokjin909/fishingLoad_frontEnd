@@ -24,7 +24,13 @@ export default function findPassword() {
     try {
       // 비밀번호 변경창으로
       if (response.status === 200) {
+        const accessToken = response.headers.temporary_authorization;
+
+        localStorage.setItem("authorization", accessToken);
+        alert(response.data.message);
         router.push("/user/changePW");
+      } else {
+        alert("아이디와 이메일을 확인하세요");
       }
     } catch (error) {
       console.log(error);

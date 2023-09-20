@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import axios from "axios";
 interface IFindIdData {
   email: string;
@@ -21,6 +21,5 @@ export const findPw = async (data: IFindPwData) => {
     "http://3.39.195.241:8080/api/user/findPW",
     data,
   );
-  console.log(response);
   return response;
 };

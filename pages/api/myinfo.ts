@@ -1,5 +1,5 @@
 /* eslint-disable */
-'use client'
+"use client";
 import axios from "axios";
 
 // 마이페이지
@@ -50,19 +50,4 @@ export const getMyInfo = async () => {
   } catch (error) {
     console.log(error);
   }
-};
-
-// 회원정보 수정
-export const modifierUser = async (data: any) => {
-  const response = await axios.put(
-    `http://3.39.195.241:8080/api/account/${data.userId}`,
-    data,
-    {
-      headers: {
-        Authorization: localStorage.getItem("authorization"),
-        Authorization_Refresh: localStorage.getItem("authorization_refresh"),
-      },
-    },
-  );
-  return response;
 };
