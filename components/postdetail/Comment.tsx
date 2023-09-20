@@ -1,8 +1,8 @@
 import React from 'react'
-import AddComment from './AddComment';
-import { AiFillHeart, AiOutlineHeart, AiFillDelete} from "react-icons/ai"
+import { AiFillHeart, AiFillDelete} from "react-icons/ai"
 import { BiSolidPencil} from "react-icons/bi"
 import { BsArrowReturnRight } from "react-icons/bs"
+import { Comment } from '@/types/store';
 
 interface Props {
     data : Comment;
