@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import Header from "../../components/common/Header";
 import { Store } from "../../types/store";
 import { CommunitySection } from "@/components/community/CommunitySection";
+import CommunityHeader from "@/components/common/CommunityHeader";
 
 
 
@@ -11,12 +12,11 @@ interface Props {
 }
 
 const Community : NextPage<Props> = ({ stores }) => {
-    console.log(stores);
   return (
     <Fragment>
       <Header />
-      <main className="container mx-auto flex justify-center items-center flex-col">
-        <div className="text-2xl mb-4">커뮤니티 영역</div>
+      <CommunityHeader />
+      <main className="container mx-auto flex items-center flex-col">
         <CommunitySection data={stores}/>
       </main>
     </Fragment>

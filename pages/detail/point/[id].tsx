@@ -1,10 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { Store } from "../../types/store";
+import { Store } from "../../../types/store";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
-import HeaderComponent from "../../components/common/Header";
-import { ContentSection } from "@/components/detail/ContentSection";
-import { CommentSection } from "@/components/detail/CommentSection";
+import HeaderComponent from "../../../components/common/Header";
+import { ContentSection } from "@/components/pointdetail/ContentSection";
+import { CommentSection } from "@/components/pointdetail/CommentSection";
+import CommunityHeader from "@/components/common/CommunityHeader";
 
 interface Props {
     store: Store;
@@ -18,6 +19,7 @@ const DetailPoint : NextPage<Props> = ({ store }) => {
   return (
     <Fragment>
       <HeaderComponent />
+      <CommunityHeader />
       <main className="h-full container flex-col mx-auto flex justify-center items-center">
         <div>이미지 영역</div>
         <ContentSection store={store}/>
@@ -29,14 +31,14 @@ const DetailPoint : NextPage<Props> = ({ store }) => {
 export default DetailPoint;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const stores = (await import('../../public/stores.json')).default;
+    const stores = (await import('../../../public/stores.json')).default;
     const paths = stores.map((store) => ({ params: { id : store.id.toString()}}));
   
     return { paths, fallback: false };
   };
   
   export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const stores = (await import("../../public/stores.json")).default;
+    const stores = (await import("../../../public/stores.json")).default;
     const store = stores.find((store) => store.id === Number(params?.id));
   
     return { props: { store } };

@@ -1,5 +1,5 @@
-import { Comment } from '@/types/store'
 import React from 'react'
+import AddComment from './AddComment';
 
 interface Props {
     data : Comment;
@@ -20,7 +20,6 @@ const Comment = ({data}:Props) => {
     {/* 좋아요 이벤트 처리 해야함! */}
     <div>좋아요 수 : {data.commentLike}</div>
     {/* input 태그로 변경해야 함! */}
-    <div>댓글 달기</div>
     </div>
     </div>
   )
