@@ -2,12 +2,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getMyInfo, getMyPage, modifierUser } from "../api/myinfo";
+import { getMyInfo, getMyPage } from "../api/myinfo";
 import { resign } from "../api/myinfo";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function MyInfo() {
   const [data, setData]: any = useState();
   const [page, setPage]: any = useState([]);
+  const router = useRouter();
 
   // 게시글, 포인트 등록 정보
   const fetchInfo = async () => {
@@ -35,13 +38,16 @@ export default function MyInfo() {
   const resignBtn = async () => {
     const response = await resign();
     alert(response.data.message);
+    router.push("/user/login");
   };
 
-  // 회원정보 수정
-  const modifierBtn = async () => {
-    const response = await modifierUser(data);
-    console.log(response);
+  // 로그아웃
+  const logoutBtn = () => {
+    localStorage.removeItem("authorization");
+    localStorage.removeItem("authorization_refresh");
+    router.push("/user/login");
   };
+
   return (
     <>
       <div className="flex flex-col items-center justify-start w-screen h-screen mt-6">
@@ -61,20 +67,31 @@ export default function MyInfo() {
           <span className="transition-all hover:scale-105 mx-1 hover:text-blue-300">
             환영합니다.&nbsp;&nbsp;{data?.userId}님
           </span>
-          <button className="text-xl w-2/12 font-bold shadow-md h-10 bg-orange-300 rounded-md hover:bg-orange-600 hover:scale-110 active:bg-yellow-400 transition-all">
-            로그아웃
-          </button>
+          {data?.userId === undefined ? (
+            <button
+              onClick={logoutBtn}
+              className="text-xl w-2/12 font-bold shadow-md h-10 bg-orange-300 rounded-md hover:bg-orange-600 hover:scale-110 active:bg-yellow-400 transition-all"
+            >
+              로그인
+            </button>
+          ) : (
+            <button
+              onClick={logoutBtn}
+              className="text-xl w-2/12 font-bold shadow-md h-10 bg-orange-300 rounded-md hover:bg-orange-600 hover:scale-110 active:bg-yellow-400 transition-all"
+            >
+              로그아웃
+            </button>
+          )}
         </div>
         <div className="flex items-center justify-center">
           <img className="w-20 bg-slate-200 h-20 text-center shadow-lg rounded-xl mt-6" />
           <div className="font-semibold text-lg mt-6 ml-4 space-x-5">
             <span>{data?.nickname}&nbsp;님</span>
-            <button
-              onClick={modifierBtn}
-              className="text-lg w-32 font-bold shadow-md h-10 bg-orange-300 rounded-md hover:bg-orange-600 hover:scale-110 active:bg-yellow-400 transition-all"
-            >
-              회원수정
-            </button>
+            <Link href="/user/modifier">
+              <button className="text-lg w-32 font-bold shadow-md h-10 bg-orange-300 rounded-md hover:bg-orange-600 hover:scale-110 active:bg-yellow-400 transition-all">
+                회원수정
+              </button>
+            </Link>
             <button
               onClick={resignBtn}
               className="text-lg w-20 font-bold shadow-md h-10 bg-red-400 rounded-md hover:bg-red-600 hover:scale-110 active:bg-red-800 transition-all"
@@ -98,7 +115,7 @@ export default function MyInfo() {
                     key={item.id}
                     className="flex justify-around px-10 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
-                    <span className="px-6 py-4">{item.contents}</span>
+                    <span className="px-6 py-4">{item.title}</span>
                     <span className="px-6 py-4">{item.accountId}</span>
                     <span className="px-6 py-4">{item.createdTime}</span>
                     <span className="px-6 py-4">{item.postLike}</span>
