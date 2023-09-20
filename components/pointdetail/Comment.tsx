@@ -1,5 +1,5 @@
 import React from 'react'
-import AddComment from './AddComment';
+import { Comment } from '@/types/store';
 
 interface Props {
     data : Comment;
