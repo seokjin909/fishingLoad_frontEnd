@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { loginFetcher } from "../api/login";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [password, setUserPassword] = useState("");
+  const router = useRouter();
 
   const onIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(event.currentTarget.value);
@@ -28,6 +30,7 @@ export default function Login() {
         alert("로그인 성공");
         setUserId("");
         setUserPassword("");
+        router.push("/");
       }
     } catch (error) {
       console.log(error);
