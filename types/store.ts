@@ -16,12 +16,15 @@ export type Category = { id : number, name: string};
 export type Store = {
   id: number;
   title: string;
-  userId:string;
+  accountId:string;
   contents:string;
   fishtype?:string;
   coordinates?: Coordinates;
   category : Category;
-  Locationdate?: string;
-  commentList? : Comment[];
+  locationdate?: string;
+  createdTime:string;
+  modefiedTime:string;
+  postLike:number;
+  commentList : Comment[];
 };
 

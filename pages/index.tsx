@@ -26,7 +26,6 @@ const Home: NextPage<Props> = ({ stores }) => {
     <Fragment>
       <Header />
       <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center">
-        <HomeHeader />
         <MapSection />
         <DetailSection />
         <PointsSection />

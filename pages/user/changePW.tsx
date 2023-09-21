@@ -2,8 +2,8 @@ import { useState } from "react";
 import { changePw } from "../api/changePw";
 import { useRouter } from "next/router";
 
-export default function changePW() {
-  const [password, setPassword] = useState("");
+export default function ChangePW() {
+  const [password, setPassword] = useState<string>("");
   const router = useRouter();
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);

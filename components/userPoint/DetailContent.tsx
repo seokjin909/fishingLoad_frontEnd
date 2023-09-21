@@ -13,7 +13,7 @@ const DetailContent = ({ currentStore }: Props) => {
             <p>제목 : {currentStore.title}</p>
             <p>설명 : {currentStore.contents}</p>
             <span className='flex justify-between items-center w-[500px]'>
-            <p>위치 : {currentStore.Locationdate}</p>
+            <p>위치 : {currentStore.locationdate}</p>
             <button className='border border-gray-400 rounded-sm p-1'>상세페이지로</button>
             </span>
             </div>
