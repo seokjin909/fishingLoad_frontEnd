@@ -1,5 +1,6 @@
-'use client'
+"use client";
 import axios from "axios";
+import { error } from "console";
 interface IData {
   userId: string;
   password: string;
@@ -14,13 +15,16 @@ interface ICheck {
 }
 
 export const checkUserId = async (data: ICheck) => {
-  console.log(data);
-  const response = await axios.post(
-    "http://3.39.195.241:8080/api/user/userIdCheck",
-    data,
-    { withCredentials: true },
-  );
-  return response;
+  try {
+    const response = await axios.post(
+      "http://3.39.195.241:8080/api/user/userIdCheck",
+      data,
+      { withCredentials: true },
+    );
+    return response;
+  } catch (error: any) {
+    return error.response.data.message;
+  }
 };
 
 export const userSignUp = async (data: IData) => {

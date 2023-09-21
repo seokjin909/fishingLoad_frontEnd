@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import axios from "axios";
 interface IData {
   userId: string;
@@ -7,13 +7,16 @@ interface IData {
 // const service = axios.create
 
 export const loginFetcher = async (data: IData) => {
-  const response = await axios.post(
-    "http://3.39.195.241:8080/api/user/login",
-    data,
-    {
-      withCredentials: true,
-    },
-  );
-
-  return response;
+  try {
+    const response = await axios.post(
+      "http://3.39.195.241:8080/api/user/login",
+      data,
+      {
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error: any) {
+    return error.response.data.message;
+  }
 };
