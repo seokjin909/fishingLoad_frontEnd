@@ -16,11 +16,13 @@ interface Props {
 
 const DetailPoint: NextPage<Props> = ({ store }) => {
 
-    const [userId, setUserId] = useState<any>();
+    const [userId, setUserId] = useState<string>("");
     useEffect(()=> {
         const token = localStorage.getItem('authorization');
-        const id:JwtPayload = jwtDecode<JwtPayload>(token ? token : "");
-        setUserId(id.sub);
+        if(token !== null) {
+            const id:JwtPayload = jwtDecode<JwtPayload>(token ? token : "");
+            setUserId(id.sub as string);
+        } 
     },[])
     
     const { isFallback } = useRouter();

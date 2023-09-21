@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Store } from "@/types/store"
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { likePost } from '@/pages/api/likePost';
+import { useRouter } from 'next/router';
 
 interface Props {
     store: Store;
@@ -12,6 +13,7 @@ type fullDateString = string;
 
 export const ContentSection = ({store,userId}:Props) => {
   console.log(store);
+  const router = useRouter();
   const [time, setTime] = useState<string>();
     useEffect(()=>{
         const fullDateString:fullDateString = store.createdTime;
@@ -19,8 +21,14 @@ export const ContentSection = ({store,userId}:Props) => {
     },[store.createdTime])
 
     // 게시글 좋아요 기능 ( 서버 쪽 이슈 )
-    const LikePost = async() => {
-      const response = likePost(store.id);
+    const LikePost = () => {
+      if(userId === "") {
+        alert("로그인이 필요한 기능입니다!");
+        router.push('/user/login');
+        return;
+      } else {
+        const response = likePost(store.id);
+      }
     }
 
   return (
