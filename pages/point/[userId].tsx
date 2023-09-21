@@ -40,7 +40,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const stores = (await import('../../public/user-stores.json')).default;
   const userStores = stores.filter((store) => store.userId === params?.userId);
-
   return { props: { userStores } };
 };
 

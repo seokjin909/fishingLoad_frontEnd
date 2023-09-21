@@ -15,7 +15,7 @@ const HomeHeader = () => {
   const { data: type } = useSWR<Type>(CURRENT_TYPE_KEY);
   if (!type) return null;
   return (
-    <div className="h-14 flex justify-between items-center w-[810px] absolute top-20 left-[350px] z-10 p-4">
+    <div className="h-14 flex justify-between items-center w-[810px] absolute top-0 left-0 z-10 p-4">
         <Link
           href="/"
           onClick={resetMapOptions}

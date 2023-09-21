@@ -8,6 +8,7 @@ import { isValidPassword } from "../api/validation";
 export default function ChangePW() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
   const router = useRouter();
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);

@@ -6,6 +6,7 @@ import HeaderComponent from "../../../components/common/Header";
 import { ContentSection } from "@/components/pointdetail/ContentSection";
 import { CommentSection } from "@/components/pointdetail/CommentSection";
 import CommunityHeader from "@/components/common/CommunityHeader";
+import axios from "axios";
 
 interface Props {
     store: Store;
@@ -32,6 +33,8 @@ export default DetailPoint;
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const stores = (await import('../../../public/stores.json')).default;
+    // const store = await axios.get(`http://3.39.195.241:8080/api/post/${params?.id}`);
+    // console.log(store);
     const paths = stores.map((store) => ({ params: { id : store.id.toString()}}));
   
     return { paths, fallback: false };

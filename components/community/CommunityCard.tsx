@@ -1,6 +1,6 @@
 import { Store } from '@/types/store'
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 interface Props {
     data : Store;
     index : number;
@@ -11,23 +11,30 @@ const CommunityCard = ({data, index}:Props) => {
     const onClickHandler = () => {
         router.push(`/detail/post/${data.id}`);
     }
+    const [time, setTime] = useState<string>();
+    useEffect(()=>{
+        const fullDateString = data.createdTime;
+        const realTime = fullDateString?.split("T")[0]
+        setTime(realTime);
+    },[data.createdTime])
+    
+
   return (
     <tr className="bg-white border-b">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" onClick={onClickHandler}>
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {index}
                 </th>
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap cursor-pointer" onClick={onClickHandler}>
                     {data.title}
                 </th>
-
                 <td className="px-6 py-4">
-                    {data.userId}
+                    {data.accountId}
                 </td>
                 <td className="px-6 py-4">
-                    {data.id}
+                    {time}
                 </td>
                 <td className="px-6 py-4">
-                    {data.category.id}
+                    {data.postLike}
                 </td>
             </tr>
   )

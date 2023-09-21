@@ -1,44 +1,51 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { Store } from "../../../types/store";
 import { useRouter } from "next/router";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import HeaderComponent from "../../../components/common/Header";
 import { ContentSection } from "@/components/postdetail/ContentSection";
 import { CommentSection } from "@/components/postdetail/CommentSection";
 import CommunityHeader from "@/components/common/CommunityHeader";
+import axios from "axios";
+import { JwtPayload } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 interface Props {
     store: Store;
 }
 
-const DetailPoint : NextPage<Props> = ({ store }) => {
+const DetailPoint: NextPage<Props> = ({ store }) => {
+
+    const [userId, setUserId] = useState<any>();
+    useEffect(()=> {
+        const token = localStorage.getItem('authorization');
+        const id:JwtPayload = jwtDecode<JwtPayload>(token ? token : "");
+        setUserId(id.sub);
+    },[])
+    
     const { isFallback } = useRouter();
-    if(isFallback) {
-      return <div>Loading...</div>;
+    if (isFallback) {
+        return <div>Loading...</div>;
     }
-  return (
-    <Fragment>
-      <HeaderComponent />
-      <CommunityHeader />
-      <main className="container w-full flex-col mx-auto flex justify-center items-center">
-        <ContentSection store={store}/>
-        <CommentSection comment={store.commentList}/>
-      </main>
-    </Fragment>
-  );
+
+    return (
+        <Fragment>
+            <HeaderComponent />
+            <CommunityHeader />
+            <main className="container w-full flex-col mx-auto flex justify-center items-center">
+                <ContentSection store={store} userId={userId}/>
+                <CommentSection comment={store.commentList} store={store} userId={userId}/>
+            </main>
+        </Fragment>
+    );
 };
+
 export default DetailPoint;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    const stores = (await import('../../../public/stores.json')).default;
-    const paths = stores.map((store) => ({ params: { id : store.id.toString()}}));
-  
-    return { paths, fallback: false };
-  };
-  
-  export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const stores = (await import("../../../public/stores.json")).default;
-    const store = stores.find((store) => store.id === Number(params?.id));
-  
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+    // 백엔드 서버에서 상점 정보를 가져옵니다.
+    const response = await axios.get(`http://3.39.195.241:8080/api/post/${params?.id}`);
+    const store = response.data; // 백엔드에서 받은 데이터를 사용합니다.
+
     return { props: { store } };
-  };
+};
