@@ -1,8 +1,9 @@
 import { addPost } from '@/pages/api/addpost';
+import { useRouter } from 'next/router';
 import React, { useCallback, useState } from 'react'
 
 const AddPostForm = () => {
-
+  const router = useRouter();
   const [insertForm, setInsertForm] = useState({
     title: "",
     contents: "",
@@ -19,8 +20,9 @@ const AddPostForm = () => {
   const SubmitHandler = async() => {
     try {
       const response = await addPost(insertForm);
-      if(response.status === 200) {
-        alert(response.data.message);
+      if(response?.status === 200) {
+        alert("작성 완료!");
+        router.push('/community');
       }
     } catch(error) {
       console.log(error);

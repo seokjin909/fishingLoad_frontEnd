@@ -41,7 +41,7 @@ const DetailContent = ({ currentStore }: Props) => {
                   위치 <FaMapLocationDot />
                 </div>
                 <div>
-                  {currentStore.Locationdate}
+                  {currentStore.locationdate}
                 </div>
               </div>
               <button onClick={onClickHandler} className="absolute bottom-0 right-0 m-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
