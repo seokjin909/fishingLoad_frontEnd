@@ -5,9 +5,9 @@ import { mutate } from "swr";
 export const STORE_KEY = "/stores";
 export const USER_STORE_KEY = "/stores/userId";
 
-const usePoints = () => {
+const UsePoints = () => {
   const initializeStores = useCallback((stores: Store[]) => {
-    mutate(STORE_KEY, stores);
+    mutate(STORE_KEY, stores );
   }, []);
   
   const initializeStoresUsers = useCallback((userStores: Store[]) => {
@@ -19,4 +19,4 @@ const usePoints = () => {
     initializeStoresUsers
   };
 };
-export default usePoints;
+export default UsePoints;

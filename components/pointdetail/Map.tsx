@@ -7,14 +7,14 @@ import { INITIAL_CENTER, INITIAL_ZOOM } from "../../hooks/useMap";
 
 type Props = {
   mapId?: string;
-  initialCenter?: Coordinates;
+  initialCenter: Coordinates;
   initialZoom?: number;
   onLoad?: (map: NaverMap) => void;
 };
 
 const Map = ({
   mapId = "map",
-  initialCenter = INITIAL_CENTER,
+  initialCenter,
   initialZoom = INITIAL_ZOOM,
   onLoad,
 }: Props) => {
@@ -55,7 +55,8 @@ const Map = ({
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}`}
         onReady={initializeMap}
       />
-      <div id={mapId} className="w-[800px] h-[400px] relative" />
+      <div id={mapId} className="w-full h-[400px]">
+      </div>
     </>
   );
 };

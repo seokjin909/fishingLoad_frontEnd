@@ -25,9 +25,11 @@ const HomeHeader = () => {
           <RxReset />
         </Link>
         <div className="flex justify-center items-center gap-2 font-semibold">
-          {type > 1 ? (
-          <><button className={PILL_BUTTON}>Sea 🎣</button><button onClick={() => setCurrentTypeSea()} className={NOT_PILL_BUTTON}>FreshWater 🐟</button></>) 
-          : (<><button  onClick={() => setCurrentTypeFreshWater()} className={NOT_PILL_BUTTON}>Sea 🎣</button><button className={PILL_BUTTON}>FreshWater 🐟</button></>)}
+          {type === 1 ? 
+          (<><button className={PILL_BUTTON}>Sea 🎣</button><button onClick={() => setCurrentTypeFreshWater()} className={NOT_PILL_BUTTON}>FreshWater 🐟</button></>) 
+          : 
+          (<><button  onClick={() => setCurrentTypeSea()} className={NOT_PILL_BUTTON}>Sea 🎣</button><button className={PILL_BUTTON}>FreshWater 🐟</button></>)
+          }
         </div>
     </div>
   );

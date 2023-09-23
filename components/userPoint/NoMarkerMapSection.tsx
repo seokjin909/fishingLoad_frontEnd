@@ -10,7 +10,7 @@ import type { Coordinates, Store } from "../../types/store";
 interface Props {
   stores : Store[];
 }
-const UserMapSection = ({stores}:Props) => {
+const NoMarkerMapSection = () => {
   const router = useRouter();
   const query = useMemo(() => new URLSearchParams(router.asPath.slice(1)), []); // eslint-disable-line react-hooks/exhaustive-deps
   const initialZoom = useMemo(
@@ -40,8 +40,7 @@ const UserMapSection = ({stores}:Props) => {
         initialZoom={initialZoom}
         initialCenter={initialCenter}
       />
-      <Markers stores={stores}/>
     </>
   );
 };
-export default UserMapSection;
+export default NoMarkerMapSection;

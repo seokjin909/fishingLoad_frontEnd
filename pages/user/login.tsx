@@ -20,13 +20,13 @@ export default function Login() {
     event.preventDefault();
 
     const response = await loginFetcher({ userId, password });
+    
     if (response.status === 200) {
       const accessToken = response.headers.authorization;
       const refreshToken = response.headers.authorization_refresh;
-
+    
       localStorage.setItem("authorization", accessToken);
       localStorage.setItem("authorization_refresh", refreshToken);
-
       alert("로그인 성공");
       setUserId("");
       setUserPassword("");

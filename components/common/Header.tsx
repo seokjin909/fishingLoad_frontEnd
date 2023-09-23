@@ -39,7 +39,9 @@ const HeaderComponent = () => {
         <Link href="/">
           <p className={BUTTON_CLASS}>전국 포인트</p>
         </Link>
+        <Link href='/point/mypoint'>
         <p className={BUTTON_CLASS}>나만의 포인트</p>
+        </Link>
         <Link href="/community">
           <p className={BUTTON_CLASS}>커뮤니티</p>
         </Link>

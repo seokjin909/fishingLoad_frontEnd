@@ -57,13 +57,12 @@ const SCALED_MARKER_WIDTH = MARKER_WIDTH * SCALE;
 const SCALED_MARKER_HEIGHT = MARKER_HEIGHT * SCALE;
 
 export function generateStoreMarkerIcon(
-  type: number, // 이 부분 확인!
+  type: number,
   isSelected: boolean,
 ): ImageIcon {
   return {
     url: isSelected ? 'images/markers-selected.png' : 'images/markers.png',
     size: new naver.maps.Size(SCALED_MARKER_WIDTH, SCALED_MARKER_HEIGHT),
-    // 0을 곱할 경우 민물 아이콘이 1을 곱할 경우 바다 물고기 아이콘이 출력된다.
     origin: new naver.maps.Point(SCALED_MARKER_WIDTH * (type-1), 0),
     scaledSize: new naver.maps.Size(
       SCALED_MARKER_WIDTH * NUMBER_OF_MARKER,

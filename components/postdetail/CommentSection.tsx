@@ -1,5 +1,5 @@
 import { Comment, Store } from '@/types/store'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddComment from './AddComment';
 import CommentComp from './CommentComp';
 interface Props {
@@ -9,8 +9,15 @@ interface Props {
 }
 
 export const CommentSection = ({comment,store,userId}:Props) => {
-  console.log(comment);
-  const [comments, setComments] = useState<Comment[]>(comment.filter((item)=> item.commentUse === true));
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  useEffect(()=>{
+    setComments(comment.filter((item)=> item.commentUse===true).sort((a,b)=>{
+      const dateA = a.id;
+      const dateB = b.id;
+      return dateA - dateB;
+    }));
+  },[comment])
   
   return (
     <div className='w-full border-t-2 border-gray-300 mb-4'>
@@ -22,11 +29,11 @@ export const CommentSection = ({comment,store,userId}:Props) => {
           </div>
           <div>
             {comments?.map((data)=> {
-              return <CommentComp key={data.id} data={data} userId={userId}/>
+              return <CommentComp key={data.id} data={data} userId={userId} setComments={setComments} comments={comments} store={store}/>
             })}
           </div>
         </div>)}
-      <AddComment store={store} setComments={setComments} comments={comment}/>
+      <AddComment store={store} setComments={setComments} comments={comments}/>
     </div>
   )
 }

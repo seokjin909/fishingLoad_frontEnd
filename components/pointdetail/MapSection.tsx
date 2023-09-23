@@ -2,28 +2,17 @@ import { useMemo } from "react";
 import { useRouter } from "next/router";
 import Map from "./Map";
 import Markers from "./Markers";
-import useMap, { INITIAL_CENTER, INITIAL_ZOOM } from "../../hooks/useMap";
+import useMap, { INITIAL_ZOOM } from "../../hooks/useMap";
 import useCurrentStore from "../../hooks/useCurrentPoint";
 import type { NaverMap } from "../../types/map";
-import type { Coordinates, Store } from "../../types/store";
+import type { Coordinates } from "../../types/store";
 
 interface Props {
-  stores : Store[];
+  location : Coordinates;
 }
-const UserMapSection = ({stores}:Props) => {
+const MapSection = ({location}:Props) => {
   const router = useRouter();
   const query = useMemo(() => new URLSearchParams(router.asPath.slice(1)), []); // eslint-disable-line react-hooks/exhaustive-deps
-  const initialZoom = useMemo(
-    () => (query.get("zoom") ? Number(query.get("zoom")) : INITIAL_ZOOM),
-    [query],
-  );
-  const initialCenter = useMemo<Coordinates>(
-    () =>
-      query.get("lat") && query.get("lng")
-        ? [Number(query.get("lat")), Number(query.get("lng"))]
-        : INITIAL_CENTER,
-    [query],
-  );
 
   /** onLoadMap */
   const { initializeMap } = useMap();
@@ -37,11 +26,11 @@ const UserMapSection = ({stores}:Props) => {
     <>
       <Map
         onLoad={onLoadMap}
-        initialZoom={initialZoom}
-        initialCenter={initialCenter}
+        initialZoom={11}
+        initialCenter={location}
       />
-      <Markers stores={stores}/>
+      <Markers location={location}/>
     </>
   );
 };
-export default UserMapSection;
+export default MapSection;

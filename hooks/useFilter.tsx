@@ -17,6 +17,7 @@ const useCurrentType = () => {
     clearCurrentStore();
   }, [clearCurrentStore]);
 
+  // 기본값은 바다
   const initializeTypes = useCallback(() => {
     mutate(CURRENT_TYPE_KEY, 1)
   },[]);

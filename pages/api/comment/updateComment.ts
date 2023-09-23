@@ -1,20 +1,16 @@
 import axios from "axios";
 
-// 필수 컬럼 확인 후 수정
-interface CommentForm {
+interface Props {
     postId : number;
     comment:string;
 }
-
-
-export const addComment = async (data: CommentForm) => {
+export const updateComment = async (id: number,comment:Props) => {
   try {
-      const response = await axios.post(
-        "http://3.39.195.241:8080/api/comment",
-        data,
+      const response = await axios.put(
+        `http://3.39.195.241:8080/api/comment/${id}`,
+        comment,
         {headers : {Authorization : localStorage.getItem('authorization')}, withCredentials: true},
       );
-      console.log(response);
       return response;
   } catch (error) {
     console.error(error);
