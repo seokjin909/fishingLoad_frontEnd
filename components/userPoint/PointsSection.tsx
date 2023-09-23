@@ -2,10 +2,10 @@ import useSWR from 'swr';
 import type { Store } from '../../types/store';
 import { STORE_KEY } from "../../hooks/usePoint";
 import PointCard from './PointCard';
-import { useEffect } from 'react';
 
 const PointsSection = () => {
   const { data: stores } = useSWR<Store[]>(STORE_KEY);
+
   if (!stores) return null;
   return (
     <div

@@ -4,14 +4,19 @@ import type { Store } from '../../types/store';
 
 import DetailContent from './DetailContent';
 
-const DetailSection = () => {
+interface Props {
+  state : boolean
+}
+
+
+const DetailSection = ({state} :Props) => {
   const { data: currentStore } = useSWR<Store>(CURRENT_STORE_KEY);
 
   return (
     <div
-      className="p-4 border border-gray-300 w-full flex justify-center"
+      className="border border-gray-300 flex justify-center w-[400px] h-[400px] items-center relative"
     >
-      <DetailContent currentStore={currentStore} />
+      <DetailContent currentStore={currentStore} state={state}/>
     </div>
   );
 };

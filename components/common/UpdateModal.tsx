@@ -1,8 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { AiFillDelete } from 'react-icons/ai'
+import { BiSolidPencil } from 'react-icons/bi';
 
-export default function MyModal({func}:any) {
+export default function UpdateModal({func, type}:any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -24,9 +25,9 @@ export default function MyModal({func}:any) {
         <button
           type="button"
           onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-3 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="rounded-md bg-black bg-opacity-20 px-3 py-1 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
-          <AiFillDelete />
+          <BiSolidPencil />
         </button>
       </div>
 
@@ -60,11 +61,11 @@ export default function MyModal({func}:any) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    🗑️ 정말 삭제하시겠습니까?
+                    💬 정말 수정하시겠습니까?
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 font-thin">
-                      한 번 삭제된 댓글은 복원할 수 없습니다.
+                      한 번 수정된 {type}은 복원할 수 없습니다.
                     </p>
                   </div>
 
@@ -74,7 +75,7 @@ export default function MyModal({func}:any) {
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={deleteComment}
                     >
-                      삭제하기
+                      수정하기
                     </button>
                     <button
                       type="button"

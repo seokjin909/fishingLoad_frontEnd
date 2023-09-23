@@ -10,6 +10,12 @@ interface Props {
 export const CommunitySection = ({data}:Props) => {
     const router = useRouter();
     const onClickHandler = () => {
+        const token = localStorage.getItem('authorization');
+        if(token === null){
+            alert('로그인이 필요한 서비스입니다.');
+            router.push('/user/login');
+            return;
+        }
         router.push('/post/addpost');
     }
   return (

@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from "react";
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Header from "../components/common/Header";
 import MapSection from "../components/home/MapSection";
 import { Store } from "../types/store";
@@ -8,12 +8,13 @@ import HomeHeader from "@/components/home/Header";
 import DetailSection from "@/components/home/DetailSection";
 import useCurrentType from "@/hooks/useFilter";
 import PointsSection from "@/components/home/PointsSection";
+import { getPoint } from "./api/point/getPoint";
 
 interface Props {
   stores: Store[];
 }
 
-const Home: NextPage<Props> = ({ stores }) => {
+const Home: NextPage<Props> = ({ stores }:Props) => {
   const { initializeStores } = useStores();
   const { initializeTypes } = useCurrentType();
 
@@ -35,11 +36,9 @@ const Home: NextPage<Props> = ({ stores }) => {
 };
 export default Home;
 
-export async function getStaticProps() {
-  const stores = (await import("../public/stores.json")).default;
+export const getServerSideProps:GetServerSideProps = async () => {
+  const response = await getPoint();
+  const stores = response;
 
-  return {
-    props: { stores },
-    revalidate: 5,
-  };
+  return { props : { stores }};
 }
