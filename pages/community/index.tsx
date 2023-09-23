@@ -4,7 +4,7 @@ import { Store } from "../../types/store";
 import { CommunitySection } from "@/components/community/CommunitySection";
 import CommunityHeader from "@/components/common/CommunityHeader";
 import axios from "axios";
-import PagingSection from "@/components/community/PagingSection";
+// import PagingSection from "@/components/community/PagingSection";
 
 
 const Community = () => {
@@ -43,7 +43,7 @@ const Community = () => {
       <CommunityHeader />
       <main className="container mx-auto flex items-center flex-col">
         <CommunitySection data={stores} />
-        <PagingSection setPage={setPage} page={page} totalPages={totalPages} totalItem={totalItem}/>
+        {/* <PagingSection setPage={setPage} page={page} totalPages={totalPages} totalItem={totalItem}/> */}
       </main>
     </Fragment>
   );
