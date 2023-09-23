@@ -22,8 +22,6 @@ interface Props {
   store:Store;
 }
 
-// store : 게시글 정보, data : 댓글 상세 정보, comments : 댓글 리스트 정보
-
 const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
   const [isEditing, setIsEditing] = useState(false); 
   const [editedComment, setEditedComment] = useState(data.comment); 

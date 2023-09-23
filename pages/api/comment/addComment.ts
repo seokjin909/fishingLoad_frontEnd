@@ -10,7 +10,7 @@ interface CommentForm {
 export const addComment = async (data: CommentForm) => {
   try {
       const response = await axios.post(
-        "http://3.39.195.241:8080/api/comment",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/comment`,
         data,
         {headers : {Authorization : localStorage.getItem('authorization')}, withCredentials: true},
       );

@@ -8,7 +8,7 @@ interface IChangePw {
 export const changePw = async (data: IChangePw) => {
   try {
     const response = await axios.put(
-      "http://3.39.195.241:8080/api/user/change",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/change`,
       data,
       {
         headers: {

@@ -10,7 +10,7 @@ interface IModifier {
 export const modifierUser = async (data: IModifier) => {
   try {
     const response = await axios.put(
-      `http://3.39.195.241:8080/api/account`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/account`,
       data,
       {
         headers: {

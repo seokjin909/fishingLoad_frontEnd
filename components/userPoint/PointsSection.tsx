@@ -24,7 +24,7 @@ const PointsSection = () => {
         return <PointCard key={item.id} image={item.title} />
       }
         )}
-        </div>
+      </div>
     </div>
   );
 };

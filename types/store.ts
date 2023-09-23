@@ -38,4 +38,3 @@ export type Store = {
   postLike:number;
   commentList : Comment[];
 };
-

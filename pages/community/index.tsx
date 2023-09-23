@@ -18,7 +18,7 @@ const Community = () => {
     const fetchData = async (page:number) => {
       try {
         const response = await axios.get(
-          `http://3.39.195.241:8080/api/post/community?page=${page}&size=5&sortBy=createdTime&isAsc=false`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/community?page=${page}&size=5&sortBy=createdTime&isAsc=false`,
           {withCredentials: true}
         );
         if (response.status === 200) {

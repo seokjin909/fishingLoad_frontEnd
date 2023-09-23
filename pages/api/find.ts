@@ -11,7 +11,7 @@ interface IFindPwData {
 export const findId = async (data: IFindIdData) => {
   try {
     const response = await axios.post(
-      "http://3.39.195.241:8080/api/user/findID",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/findID`,
       data,
     );
     if (response.status === 200) {
@@ -28,7 +28,7 @@ export const findId = async (data: IFindIdData) => {
 export const findPw = async (data: IFindPwData) => {
   try {
     const response = await axios.post(
-      "http://3.39.195.241:8080/api/user/findPW",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/findPW`,
       data,
     );
     return response;

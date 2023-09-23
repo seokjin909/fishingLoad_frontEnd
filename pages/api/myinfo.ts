@@ -5,7 +5,7 @@ import axios from "axios";
 // 마이페이지
 export const getMyPage = async () => {
   const response = await axios.get(
-    "http://3.39.195.241:8080/api/account/mypage?page=1&size=5&sortBy=title&isAsc=true",
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/account/mypage?page=1&size=5&sortBy=title&isAsc=true`,
     {
       headers: {
         Authorization: localStorage.getItem("authorization"),
@@ -23,7 +23,7 @@ export const getMyPage = async () => {
 // 회원 탈퇴
 export const resign = async () => {
   const response = await axios.delete(
-    "http://3.39.195.241:8080/api/account/resign",
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/account/resign`,
     {
       headers: {
         Authorization: localStorage.getItem("authorization"),
@@ -37,7 +37,7 @@ export const resign = async () => {
 // 게시글 정보 불러오기
 export const getMyInfo = async () => {
   const response = await axios.get(
-    "http://3.39.195.241:8080/api/account/myinfo",
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/account/myinfo`,
     {
       headers: {
         Authorization: localStorage.getItem("authorization"),

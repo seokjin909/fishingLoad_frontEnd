@@ -8,22 +8,22 @@ import PointsSection from "@/components/userPoint/PointsSection";
 import { getUserPoint } from "../api/point/getUserPoint";
 import UserMapSection from "../../components/userPoint/MapSection";
 import NoMarkerMapSection from "@/components/userPoint/NoMarkerMapSection";
-import { useRouter } from "next/router";
 
 const Home = () => {
+
   const { initializeStores } = useStores();
-  const router = useRouter();
   const [stores, setStores] = useState<Store[]>();
   
   const GetUserPoints = async() => {
     try{
       const response = await getUserPoint();
+      console.log(response);
       if(!response?.data) {
         setStores([]);
         initializeStores([]);
       } else {
-        setStores(response.data);
-        initializeStores(response.data);
+        setStores(response.data.post);
+        initializeStores(response.data.post);
       }
     } catch (error) {
       console.log(error);
@@ -33,12 +33,6 @@ const Home = () => {
  
 
   useEffect(() => {
-    const token = localStorage.getItem('authorization');
-    if(token === null){
-      alert('로그인이 필요한 서비스입니다.');
-      router.push('/user/login');
-      return;
-  }
     GetUserPoints();
   }, []);
 

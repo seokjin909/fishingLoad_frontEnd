@@ -17,7 +17,7 @@ interface ICheck {
 export const checkUserId = async (data: ICheck) => {
   try {
     const response = await axios.post(
-      "http://3.39.195.241:8080/api/user/userIdCheck",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/userIdCheck`,
       data,
       { withCredentials: true },
     );
@@ -29,7 +29,7 @@ export const checkUserId = async (data: ICheck) => {
 
 export const userSignUp = async (data: IData) => {
   const response = await axios.post(
-    "http://3.39.195.241:8080/api/user/signup",
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/signup`,
     data,
     { withCredentials: true },
   );
