@@ -11,7 +11,7 @@ interface insertForm {
 export const addPost = async (data: insertForm) => {
   try {
       const response = await axios.post(
-        "http://3.39.195.241:8080/api/post",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post`,
         data,
         {headers : {Authorization : localStorage.getItem('authorization')}, withCredentials: true},
       );

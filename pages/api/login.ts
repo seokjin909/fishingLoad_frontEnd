@@ -9,7 +9,7 @@ interface IData {
 export const loginFetcher = async (data: IData) => {
   try {
     const response = await axios.post(
-      "http://3.39.195.241:8080/api/user/login",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`,
       data,
       {
         withCredentials: true,

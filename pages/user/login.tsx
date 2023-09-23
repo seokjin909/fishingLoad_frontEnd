@@ -21,7 +21,7 @@ export default function Login() {
 
     const response = await loginFetcher({ userId, password });
     
-    if (response.status === 200) {
+    if (response?.status === 200) {
       const accessToken = response.headers.authorization;
       const refreshToken = response.headers.authorization_refresh;
     

@@ -39,9 +39,16 @@ const HeaderComponent = () => {
         <Link href="/">
           <p className={BUTTON_CLASS}>전국 포인트</p>
         </Link>
-        <Link href='/point/mypoint'>
+        <div onClick={()=>{
+          if(!isLoggedIn){
+            alert('로그인이 필요한 기능입니다!');
+            router.replace('/user/login');
+          } else {
+            router.push('/point/mypoint');
+          }
+        }}>
         <p className={BUTTON_CLASS}>나만의 포인트</p>
-        </Link>
+        </div>
         <Link href="/community">
           <p className={BUTTON_CLASS}>커뮤니티</p>
         </Link>
