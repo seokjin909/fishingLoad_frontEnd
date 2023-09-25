@@ -5,7 +5,6 @@ import { NaverMap } from "../../types/map";
 import { INITIAL_CENTER, INITIAL_ZOOM } from "../../hooks/useMap";
 import HomeHeader from "./Header";
 
-
 type Props = {
   mapId?: string;
   initialCenter?: Coordinates;
