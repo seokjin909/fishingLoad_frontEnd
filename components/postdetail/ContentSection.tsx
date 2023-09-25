@@ -10,11 +10,13 @@ import UpdateModal from '../common/UpdateModal';
 interface Props {
     store: Store;
     userId : string;
+    setStore:React.Dispatch<React.SetStateAction<Store>>
 }
 
 type fullDateString = string;
 
-export const ContentSection = ({store,userId}:Props) => {
+export const ContentSection = ({store,userId,setStore}:Props) => {
+  console.log(store);
   const router = useRouter();
   const [time, setTime] = useState<string>();
     useEffect(()=>{
@@ -23,13 +25,25 @@ export const ContentSection = ({store,userId}:Props) => {
     },[store.createdTime])
 
     // 게시글 좋아요 기능 ( 서버 쪽 이슈 )
-    const LikePost = () => {
+    const LikePost = async() => {
       if(userId === "") {
         alert("로그인이 필요한 기능입니다!");
         router.push('/user/login');
         return;
       } else {
-        const response = likePost(store.id);
+        const response = await likePost(store.id);
+        if(response?.data.statusCode === 200) {
+          const updatedStore = { ...store }; // store 객체를 복제합니다.
+          if (store.postLikeUse) {
+            // 이미 좋아요를 누른 상태였다면 감소
+            updatedStore.postLike -= 1;
+          } else {
+            // 좋아요를 누르지 않은 상태였다면 증가
+            updatedStore.postLike += 1;
+          }
+          updatedStore.postLikeUse = !store.postLikeUse; // 상태를 토글합니다.
+          setStore(updatedStore);
+        }
       }
     }
 
@@ -57,7 +71,12 @@ export const ContentSection = ({store,userId}:Props) => {
         {/* 로그인 한 회원일 경우 수정/삭제, 아닐 경우 좋아요 버튼 출력 =>   */}
         {userId === store.accountId ? (<div className='gap-2 flex'>
         <UpdateModal type='게시글' func={UpdatePost} />
-        <MyModal type='게시글' func={DeletePost} /></div>) : (<div className='text-red-400 text-2xl cursor-pointer' onClick={LikePost}><AiFillHeart /></div>)}
+        <MyModal type='게시글' func={DeletePost} /></div>) :
+        (
+        <div className='text-red-400 text-2xl cursor-pointer' onClick={LikePost}>
+          {store.postLikeUse ? (<AiFillHeart />):(<AiOutlineHeart />)}
+          </div>
+        )}
         </div>
         </div>
       <div className='py-4  border-t-2 border-dotted flex justify-between'>

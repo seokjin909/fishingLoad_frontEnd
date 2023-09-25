@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import Header from "../../../components/common/Header";
 import UpdatePostSection from "@/components/post/UpdatePostSection";
 import { GetServerSideProps, NextPage } from "next";
 import axios from "axios";
@@ -13,7 +12,6 @@ const updatePost:NextPage<Props> = ({store}:Props) => {
 
   return (
     <Fragment>
-      <Header />
       <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center">
         <UpdatePostSection store={store}/>
       </main>

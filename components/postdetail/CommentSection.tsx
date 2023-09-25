@@ -12,7 +12,7 @@ export const CommentSection = ({comment,store,userId}:Props) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(()=>{
-    setComments(comment.filter((item)=> item.commentUse===true).sort((a,b)=>{
+    setComments(comment.sort((a,b)=>{
       const dateA = a.id;
       const dateB = b.id;
       return dateA - dateB;

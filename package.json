@@ -33,12 +33,13 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "@types/navermaps": "^3.6.6",
+    "@types/navermaps": "^3.6.7",
     "@types/react-js-pagination": "^3.0.4",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "kakao.maps.d.ts": "^0.1.39",
     "prettier": "^3.0.3"
   }
 }

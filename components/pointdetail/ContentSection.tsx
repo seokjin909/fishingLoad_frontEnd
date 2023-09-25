@@ -57,9 +57,17 @@ export const ContentSection = ({store,userId}:Props) => {
       <div className='grid grid-cols-2 gap-2 mt-4 w-full'>
         <div className=''><MapSection location={store.coordinates}/></div>
         <div className='border p-4'>
-          <div className='flex gap-1 font-semibold text-2xl'><p className='text-blue-600'>[포인트]</p>{store.title}</div>
+          <div className='flex gap-1 font-semibold text-2xl'><p className='text-blue-600'>
+            {store.accountId === "admin" ? (<>[ 포인트 ]</>):(<>[ 나만의 포인트 ]</>)}
+            </p>{store.title}</div>
           <div className='mt-4'>{store.contents}</div>
-          <div className='flex items-center gap-1 text-gray-400 font-light'><FaRegCalendarAlt />{store.createdTime.split("T")[0]}<BsDot/><AiOutlineHeart/> 좋아요 수 {store.postLike}<BsDot/><FaRegCommentDots/>댓글 {store.commentList.length} </div>
+          <div className='flex items-center gap-1 text-gray-400 font-light'><FaRegCalendarAlt />{store.createdTime.split("T")[0]}
+          {store.accountId === "admin" ? (
+            <>
+            <BsDot/><AiOutlineHeart/> 좋아요 수 {store.postLike}<BsDot/><FaRegCommentDots/>댓글 {store.commentList.length}
+            </>
+          ):(<></>)}
+          </div>
           <div className='flex items-center py-2 font-bold gap-2 border-b-2'><p className='text-blue-600 flex items-center gap-1'><FaMapMarkerAlt/>주소</p> {store.locationdate}</div>
           <div className='flex justify-center gap-10 w-full text-center items-center h-3/5'>
             <div className='flex flex-col items-center'>

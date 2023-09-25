@@ -1,10 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
-import Header from "../../components/common/Header";
 import { Store } from "../../types/store";
 import { CommunitySection } from "@/components/community/CommunitySection";
 import CommunityHeader from "@/components/common/CommunityHeader";
 import axios from "axios";
-// import PagingSection from "@/components/community/PagingSection";
+import Pagination from "@/components/community/Pagination";
 
 
 const Community = () => {
@@ -39,11 +38,10 @@ const Community = () => {
 
   return (
     <Fragment>
-      <Header />
       <CommunityHeader />
       <main className="container mx-auto flex items-center flex-col">
         <CommunitySection data={stores} />
-        {/* <PagingSection setPage={setPage} page={page} totalPages={totalPages} totalItem={totalItem}/> */}
+        <Pagination setPage={setPage} page={page} totalPages={totalPages} totalItem={totalItem}/>
       </main>
     </Fragment>
   );

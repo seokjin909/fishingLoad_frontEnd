@@ -15,11 +15,14 @@ const DetailContent = ({ currentStore,state }: Props) => {
   const onClickHandler = () => {
     router.push(`/detail/point/${currentStore?.id}`);
   }
+  const addPointNavigation = () => {
+    router.push('/point/addpoint');
+  }
   return (
       <div className="truncate">
         {!state && (<div className='flex gap-2 flex-col items-center'>
           <div className='font-bold text-2xl flex items-center mb-4'>등록된&nbsp; <p className='text-red-400'>포인트</p>&nbsp;<FaMapLocationDot />&nbsp;가 없습니다</div>
-          <div className='flex items-center text-lg font-semibold'>나만의 포인트를&nbsp; <button className='flex items-center px-2 py-1 bg-blue-300 rounded-lg mr-1'>추가 <FaMapMarkerAlt /></button>&nbsp;해보세요!</div>
+          <div className='flex items-center text-lg font-semibold'>나만의 포인트를&nbsp; <button className='flex items-center px-2 py-1 bg-blue-300 rounded-lg mr-1' onClick={addPointNavigation}>추가 <FaMapMarkerAlt /></button>&nbsp;해보세요!</div>
           </div>)}
         {state && !currentStore && <div className='flex items-center font-thin'>좌측의 &nbsp;<p className='text-red-400 font-bold'>마커</p>를 선택해주세요 &nbsp;<FaMapMarkerAlt /></div>}
         {currentStore && (

@@ -2,10 +2,8 @@ import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "ne
 import { Store } from "../../../types/store";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
-import HeaderComponent from "../../../components/common/Header";
 import { ContentSection } from "@/components/pointdetail/ContentSection";
 import { CommentSection } from "@/components/pointdetail/CommentSection";
-import CommunityHeader from "@/components/common/CommunityHeader";
 import axios from "axios";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 
@@ -30,7 +28,6 @@ const DetailPoint : NextPage<Props> = ({ store }) => {
     }
   return (
     <Fragment>
-      <HeaderComponent />
       <main className="container flex-wrap mx-auto flex justify-center">
         <ContentSection store={store} userId={userId}/>
         <CommentSection comment={store.commentList} store={store} userId={userId}/>

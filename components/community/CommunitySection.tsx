@@ -19,23 +19,23 @@ export const CommunitySection = ({data}:Props) => {
         router.push('/post/addpost');
     }
   return (
-    <div className="relative overflow-x-auto">
+    <div className="relative overflow-x-auto w-[700px]">
     <table className="w-full text-sm text-left text-gray-500 border-t-2 border-black">
         <thead className="text-xs text-black uppercase bg-gray-100 border-b">
             <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 w-20">
                     번호
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 w-60">
                     제목
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 w-20">
                     작성자
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 w-40">
                     등록일
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 w-32">
                     좋아요
                 </th>
             </tr>

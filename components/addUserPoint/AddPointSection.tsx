@@ -5,7 +5,7 @@ const AddPointSection = () => {
 
   return (
     <div className='flex flex-col'>
-    <div>포인트 등록 영역</div>
+    <div className='text-2xl font-bold'>나만의 포인트 등록</div>
     <AddPointForm />
     </div>
   )
