@@ -34,6 +34,7 @@ export default function ChangePW() {
     const response = await changePw({ password });
     if (response?.status === 200) {
       alert("변경된 비밀번호로 로그인하세요");
+      localStorage.removeItem("authorization");
       router.push("/user/login");
     } else {
       alert(response);

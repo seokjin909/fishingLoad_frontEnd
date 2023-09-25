@@ -8,16 +8,17 @@ import { getUserPoint } from "../api/point/getUserPoint";
 import UserMapSection from "../../components/userPoint/MapSection";
 import NoMarkerMapSection from "@/components/userPoint/NoMarkerMapSection";
 import { useRouter } from "next/router";
+import HeaderComponent from "@/components/common/Header";
 
 const Home = () => {
   const { initializeStores } = useStores();
   const router = useRouter();
   const [stores, setStores] = useState<Store[]>();
-  
-  const GetUserPoints = async() => {
-    try{
+
+  const GetUserPoints = async () => {
+    try {
       const response = await getUserPoint();
-      if(!response?.data) {
+      if (!response?.data) {
         setStores([]);
         initializeStores([]);
       } else {
@@ -27,35 +28,32 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
-  }
-
- 
+  };
 
   useEffect(() => {
-    const token = localStorage.getItem('authorization');
-    if(token === null){
-      alert('로그인이 필요한 서비스입니다.');
-      router.push('/user/login');
+    const token = localStorage.getItem("authorization");
+    if (token === null) {
+      alert("로그인이 필요한 서비스입니다.");
+      router.push("/user/login");
       return;
-  }
+    }
     GetUserPoints();
   }, []);
 
   return (
     <Fragment>
+      <HeaderComponent />
       <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center">
-        {stores?.length === 0 || stores === undefined ? 
-        (
+        {stores?.length === 0 || stores === undefined ? (
           <>
             <NoMarkerMapSection />
             <DetailSection state={false} />
           </>
-        ) : 
-        (
+        ) : (
           <>
-        <UserMapSection stores={stores}/>
-        <DetailSection state={true}/>
-        </>
+            <UserMapSection stores={stores} />
+            <DetailSection state={true} />
+          </>
         )}
         <PointsSection />
       </main>

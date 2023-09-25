@@ -4,6 +4,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { findId } from "./../api/find";
+import HeaderComponent from "@/components/common/Header";
 
 export default function findUserId() {
   const [email, setEmail] = useState("");
@@ -25,6 +26,7 @@ export default function findUserId() {
 
   return (
     <>
+      <HeaderComponent />
       <div className="mb-[34px] clear-both max-w-[1200px] mx-auto">
         <div className="mb-[40px] mt-[70px] text-center">
           <form onSubmit={onSubmit}>

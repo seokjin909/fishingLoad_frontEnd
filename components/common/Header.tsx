@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { GiFishingPole } from "react-icons/gi";
 import { BiUserCircle } from "react-icons/bi";
 
-const BUTTON_CLASS =
-  "transition-all cursor-pointer hover:scale-105 mx-1 hover:text-blue-300";
+// const BUTTON_CLASS =
+//   "transition-all cursor-pointer hover:scale-105 mx-1 hover:text-blue-300";
+
 const HeaderComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
 
-  // 페이지 로드 시 localStorage에서 토큰을 확인하여 로그인 상태를 설정합니다.
+  //페이지 로드 시 localStorage에서 토큰을 확인하여 로그인 상태를 설정합니다.
   useEffect(() => {
     const token = localStorage.getItem("authorization");
     setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 설정합니다.
@@ -64,7 +64,7 @@ const HeaderComponent = () => {
               FISHING LOAD
               <GiFishingPole />
             </span> */}
-            <img src="logo/fish.png" className="mt-[20px] h-[200px]" />
+            <img src="/logo/fish.png" className="mt-[20px] h-[160px]" />
           </Link>
         </h1>
         <div className="max-w-[1200px] mx-auto transition-all">

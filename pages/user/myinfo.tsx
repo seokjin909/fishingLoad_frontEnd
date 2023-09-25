@@ -6,13 +6,14 @@ import { getMyInfo, getMyPage } from "../api/myinfo";
 import { resign } from "../api/myinfo";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import HeaderComponent from "@/components/common/Header";
 
 export default function MyInfo() {
   const [data, setData]: any = useState();
   const [page, setPage]: any = useState([]);
   const router = useRouter();
 
-  // 게시글, 포인트 등록 정보
+  // 게시글 정보
   const fetchInfo = async () => {
     try {
       const response = await getMyInfo();
@@ -24,14 +25,26 @@ export default function MyInfo() {
   const fetchPage = async () => {
     try {
       const response = await getMyPage();
-      setPage(response?.data.content);
+      if (response?.status === 200) {
+        setPage(response?.data.content);
+      } else {
+        console.log("api 요청실패 ㅠ");
+      }
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    fetchInfo();
-    fetchPage();
+    // 토큰을 안갖고 잇으면 로그인 하고 와. 로그인페이지로 ㄱㄱ
+    const token = localStorage.getItem("authorization");
+    if (token === null || "") {
+      alert("로그인 하고 오세요.");
+      router.push("/user/login");
+      return;
+    } else {
+      fetchInfo();
+      fetchPage();
+    }
   }, []);
 
   // 회원 탈퇴
@@ -49,8 +62,13 @@ export default function MyInfo() {
     router.push("/user/login");
   };
 
+  const onClickHandler = (data: any) => {
+    router.push(`/detail/post/${data.id}`);
+  };
+
   return (
     <>
+      <HeaderComponent />
       <div className="mb-[34px] clear-both max-w-[1200px] mx-auto">
         <div className="mb-[40px] w-full">
           <div className="w-full mt-[65px]">
@@ -118,30 +136,42 @@ export default function MyInfo() {
                   </tr>
                 </thead>
                 <tbody>
-                  {page.map((item: any) => {
-                    return (
-                      <>
-                        <tr className="bg-white border-b">
+                  {page.length >= 1 ? (
+                    page.map((item: any) => {
+                      return (
+                        <tr key={item.id} className="bg-white border-b">
                           <th
+                            onClick={() => onClickHandler(item)}
                             scope="row"
                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                            key={item.id}
                           >
                             {item.id}
                           </th>
                           <th
+                            onClick={() => onClickHandler(item)}
                             scope="row"
                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap cursor-pointer"
                           >
                             {item.title}
                           </th>
                           <td className="px-6 py-4">{item.accountId}</td>
-                          <td className="px-6 py-4">{item.createdTime}</td>
+                          <td className="px-6 py-4">
+                            {item.createdTime.slice(0, 10)}
+                          </td>
                           <td className="px-6 py-4">{item.postLike}</td>
                         </tr>
-                      </>
-                    );
-                  })}
+                      );
+                    })
+                  ) : (
+                    <tr className="bg-white border-b">
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        게시글이 존재하지 않습니다😥😥
+                      </th>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

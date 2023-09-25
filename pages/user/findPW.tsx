@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { findPw } from "../api/find";
 import { useRouter } from "next/router";
+import HeaderComponent from "@/components/common/Header";
 
 export default function findPassword() {
   const [userId, setUserId] = useState("");
@@ -36,6 +37,7 @@ export default function findPassword() {
   };
   return (
     <>
+      <HeaderComponent />
       <div className="mb-[34px] clear-both max-w-[1200px] mx-auto">
         <div className="mb-[40px] mt-[70px] text-center">
           <form onSubmit={onSubmit}>
