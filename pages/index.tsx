@@ -13,18 +13,19 @@ interface Props {
   stores: Store[];
 }
 
-const Home: NextPage<Props> = ({ stores }:Props) => {
+const Home: NextPage<Props> = ({ stores }: Props) => {
   const { initializeStores } = useStores();
   const { initializeTypes } = useCurrentType();
 
   useEffect(() => {
     initializeStores(stores);
     initializeTypes();
-  }, [initializeStores,initializeTypes,stores]);
+  }, [initializeStores, initializeTypes, stores]);
 
   return (
     <Fragment>
-      <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center">
+      <Header />
+      <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center mt-[70px]">
         <MapSection />
         <DetailSection />
         <PointsSection />
@@ -34,9 +35,9 @@ const Home: NextPage<Props> = ({ stores }:Props) => {
 };
 export default Home;
 
-export const getServerSideProps:GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const response = await getPoint();
   const stores = response;
 
-  return { props : { stores }};
-}
+  return { props: { stores } };
+};
