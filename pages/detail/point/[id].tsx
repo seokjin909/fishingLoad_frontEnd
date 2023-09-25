@@ -36,11 +36,15 @@ const DetailPoint: NextPage<Props> = ({ store }) => {
       <HeaderComponent />
       <main className="container flex-wrap mx-auto flex justify-center">
         <ContentSection store={store} userId={userId} />
-        <CommentSection
-          comment={store.commentList}
-          store={store}
-          userId={userId}
-        />
+        {store.accountId === "admin" ? (
+          <CommentSection
+            comment={store.commentList}
+            store={store}
+            userId={userId}
+          />
+        ) : (
+          <></>
+        )}
       </main>
     </Fragment>
   );

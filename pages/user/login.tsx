@@ -5,13 +5,11 @@ import { useState } from "react";
 import { loginFetcher } from "../api/login";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
-// import { useAuth } from "@/context/AuthContext";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [password, setUserPassword] = useState("");
   const router = useRouter();
-  // const {login}:any = useAuth();
 
   const onIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(event.currentTarget.value);
@@ -32,7 +30,6 @@ export default function Login() {
       alert("로그인 성공");
       setUserId("");
       setUserPassword("");
-      // login(accessToken, refreshToken);
       router.push("/");
     } else {
       alert(response);

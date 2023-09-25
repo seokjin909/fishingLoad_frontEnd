@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
+import Image from "next/image";
 
 // const BUTTON_CLASS =
 //   "transition-all cursor-pointer hover:scale-105 mx-1 hover:text-blue-300";
@@ -12,15 +13,14 @@ const HeaderComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
 
-  //페이지 로드 시 localStorage에서 토큰을 확인하여 로그인 상태를 설정합니다.
   useEffect(() => {
     const token = localStorage.getItem("authorization");
-    setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 설정합니다.
+    console.log(token);
+    setIsLoggedIn(!!token);
   }, []);
 
   // 로그아웃 함수
   const handleLogout = () => {
-    // 로그아웃 로직을 수행한 후 로컬 스토리지에서 토큰을 삭제합니다.
     localStorage.removeItem("authorization");
     localStorage.removeItem("authorization_refresh");
     setIsLoggedIn(false);
@@ -31,7 +31,7 @@ const HeaderComponent = () => {
     <header className="boder-b-[1px] border-b-[#c1c1c1] border-solid h-[130px]">
       <div className="max-w-[1200px] mx-auto h-[130px]">
         <div className="max-w-[1200px] mx-auto text-right pt-[10px]">
-          {isLoggedIn ? ( // 로그인 상태에 따라 로그아웃 또는 로그인/회원가입 버튼을 표시합니다.
+          {isLoggedIn ? (
             <div className="flex justify-end items-center">
               <Link href="/user/myinfo" className="inline-block">
                 <BiUserCircle className="text-[#878787] text-2xl" />
@@ -64,7 +64,13 @@ const HeaderComponent = () => {
               FISHING LOAD
               <GiFishingPole />
             </span> */}
-            <img src="/logo/fish.png" className="mt-[20px] h-[160px]" />
+            <Image
+              src="/logo/fish.png"
+              className="mt-[20px]"
+              width={200}
+              height={200}
+              alt="logo"
+            />
           </Link>
         </h1>
         <div className="max-w-[1200px] mx-auto transition-all">
