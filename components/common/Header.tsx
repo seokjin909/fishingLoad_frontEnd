@@ -3,16 +3,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { GiFishingPole } from "react-icons/gi";
 import { BiUserCircle } from "react-icons/bi";
 import Image from "next/image";
 
-const BUTTON_CLASS =
-  "transition-all cursor-pointer hover:scale-105 mx-1 hover:text-blue-300";
+// const BUTTON_CLASS =
+//   "transition-all cursor-pointer hover:scale-105 mx-1 hover:text-blue-300";
+
 const HeaderComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
-
 
   useEffect(() => {
     const token = localStorage.getItem("authorization");
@@ -65,7 +64,13 @@ const HeaderComponent = () => {
               FISHING LOAD
               <GiFishingPole />
             </span> */}
-            <Image src="/logo/fish.png" className="mt-[20px]" width={200} height={200} alt="logo"/>
+            <Image
+              src="/logo/fish.png"
+              className="mt-[20px]"
+              width={200}
+              height={200}
+              alt="logo"
+            />
           </Link>
         </h1>
         <div className="max-w-[1200px] mx-auto transition-all">

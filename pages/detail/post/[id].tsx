@@ -9,6 +9,7 @@ import axios from "axios";
 import { JwtPayload } from "jwt-decode";
 import jwtDecode from "jwt-decode";
 import useSWR from "swr";
+import HeaderComponent from "@/components/common/Header";
 
 interface Props {
   store: Store;
@@ -21,7 +22,7 @@ const DetailPoint: NextPage<Props> = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem('authorization');
+      const token = localStorage.getItem("authorization");
       if (token !== null) {
         const id: JwtPayload = jwtDecode<JwtPayload>(token);
         setUserId(id.sub as string);
@@ -32,15 +33,26 @@ const DetailPoint: NextPage<Props> = () => {
 
       if (!isNaN(idFromQuery)) {
         try {
-            let response:any = "";
-            if(token === null){
-                response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/${idFromQuery}`, { withCredentials: true });      
-            } else {
-                response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/${idFromQuery}`, { headers : { 
-                    Authorization : localStorage.getItem('authorization'), 
-                    Authorization_Refresh: localStorage.getItem("authorization_refresh")
-                }, withCredentials: true},);
-            }
+          let response: any = "";
+          if (token === null) {
+            response = await axios.get(
+              `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/${idFromQuery}`,
+              { withCredentials: true },
+            );
+          } else {
+            response = await axios.get(
+              `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/${idFromQuery}`,
+              {
+                headers: {
+                  Authorization: localStorage.getItem("authorization"),
+                  Authorization_Refresh: localStorage.getItem(
+                    "authorization_refresh",
+                  ),
+                },
+                withCredentials: true,
+              },
+            );
+          }
           if (response.status === 200) {
             setStores(response.data);
           } else {
@@ -62,10 +74,15 @@ const DetailPoint: NextPage<Props> = () => {
 
   return (
     <Fragment>
+      <HeaderComponent />
       <CommunityHeader />
       <main className="container w-full flex-col mx-auto flex justify-center items-center">
-        <ContentSection store={stores} userId={userId} setStore={setStores}/>
-        <CommentSection comment={stores.commentList} store={stores} userId={userId} />
+        <ContentSection store={stores} userId={userId} setStore={setStores} />
+        <CommentSection
+          comment={stores.commentList}
+          store={stores}
+          userId={userId}
+        />
       </main>
     </Fragment>
   );

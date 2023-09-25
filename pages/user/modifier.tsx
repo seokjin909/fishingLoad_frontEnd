@@ -9,6 +9,7 @@ import {
   isValidNickname,
   isValidPassword,
 } from "../api/validation";
+import HeaderComponent from "@/components/common/Header";
 
 export default function Modifier() {
   const [password, setPassword] = useState("");
@@ -79,6 +80,7 @@ export default function Modifier() {
   };
   return (
     <>
+      <HeaderComponent />
       <div className="mb-[34px] clear-both max-w-[1200px] mx-auto">
         <div className="mb-[40px] w-full">
           <div className="w-full mt-[65px]">

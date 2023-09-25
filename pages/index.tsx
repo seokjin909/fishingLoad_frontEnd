@@ -7,7 +7,7 @@ import DetailSection from "@/components/home/DetailSection";
 import useCurrentType from "@/hooks/useFilter";
 import PointsSection from "@/components/home/PointsSection";
 import { getPoint } from "./api/point/getPoint";
-import HeaderComponent from "../components/common/Header";
+import HeaderComponent from "@/components/common/Header";
 
 interface Props {
   stores: Store[];

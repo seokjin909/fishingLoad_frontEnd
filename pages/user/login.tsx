@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { loginFetcher } from "../api/login";
 import { useRouter } from "next/router";
+import HeaderComponent from "@/components/common/Header";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
@@ -20,7 +21,7 @@ export default function Login() {
     event.preventDefault();
 
     const response = await loginFetcher({ userId, password });
-    
+
     if (response?.status === 200) {
       const accessToken = response.headers.authorization;
       const refreshToken = response.headers.authorization_refresh;
@@ -39,6 +40,7 @@ export default function Login() {
 
   return (
     <div>
+      <HeaderComponent />
       <div className="mb-[34px] clear-both max-w-[1200px] my-0 mx-auto pt-0">
         <div className="mb-[40px] mt-[70px] text-center">
           {/* 게시판 영역 시작 */}
@@ -83,7 +85,6 @@ export default function Login() {
                   <Link href="/user/findPW">비밀번호 찾기</Link>
                   &nbsp; | &nbsp; <Link href="/user/findID">아이디 찾기</Link>
                   &nbsp; | &nbsp; <Link href="/user/signup">회원가입</Link>
-                  &nbsp; | &nbsp; <Link href="/user/myinfo">마이페이지로</Link>
                 </li>
               </div>
             </form>
