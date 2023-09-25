@@ -10,7 +10,7 @@ const AddPointForm = () => {
   const [insertForm, setInsertForm] = useState({
     title: "",
     contents: "",
-    categoryId : 0,
+    categoryId : 2,
     fishtype:"",
     coordinates:[],
     locationdate:"",

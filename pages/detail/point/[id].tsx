@@ -12,6 +12,7 @@ interface Props {
 }
 
 const DetailPoint : NextPage<Props> = ({ store }) => {
+  console.log(store);
 
   const [userId, setUserId] = useState<string>("");
     useEffect(()=> {
@@ -30,7 +31,9 @@ const DetailPoint : NextPage<Props> = ({ store }) => {
     <Fragment>
       <main className="container flex-wrap mx-auto flex justify-center">
         <ContentSection store={store} userId={userId}/>
-        <CommentSection comment={store.commentList} store={store} userId={userId}/>
+        {store.accountId === 'admin' ? (
+          <CommentSection comment={store.commentList} store={store} userId={userId}/>
+        ):(<></>)}
       </main>
     </Fragment>
   );
