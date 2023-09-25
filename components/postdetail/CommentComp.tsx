@@ -319,7 +319,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
                     )}
                   </>
                 ) : (
-                  <button>좋아요</button>
+                  <></>
                 )}
               </div>
             </div>
