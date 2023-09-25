@@ -28,7 +28,7 @@ const Map = ({
       scaleControl: false,
       mapDataControl: false,
       logoControlOptions: {
-        position: naver.maps.Position.BOTTOM_LEFT,
+        position: window.naver.maps.Position.BOTTOM_LEFT,
       },
     };
 

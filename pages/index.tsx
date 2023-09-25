@@ -4,7 +4,6 @@ import Header from "../components/common/Header";
 import MapSection from "../components/home/MapSection";
 import { Store } from "../types/store";
 import useStores from "../hooks/usePoint";
-import HomeHeader from "@/components/home/Header";
 import DetailSection from "@/components/home/DetailSection";
 import useCurrentType from "@/hooks/useFilter";
 import PointsSection from "@/components/home/PointsSection";

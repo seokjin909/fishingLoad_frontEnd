@@ -36,5 +36,6 @@ export type Store = {
   createdTime:string;
   modefiedTime:string;
   postLike:number;
+  postLikeUse:boolean;
   commentList : Comment[];
 };

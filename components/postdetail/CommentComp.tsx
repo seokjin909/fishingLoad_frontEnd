@@ -12,7 +12,6 @@ import { updateComment } from '@/pages/api/comment/updateComment';
 import { deleteComment } from '@/pages/api/comment/deleteComment'; 
 import { putComment } from '@/pages/api/comment/putComment';
 import { postReplyComment } from '@/pages/api/comment/postReplyComment';
-import { comment } from 'postcss';
 
 interface Props {
   data: Comment;
@@ -22,6 +21,13 @@ interface Props {
   store:Store;
 }
 
+// data : map 반복문으로 뿌린 댓글 하나의 정보
+// comments : 댓글 삭제 및 대댓글 작성의 경우 출력되던 댓글의 List를 변경해야 하기 때문에 전달받음
+// setComments : 댓글 삭제 및 대댓글 작성의 경우 출력되던 댓글의 List를 변경해야 하기 때문에 전달받음
+// userId : 댓글 작성자와 로그인 한 유저를 비교하기 위해 전달받음
+// store : 대댓글 작성 및 댓글 기능을 동작하기 위해 가장 부모인 게시글의 ID를 받아오기 위해 전달받음
+
+// 처리해야 할 문제 댓글 좋아요를 처리할 경우 어느 State 값을 변경해야 하는 것인가.
 const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
   const [isEditing, setIsEditing] = useState(false); 
   const [editedComment, setEditedComment] = useState(data.comment); 
@@ -72,8 +78,22 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
   const putCommentHandler = async () => {
     try {
       const response = await putComment(data.id);
+      console.log(response);
       if (response?.status === 200) {
-        alert('좋아요 처리되었습니다')
+        const updatedComments = comments.map((comment) => {
+          if (comment.id === data.id) {
+            const postLikeNum = comment.commentLike;
+            const newCommentLike = comment.commentLikeUse ? postLikeNum - 1 : postLikeNum + 1;
+  
+            return {
+              ...comment,
+              commentLike: newCommentLike,
+              commentLikeUse: !comment.commentLikeUse,
+            };
+          }
+          return comment;
+        });
+        setComments(updatedComments);
       }
     } catch (error) {
       console.log(error);
@@ -245,14 +265,14 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
             )}
           </div>
         ) : (
-          <div className='cursor-pointer'>
-            <AiFillHeart onClick={putCommentHandler} />
-          </div>
+            <div className='cursor-pointer'>
+              {data.commentLikeUse ? (<AiFillHeart onClick={putCommentHandler} />):(<AiOutlineHeart onClick={putCommentHandler} />)}
+            </div>
         )}
       </div>
       <div>
         {/* map을 사용해서 반복적으로 뿌릴거라면 컴포넌트로 분리하는 것이 좋아 보임! */}
-        {data.childcommentList && data.childcommentList.filter((item) => item.commentUse === true).map((item) => {
+        {data.childcommentList && data.childcommentList.map((item) => {
           return (
             <div key={item.id} className='flex justify-between'>
               <div className='ml-4 flex gap-4 items-center'>

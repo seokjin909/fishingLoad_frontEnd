@@ -5,15 +5,15 @@ const Marker = ({ map, coordinates, icon, onClick }: Marker): null => {
   useEffect(() => {
     let marker: naver.maps.Marker | null = null;
     if (map) {
-      marker = new naver.maps.Marker({
+      marker = new window.naver.maps.Marker({
         map: map,
-        position: new naver.maps.LatLng(...coordinates),
+        position: new window.naver.maps.LatLng(...coordinates),
         icon,
       });
     }
 
     if (onClick) {
-      naver.maps.Event.addListener(marker, "click", onClick);
+      window.naver.maps.Event.addListener(marker, "click", onClick);
     }
 
     return () => {

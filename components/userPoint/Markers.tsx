@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useSWR from "swr";
 import { MAP_KEY } from "../../hooks/useMap";
 import { USER_STORE_KEY } from "../../hooks/usePoint";
@@ -16,7 +16,12 @@ const Markers = ({stores}:Props) => {
   const { data: map } = useSWR<NaverMap>(MAP_KEY);
   const { data: currentStore } = useSWR<Store>(CURRENT_STORE_KEY);
   const { setCurrentStore, clearCurrentStore } = useCurrentStore();
-  console.log('Markers',stores);
+
+  useEffect(() => {
+    return () => {
+      clearCurrentStore();
+    };
+  }, [clearCurrentStore]);
 
   if (!map || !stores ) return null;
   return (
@@ -61,7 +66,7 @@ export function generateStoreMarkerIcon(
   isSelected: boolean,
 ): ImageIcon {
   return {
-    url: isSelected ? 'images/markers-selectedU.png' : 'images/markersU.png',
+    url: isSelected ? '/images/markers-selected.png' : '/images/markers.png',
     size: new naver.maps.Size(SCALED_MARKER_WIDTH, SCALED_MARKER_HEIGHT),
     origin: new naver.maps.Point(SCALED_MARKER_WIDTH * 1, 0),
     scaledSize: new naver.maps.Size(

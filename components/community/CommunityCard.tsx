@@ -20,15 +20,15 @@ const CommunityCard = ({data, index}:Props) => {
     
 
   return (
-    <tr className="bg-white border-b">
+    <tr className="bg-white border-b truncate">
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {index}
                 </th>
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap cursor-pointer" onClick={onClickHandler}>
-                    {data.title}
+                {data.title.length > 16 ? `${data.title.slice(0, 13)}...` : data.title}
                 </th>
                 <td className="px-6 py-4">
-                    {data.accountId}
+                    {data.accountId.length > 8 ? `${data.accountId.slice(0,6)}**`: data.accountId}
                 </td>
                 <td className="px-6 py-4">
                     {time}
