@@ -2,6 +2,7 @@ import React from 'react'
 import CommunityCard from './CommunityCard'
 import { Store } from '@/types/store'
 import { useRouter } from 'next/router';
+import { SlNote } from 'react-icons/sl';
 
 interface Props {
     data : Store[];
@@ -19,8 +20,15 @@ export const CommunitySection = ({data}:Props) => {
         router.push('/post/addpost');
     }
   return (
-    <div className="relative overflow-x-auto w-[700px]">
-    <table className="w-full text-sm text-left text-gray-500 border-t-2 border-black">
+    <div className="relative overflow-x-auto w-[1200px] mt-8">
+        <div className='flex items-center font-bold p-1 gap-2 mb-4'>
+            <div className='text-2xl border rounded-full p-2 bg-blue-500 text-white'><SlNote /></div>
+            <div className='font-bold'>
+                <div className='text-2xl'>자유게시판</div>
+                <div className='text-xs'>FREE BOARD</div>
+            </div>
+        </div>
+    <table className="w-full text-md text-left text-gray-500 font-bold">
         <thead className="text-xs text-black uppercase bg-gray-100 border-b">
             <tr>
                 <th scope="col" className="px-6 py-3 w-20">

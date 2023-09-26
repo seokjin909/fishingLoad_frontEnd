@@ -52,6 +52,7 @@ const DetailPoint: NextPage<Props> = () => {
               },
             );
           }
+          console.log(response);
           if (response.status === 200) {
             setStores(response.data);
           } else {

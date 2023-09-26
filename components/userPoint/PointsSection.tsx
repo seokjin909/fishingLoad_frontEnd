@@ -15,7 +15,7 @@ const PointsSection = () => {
   if (!stores) return null;
   return (
     <div
-      className="border border-gray-300 flex flex-col w-[1200px] h-[530px] p-4"
+      className="border border-gray-300 flex flex-col w-[1200px] h-[530px] p-2"
     >
       <div className='flex justify-between items-center'>
       <div className='text-2xl font-thin'>가장 인기있는 포인트 🔥</div>
@@ -23,14 +23,14 @@ const PointsSection = () => {
       </div>
       <div className='grid grid-cols-3 gap-4 py-2'>
       {stores.slice(0,3).map((item) => {
-        return <PointCard key={item.id} image={item.title} id={item.id}/>
+        return <PointCard key={item.id} data={item} id={item.id}/>
       }
         )}
         </div>
       <div className='text-2xl font-thin'>가장 최근에 등록된 포인트 🚀</div>
       <div className='grid grid-cols-3 gap-4 py-2'>
       {stores.slice(0,3).map((item) => {
-        return <PointCard key={item.id} image={item.title} id={item.id}/>
+        return <PointCard key={item.id} data={item} id={item.id}/>
       }
         )}
       </div>

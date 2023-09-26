@@ -3,6 +3,7 @@ import { updatePostAPI } from '@/pages/api/post/updatePost';
 import { Store } from '@/types/store';
 import { useRouter } from 'next/router';
 import React, { useCallback, useState } from 'react'
+import { BiSolidRightArrowCircle } from 'react-icons/bi';
 
 interface Props {
     store : Store;
@@ -41,21 +42,18 @@ const UpdatePostForm = ({store}:Props) => {
     }
   }
   return (
-    <div className='w-[500px]'>
-        <label htmlFor="title" className="block my-2 text-sm font-medium text-gray-900">제목</label>
-        <textarea id="title" name="title" rows={1} value={insertForm.title} className="block p-2.5 w-full text-sm text-gray-900bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="제목을 입력하세요..." onChange={onChangeHandler}></textarea>
-        <label htmlFor="contents" className="block my-2 text-sm font-medium text-gray-900">내용</label>
+    <div>
+        <label htmlFor="title" className="my-2 text-sm font-bold flex items-center gap-1 text-blue-500"><BiSolidRightArrowCircle/>제목</label>
+        <input id="title" value={insertForm.title} name="title" className="block p-2.5 w-full text-sm text-gray-900bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="제목을 입력해주세요." onChange={onChangeHandler}/>
+        <label htmlFor="contents" className="mt-4 my-2 text-sm font-bold flex items-center gap-1 text-blue-500"><BiSolidRightArrowCircle/>내용</label>
         <textarea onChange={onChangeHandler}
         value={insertForm.contents}
-        id="contents" name='contents' rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="내용을 입력하세요..."></textarea>
-        <label className="block my-2 text-sm font-medium text-gray-900" htmlFor="user_avatar">파일 업로드</label>
-        <input className="p-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
-        <div className='grid grid-cols-2 mt-2 border border-gray-400 h-10'>
-          <button className='border-r border-black font-thin' onClick={()=>router.push(`/detail/post/${store.id}`)}>취소하기</button>
-          <button className='font-thin text-blue-400' onClick={SubmitHandler}>수정하기</button>
+        id="contents" name='contents' rows={4} className="p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="내용을 입력해주세요."></textarea>
+        <div className='flex justify-center gap-10 mt-10'>
+          <button onClick={()=>router.push(`/detail/post/${store.id}`)} className='bg-white text-blue-500 rounded-md py-3 px-20 font-bold transition-all hover:bg-blue-600 hover:text-white'>취소하기</button>
+          <button className='bg-blue-500 text-white rounded-md py-3 px-20 font-bold transition-all hover:bg-blue-600' onClick={SubmitHandler}>등록하기</button>
+          </div>
         </div>
-        
-    </div>
   )
 }
 
