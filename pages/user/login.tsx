@@ -6,10 +6,12 @@ import { loginFetcher } from "../api/login";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [password, setUserPassword] = useState("");
+
   const router = useRouter();
 
   const onIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,6 +20,7 @@ export default function Login() {
   const onPwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserPassword(event.currentTarget.value);
   };
+
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -28,12 +31,12 @@ export default function Login() {
       const refreshToken = response.headers.authorization_refresh;
       localStorage.setItem("authorization", accessToken);
       localStorage.setItem("authorization_refresh", refreshToken);
-      alert("로그인 성공");
+      toast("로그인 성공🐟");
       setUserId("");
       setUserPassword("");
       router.push("/");
     } else {
-      alert(response);
+      toast.error("로그인 실패🔥");
       setUserId("");
       setUserPassword("");
     }

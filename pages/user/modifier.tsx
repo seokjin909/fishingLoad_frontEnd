@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { modifierUser } from "../api/modifier";
+import { modifierUser, modifierUserProfile } from "../api/modifier";
 import { useRouter } from "next/router";
 import {
   isValidEmail,
@@ -11,6 +11,7 @@ import {
 } from "../api/validation";
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
+import { toast } from "react-toastify";
 
 export default function Modifier() {
   const [password, setPassword] = useState("");
@@ -19,6 +20,8 @@ export default function Modifier() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [nicknameError, setNicknameError] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+
   const router = useRouter();
   const onPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
@@ -28,6 +31,11 @@ export default function Modifier() {
   };
   const onEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value);
+  };
+
+  // 프로필 이미지 추가
+  const onChangeImage = (event: any) => {
+    setProfileImage(event.target.files[0]);
   };
 
   const validatePassword = (password: string) => {
@@ -63,19 +71,24 @@ export default function Modifier() {
   // 회원정보 수정
   const modifierBtn = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    const formData = new FormData();
     const valPassword = validatePassword(password);
     const valNickname = validateNickname(nickname);
     const valEmail = validateEmail(email);
+    formData.append("image", profileImage);
+
     const response = await modifierUser({ password, nickname, email });
+    const result = await modifierUserProfile(formData);
     if (!valPassword || !valNickname || !valEmail) {
-      alert("입력값을 다시 확인하세요");
+      toast.error("입력값을 다시 확인하세요");
       return;
     } else {
-      if (response.status === 200) {
-        alert("회원정보 수정 완료");
+      if (response?.status === 200) {
+        toast.success("회원정보 수정 완료");
         router.push("/user/myinfo");
       } else {
-        alert("동일한 닉네임이 존재합니다.");
+        toast.warning("중복된 이메일 | 닉네임 입니다.");
+        return;
       }
     }
   };
@@ -96,67 +109,80 @@ export default function Modifier() {
                 회원정보 수정
               </h4>
               <div className="mt-[10px] mx-auto mb-[15px]">
-                <table className="w-full border-separate border-b border-b-[#aaa] border-t border-t-[#666]">
-                  <colgroup className="table-column-group">
-                    <col className="table-column w-[20%]"></col>
-                    <col className="table-column"></col>
-                  </colgroup>
-                  <tbody className="table-row-group align-middle border-inherit">
-                    <tr className="table-row align-middle border-inherit">
-                      <th className="bg-[#f9f9f9] pl-[30px] text-left py-[13px] px-[15px] align-top font-semibold text-[#666]">
-                        비밀번호
-                      </th>
-                      <td className="border-t-0 bg-[#fff] border-l border-l-[#eee] py-[10px] px-[15px] text-left">
+                <div className="border-separate border-b border-b-[#aaa] border-t border-t-[#666]">
+                  <div className="flex items-center justify-between py-[13px] px-[15px] font-semibold text-[#666]">
+                    <label htmlFor="password" className="w-[20%]">
+                      비밀번호
+                    </label>
+                    <input
+                      id="password"
+                      className="flex-1 h-[32px] px-[5px] leading-[18px] text-[#696F74] bg-[fefefe] border border-[#e2e2e2] rounded-[3px] shadow-sm"
+                      type="password"
+                      onChange={onPassword}
+                      value={password}
+                      required
+                    />
+                    <span className="text-[10px] text-red-500 font-semibold">
+                      {passwordError}
+                    </span>
+                  </div>
+                </div>
+                <div className="border-separate border-b border-b-[#aaa]">
+                  <div className="flex items-center justify-between py-[13px] px-[15px] font-semibold text-[#666]">
+                    <label htmlFor="email" className="w-[20%]">
+                      이메일
+                    </label>
+                    <input
+                      id="email"
+                      className="flex-1 h-[32px] px-[5px] leading-[18px] text-[#696F74] bg-[fefefe] border border-[#e2e2e2] rounded-[3px] shadow-sm"
+                      type="email"
+                      onChange={onEmail}
+                      value={email}
+                    />
+                    <span className="text-[10px] text-red-500 font-semibold">
+                      {emailError}
+                    </span>
+                  </div>
+                </div>
+                <div className="border-separate border-b border-b-[#aaa]">
+                  <div className="flex items-center justify-between py-[13px] px-[15px] font-semibold text-[#666]">
+                    <label htmlFor="nickname" className="w-[20%]">
+                      닉네임
+                    </label>
+                    <input
+                      id="nickname"
+                      className="flex-1 h-[32px] px-[5px] leading-[18px] text-[#696F74] bg-[fefefe] border border-[#e2e2e2] rounded-[3px] shadow-sm"
+                      type="text"
+                      onChange={onNickname}
+                      value={nickname}
+                      required
+                    />
+                    <span className="text-[10px] text-red-500 font-semibold">
+                      {nicknameError}
+                    </span>
+                  </div>
+                </div>
+                <div className="border-separate border-b border-b-[#aaa]">
+                  <div className="flex items-center justify-between py-[13px] px-[15px] font-semibold text-[#666]">
+                    <label className="w-[20%]">프로필 사진 업로드</label>
+                    <div className="flex-1">
+                      <label className="flex flex-col items-center justify-center w-full h-40 rounded-lg cursor-pointer bg-gray-100 hover:bg-gray-200">
+                        <span className="font-semibold">클릭하여 업로드</span>
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          SVG, PNG, JPG 또는 GIF (최대 800x400px)
+                        </p>
                         <input
-                          className="h-[32px] px-[5px] leading-[18px] text-[#696F74] align-middle bg-[fefefe] border border-[#e2e2e2] rounded-[3px] shadow-sm"
-                          type="password"
-                          onChange={onPassword}
-                          value={password}
-                          required
+                          onChange={onChangeImage}
+                          id="dropzone-file"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
                         />
-                        &nbsp; &nbsp; &nbsp;
-                        <span className="text-[10px] text-red-500 font-semibold">
-                          {passwordError}
-                        </span>
-                      </td>
-                    </tr>
-                    <tr className="table-row align-middle border-inherit">
-                      <th className="bg-[#f9f9f9] pl-[30px] text-left py-[13px] px-[15px] align-top font-semibold text-[#666]">
-                        이메일
-                      </th>
-                      <td className="border-t-0 bg-[#fff] border-l border-l-[#eee] py-[10px] px-[15px] text-left">
-                        <input
-                          className="h-[32px] px-[5px] leading-[18px] text-[#696F74] align-middle bg-[fefefe] border border-[#e2e2e2] rounded-[3px] shadow-sm"
-                          type="email"
-                          onChange={onEmail}
-                          value={email}
-                        />
-                        &nbsp; &nbsp; &nbsp;
-                        <span className="text-[10px] text-red-500 font-semibold">
-                          {emailError}
-                        </span>
-                      </td>
-                    </tr>
-                    <tr className="table-row align-middle border-inherit">
-                      <th className="bg-[#f9f9f9] pl-[30px] text-left py-[13px] px-[15px] align-top font-semibold text-[#666]">
-                        닉네임
-                      </th>
-                      <td className="border-t-0 bg-[#fff] border-l border-l-[#eee] py-[10px] px-[15px] text-left">
-                        <input
-                          className="h-[32px] px-[5px] leading-[18px] text-[#696F74] align-middle bg-[fefefe] border border-[#e2e2e2] rounded-[3px] shadow-sm"
-                          type="nickname"
-                          onChange={onNickname}
-                          value={nickname}
-                          required
-                        />
-                        &nbsp; &nbsp; &nbsp;
-                        <span className="text-[10px] text-red-500 font-semibold">
-                          {nicknameError}
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                      </label>
+                    </div>
+                  </div>
+                  <div>미리보기</div>
+                </div>
               </div>
               <div className="mt-[30px] text-center space-x-3">
                 <button

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { isValidPassword } from "../api/validation";
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
+import { toast } from "react-toastify";
 
 export default function ChangePW() {
   const [password, setPassword] = useState("");
@@ -20,7 +21,7 @@ export default function ChangePW() {
       setPasswordError(
         "8-20자리, 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다.",
       );
-      alert("비밀번호를 확인하세요");
+      toast.warning("비밀번호를 확인하세요");
       // throw new Error("")
       return false;
     } else {
@@ -35,11 +36,11 @@ export default function ChangePW() {
 
     const response = await changePw({ password });
     if (response?.status === 200) {
-      alert("변경된 비밀번호로 로그인하세요");
+      toast.success("변경된 비밀번호로 로그인하세요");
       localStorage.removeItem("authorization");
       router.push("/user/login");
     } else {
-      alert(response);
+      toast.error(response);
     }
   };
   return (

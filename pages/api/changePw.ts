@@ -29,6 +29,8 @@ export const changePw = async (data: IChangePw) => {
     if (error.headers?.authorization) {
       console.log("토큰 만료 및 API요청 에러");
       token = error.headers.authorization;
+    } else {
+      token = localStorage.getItem("authorization");
     }
     return error.response.data.message;
   } finally {

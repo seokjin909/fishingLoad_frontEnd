@@ -60,6 +60,8 @@ export const resign = async () => {
     if (error.headers?.authorization) {
       console.log("토큰 만료 및 API요청 에러");
       token = error.headers.authorization;
+    } else {
+      token = localStorage.getItem("authorization");
     }
   } finally {
     localStorage.setItem("authorization", token);
@@ -92,6 +94,8 @@ export const getMyInfo = async () => {
     if (error.headers?.authorization) {
       console.log("토큰 만료 및 API요청 에러");
       token = error.headers.authorization;
+    } else {
+      token = localStorage.getItem("authorization");
     }
   } finally {
     localStorage.setItem("authorization", token);

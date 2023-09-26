@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { findId } from "./../api/find";
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
+import { toast } from "react-toastify";
 
 export default function findUserId() {
   const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ export default function findUserId() {
       setUserFindId(response?.data.userId);
       // 400 에러일 경우
     } else {
-      alert(response);
+      toast.error(response);
     }
   };
 
@@ -92,7 +93,7 @@ export default function findUserId() {
             </div>
           </form>
         </div>
-      <FooterComponent />
+        <FooterComponent />
       </div>
     </>
   );
