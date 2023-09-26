@@ -4,6 +4,8 @@ import { useState } from "react";
 import { changePw } from "../api/changePw";
 import { useRouter } from "next/router";
 import { isValidPassword } from "../api/validation";
+import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 export default function ChangePW() {
   const [password, setPassword] = useState("");
@@ -42,6 +44,7 @@ export default function ChangePW() {
   };
   return (
     <>
+      <HeaderComponent />
       <div className="mb-[34px] clear-both max-w-[1200px] mx-auto">
         <div className="mb-[40px] mt-[70px] text-center">
           <form onSubmit={onSubmit}>
@@ -101,6 +104,7 @@ export default function ChangePW() {
             </div>
           </form>
         </div>
+        <FooterComponent />
       </div>
     </>
   );

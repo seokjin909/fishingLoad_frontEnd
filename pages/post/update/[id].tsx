@@ -4,6 +4,7 @@ import { GetServerSideProps, NextPage } from "next";
 import axios from "axios";
 import { Store } from "@/types/store";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 interface Props {
   store: Store;
@@ -15,6 +16,7 @@ const updatePost: NextPage<Props> = ({ store }: Props) => {
       <HeaderComponent />
       <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center">
         <UpdatePostSection store={store} />
+        <FooterComponent />
       </main>
     </Fragment>
   );

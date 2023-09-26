@@ -5,6 +5,7 @@ import { useState } from "react";
 import { loginFetcher } from "../api/login";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
@@ -90,6 +91,7 @@ export default function Login() {
             </form>
           </div>
         </div>
+        <FooterComponent />
       </div>
     </div>
   );
