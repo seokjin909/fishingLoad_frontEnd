@@ -1,12 +1,11 @@
 /* eslint-disable */
 'use client'
-import React, { useEffect } from "react";
-import DaumPostcode from "react-daum-postcode";
-
-
+import React from "react";
+import { useDaumPostcodePopup } from "react-daum-postcode";
 
 
 const Post = ({insertForm,setInsertForm}: any) => {
+    const open = useDaumPostcodePopup("https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js");
     const kakaoMapGeoCoder = (address:any) => {  
         window.kakao.maps.load(() => {
             // 주소-좌표 변환 객체를 생성합니다
@@ -33,12 +32,12 @@ const Post = ({insertForm,setInsertForm}: any) => {
         kakaoMapGeoCoder(data.address);
 		setInsertForm({ ...insertForm, locationdate : data.address})
     }
+
+    const handleClick = () => {
+        open({ onComplete: complete });
+      };
     return (
-        <div >
-            <DaumPostcode
-                autoClose
-                onComplete={complete} />
-        </div>
+        <button className="bg-blue-500 text-white rounded-md py-1 px-3 font-bold transition-all hover:bg-blue-600 w-28" onClick={handleClick}>주소 검색</button>
     );
 };
 

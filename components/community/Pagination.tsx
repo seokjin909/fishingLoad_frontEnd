@@ -35,7 +35,6 @@ const Pagination = ({ page, setPage, totalPages, totalItem }: Props) => {
         </li>
       );
     }
-
     return buttons;
   };
 

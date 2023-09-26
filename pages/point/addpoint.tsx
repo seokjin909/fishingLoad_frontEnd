@@ -7,7 +7,7 @@ const AddPoint = () => {
   return (
     <Fragment>
       <HeaderComponent />
-      <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center mt-[70px]">
+      <main className="h-[400px] flex-wrap mx-auto flex justify-center items-center">
         <AddPointSection />
         <FooterComponent />
       </main>
