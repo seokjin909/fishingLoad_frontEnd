@@ -24,12 +24,10 @@ export const putComment = async (id: number) => {
     if(error.headers?.authorization){
       console.log("토큰이 만료 및 API 요쳥 에러 ❗️");
       token = error.headers.authorization;
+    } else {
+      token = localStorage.getItem('authorization');
     }
   } finally {
-    if(token === ""){
-      return;
-    } else {
       localStorage.setItem('authorization', token);
     }
   }
-};

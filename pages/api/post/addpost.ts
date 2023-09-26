@@ -8,13 +8,14 @@ interface insertForm {
 }
 
 
-export const addPost = async (insertForm:insertForm) => {
+export const addPost = async (formData:any) => {
   let token:any = "";
   try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post`,
-        insertForm,
+        formData,
         {headers : {
+          "Content-Type": "multipart/form-data",
         Authorization : localStorage.getItem('authorization'), 
         Authorization_Refresh: localStorage.getItem("authorization_refresh")
         },
@@ -33,6 +34,8 @@ export const addPost = async (insertForm:insertForm) => {
     if(error.headers?.authorization){
       console.log("토큰이 만료 및 API 요쳥 에러 ❗️");
       token = error.headers.authorization;
+    } else {
+      token = localStorage.getItem('authorization');
     }
   } finally {
     localStorage.setItem('authorization', token);

@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { deletePostAPI } from '@/pages/api/post/deletePost';
 import MyModal from '../common/DeleteModal';
 import UpdateModal from '../common/UpdateModal';
+import Image from 'next/image';
 
 interface Props {
     store: Store;
@@ -16,7 +17,6 @@ interface Props {
 type fullDateString = string;
 
 export const ContentSection = ({store,userId,setStore}:Props) => {
-  console.log(store);
   const router = useRouter();
   const [time, setTime] = useState<string>();
     useEffect(()=>{
@@ -65,10 +65,9 @@ export const ContentSection = ({store,userId,setStore}:Props) => {
   return (
     <div className='flex flex-col w-full'>
       <div className='py-4  border-t-2 border-gray-300 flex justify-between'>
-        <div className='font-thin'>{store.title}</div>
+        <div className='font-bold'>{store.title}</div>
         <div className='flex justify-center gap-4'>
-        <div className='font-thin'>좋아요 : {store.postLike}</div>
-        {/* 로그인 한 회원일 경우 수정/삭제, 아닐 경우 좋아요 버튼 출력 =>   */}
+        <div className='font-semibold'>좋아요 : {store.postLike}</div>
         {userId === store.accountId ? (<div className='gap-2 flex'>
         <UpdateModal type='게시글' func={UpdatePost} />
         <MyModal type='게시글' func={DeletePost} /></div>) :
@@ -79,15 +78,22 @@ export const ContentSection = ({store,userId,setStore}:Props) => {
         )}
         </div>
         </div>
-      <div className='py-4  border-t-2 border-dotted flex justify-between'>
-        <div className='font-thin'>
+      <div className='py-4  border-y-2 border-dotted flex justify-between'>
+        <div className='font-normal'>
           작성일 : {time}
         </div>
-        <div className='font-thin'>
+        <div className='font-normal'>
           작성자 : {store.accountId}
         </div>
       </div>
-      <div className='py-4 border-t border-gray-300 min-h-[300px] font-thin'>{store.contents}</div>
+      <div className='flex flex-col'>
+      {store.postImageList && store.postImageList.filter((item)=>{
+        item.imageUse === true
+      }).map((item)=> {
+        return <Image src={item.imageUrl} width={300} height={300} alt='게시글 이미지' key={item.imagePath}/>
+      })}
+      </div>
+      <div className='py-4 border-gray-300 min-h-[300px]'>{store.contents}</div>
     </div>
   )
 }

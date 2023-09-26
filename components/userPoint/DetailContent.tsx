@@ -4,6 +4,7 @@ import { SlSpeech } from "react-icons/sl"
 import { FaMapLocationDot } from "react-icons/fa6"
 import { FaMapMarkerAlt } from "react-icons/fa"
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 type Props = {
   currentStore?: Store;
@@ -27,7 +28,9 @@ const DetailContent = ({ currentStore,state }: Props) => {
         {state && !currentStore && <div className='flex items-center font-thin'>좌측의 &nbsp;<p className='text-red-400 font-bold'>마커</p>를 선택해주세요 &nbsp;<FaMapMarkerAlt /></div>}
         {currentStore && (
             <div>
-              <div>이미지 영역</div>
+              <div className='w-[300px] h-[300px] text-center'>
+                {currentStore.postImage && <Image src={currentStore.postImage} width={300} height={300} alt='대표 이미지'/>}
+              </div>
               <div className='flex'>
                 <div className='flex items-center mr-2 gap-1 font-bold'>
                   이름 <MdDriveFileRenameOutline />

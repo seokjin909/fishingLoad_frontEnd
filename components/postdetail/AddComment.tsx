@@ -2,7 +2,7 @@
 import { addComment } from '@/pages/api/comment/addComment';
 import { Comment, Store } from '@/types/store';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 
 interface Props {
@@ -61,9 +61,9 @@ const AddComment = ({store,setComments, comments}:Props) => {
 
   return (
     <div className='border-t border-gray-300 pt-4 flex justify-between items-center w-full'>
-      <textarea id="comment" name="comment" rows={2} className="w-full block p-2.5 text-sm text-gray-900bg-gray-50 rounded-lg border
-       border-gray-300" placeholder="댓글을 입력하세요..." onChange={onChangeHandler} value={data.comment}/>
-       <button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' onClick={onSumbitHandler}>등록</button>
+      <textarea id="comment" name="comment" rows={1} className="w-full block p-2.5 text-sm text-gray-900bg-gray-50 rounded-lg border
+       border-gray-300" placeholder="댓글을 입력하세요." onChange={onChangeHandler} value={data.comment}/>
+       <button className='w-[80px] bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' onClick={onSumbitHandler}>등록</button>
     </div>
   )
 }

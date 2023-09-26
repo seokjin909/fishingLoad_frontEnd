@@ -14,7 +14,8 @@ const SEA_FISHS = '우럭,광어,놀래미,삼치,농어,전갱이,고등어,볼
 const AddPointForm = () => {
   // react-hook-form
   const router = useRouter();
-  const [files, setFiles] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
+  const [imageUrlLists, setImageUrlLists] = useState<string[]>([]);
   const [selected, setSelected] = useState<number>(1);
   const [selectedFishTypes, setSelectedFishTypes] = useState<string[]>([]); // 선택한 어종들을 저장할 배열
 
@@ -31,24 +32,44 @@ const AddPointForm = () => {
       setInsertForm((data) => ({...data, [name]:value}));
   }
 
-  const handleAddImages = (event:any) => {
-    if(files.length === 3) {
-      alert('등록 가능한 이미지를 초과했습니다!')
+  const handleAddImages = (event: any) => {
+    if (files.length === 3) {
+      alert('등록 가능한 이미지를 초과했습니다!');
       return;
     }
-    const imageLists = event.target.files;
-    let imageUrlLists = [...files];
 
-    for (let i = 0; i < imageLists.length; i++){
-      const currentImageUrl = URL.createObjectURL(imageLists[i]);
-      imageUrlLists.push(currentImageUrl);
+    const imageFiles = event.target.files;
+    const newFiles = [...files];
+    const newImageUrlLists = [...imageUrlLists];
+
+    for (let i = 0; i < imageFiles.length; i++) {
+      newFiles.push(imageFiles[i]);
+
+      // 이미지 미리보기 URL을 추가
+      const currentImageUrl = URL.createObjectURL(imageFiles[i]);
+      newImageUrlLists.push(currentImageUrl);
     }
 
-    if (imageUrlLists.length > 3) {
-      imageUrlLists = imageUrlLists.slice(0,3);
+    if (newFiles.length > 3) {
+      newFiles.splice(3); // 3개 이상인 경우 초과된 파일을 제거
+      newImageUrlLists.splice(3);
     }
-    setFiles(imageUrlLists);
-  }
+
+    setFiles(newFiles);
+    setImageUrlLists(newImageUrlLists);
+  };
+  
+
+  const handleDeleteImage = (id: number) => {
+    const newFiles = [...files];
+    const newImageUrlLists = [...imageUrlLists];
+
+    newFiles.splice(id, 1);
+    newImageUrlLists.splice(id, 1);
+
+    setFiles(newFiles);
+    setImageUrlLists(newImageUrlLists);
+  };
 
   const handleCategoryChange = useCallback((categoryId:any) => {
     setInsertForm((prevInsertForm) => ({
@@ -65,10 +86,6 @@ const AddPointForm = () => {
     } else {
       setSelectedFishTypes([...selectedFishTypes, fishType]);
     }
-  }
-
-  const handleDeleteImage = (id:number) => {
-    setFiles(files.filter((_,index) => index !== id));
   }
 
   const SubmitHandler = async() => {
@@ -94,8 +111,12 @@ const AddPointForm = () => {
         ...prevInsertForm,
         fishtype,
       }));
-
-      const response = await addPost(insertForm);
+      const formData = new FormData();
+    formData.append('data', new Blob([JSON.stringify(insertForm)], { type: "application/json" }));
+    for(let i = 0; i < files.length; i++){
+      formData.append("image", files[i]);
+    }
+      const response = await addPost(formData);
       if(response?.status !== 200) return;
       alert("작성 완료!");
       router.replace('/point/mypoint');
@@ -187,11 +208,11 @@ const AddPointForm = () => {
         <input id="dropzone-file" name='file' type="file" className="hidden" multiple onChange={handleAddImages} accept='image/*' />
     </label>
     </div> 
-    {files.length === 0 ? (<></>) : (
+    {imageUrlLists.length === 0 ? (<></>) : (
       <div>
     <label htmlFor="previewimage" className="mt-4 my-2 text-sm font-bold flex items-center gap-1 text-blue-500"><BiSolidRightArrowCircle/>이미지 미리보기</label>
       <div className='flex justify-evenly'>
-      {files && files.map((image, id) => (
+      {imageUrlLists && imageUrlLists.map((image, id) => (
           <div key={id} className='relative'>
             <Image src={image} width={200} height={200} alt={`${image}-${id}`} />
             <button className='transition-all text-2xl absolute top-0 right-0 hover:scale-150' onClick={()=>handleDeleteImage(id)}><TiDelete/></button>

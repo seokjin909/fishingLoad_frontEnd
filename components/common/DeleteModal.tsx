@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { AiFillDelete } from 'react-icons/ai'
 
-export default function DeleteModal({func, type}:any) {
+export default function DeleteModal({func, type,children}:any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -26,7 +26,8 @@ export default function DeleteModal({func, type}:any) {
           onClick={openModal}
           className="rounded-md bg-black bg-opacity-20 px-3 py-1 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
-          <AiFillDelete />
+          {children && <p>{children}</p>}
+          {!children && <AiFillDelete />}
         </button>
       </div>
 
@@ -64,7 +65,7 @@ export default function DeleteModal({func, type}:any) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 font-thin">
-                      한 번 삭제된 {type}은 복원할 수 없습니다.
+                      한 번 삭제된 {type}은(는) 복원할 수 없습니다.
                     </p>
                   </div>
 

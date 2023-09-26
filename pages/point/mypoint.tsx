@@ -19,6 +19,7 @@ const Home = () => {
   const GetUserPoints = async () => {
     try {
       const response = await getUserPoint();
+      console.log(response);
       if (!response?.data) {
         setStores([]);
         initializeStores([]);

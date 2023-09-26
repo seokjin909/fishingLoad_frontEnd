@@ -78,7 +78,6 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
   const putCommentHandler = async () => {
     try {
       const response = await putComment(data.id);
-      console.log(response);
       if (response?.status === 200) {
         const updatedComments = comments.map((comment) => {
           if (comment.id === data.id) {
@@ -175,7 +174,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
       }
     };
 
-    const [editedChildCommentId, setEditedChildCommentId] = useState<number | null>(null);
+  const [editedChildCommentId, setEditedChildCommentId] = useState<number | null>(null);
   const [editedChildComment, setEditedChildComment] = useState<string>('');
 
   // 대댓글 수정 시작
@@ -242,13 +241,13 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
             {isEditing ? (
               <>
                 <button
-                  className="rounded-md py-1 px-2 bg-blue-300 text-white"
+                  className="bg-blue-500 text-white rounded-md py-1 px-2 font-bold transition-all hover:bg-blue-600"
                   onClick={editComment}
                 >
                   수정
                 </button>
                 <button
-                  className="rounded-md py-1 px-2 bg-red-300 text-white"
+                  className="bg-white text-blue-500 rounded-md py-1 px-2 font-bold transition-all hover:bg-blue-600 hover:text-white"
                   onClick={() => setIsEditing(false)}
                 >
                   취소
@@ -297,13 +296,13 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
                       // 수정 완료 버튼
                       <>
                       <button
-                        className="rounded-md py-1 px-2 bg-blue-300 text-white"
+                        className="bg-blue-500 text-white rounded-md py-1 px-2 font-bold transition-all hover:bg-blue-600"
                         onClick={() => finishEditingChildComment(item.id)}
                       >
                         수정
                       </button>
                       <button
-                        className="rounded-md py-1 px-2 bg-red-300 text-white"
+                        className="bg-white text-blue-500 rounded-md py-1 px-2 font-bold transition-all hover:bg-blue-600"
                         onClick={() => startEditingChildComment(0,"")}
                       >취소</button>
                       </>
@@ -327,24 +326,24 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
         })}
       </div>
       {isReplying ? (
-        <div className="flex gap-2 mt-2 ">
+        <div className="flex mt-2">
           <textarea
             id="replyText"
             name="replyText"
             rows={1}
-            className="w-full block py-1 px-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
+            className="w-full py-1 px-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
             placeholder='댓글을 입력하세요'
           />
           <button
-            className="rounded-md bg-blue-300 text-white py-1 px-2 w-16"
+            className="bg-blue-500 text-white rounded-md py-1 px-2 font-bold transition-all hover:bg-blue-600 w-[60px]"
             onClick={replyComment}
           >
             등록
           </button>
           <button
-            className="rounded-md bg-red-300 text-white py-1 px-2 w-16"
+            className="bg-white text-blue-500 rounded-md py-1 px-2 font-bold transition-all hover:bg-blue-600 w-[60px]"
             onClick={toggleReplying}
           >
             취소
