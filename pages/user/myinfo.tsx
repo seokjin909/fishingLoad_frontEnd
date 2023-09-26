@@ -7,6 +7,7 @@ import { resign } from "../api/myinfo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 export default function MyInfo() {
   const [data, setData]: any = useState();
@@ -40,7 +41,7 @@ export default function MyInfo() {
     const token = localStorage.getItem("authorization");
     if (token === null || "") {
       alert("로그인 하고 오세요.");
-      router.push("/user/login");
+      router.replace("/user/login");
       return;
     } else {
       fetchInfo();
@@ -48,11 +49,16 @@ export default function MyInfo() {
     }
   }, []);
 
-  // 회원 탈퇴
+  // 회원 탈퇴 -> 한번 더 확인 필요
   const resignBtn = async () => {
-    const response = await resign();
-    alert("이용해주셔서 감사합니다.");
-    router.push("/user/login");
+    if (confirm("정말 탈퇴하시겠습니까?😥") === true) {
+      const response = await resign();
+      alert(response?.data.message);
+      router.push("/user/login");
+    } else {
+      alert("계속 이용해주셔서 감사합니다.🔥");
+      return;
+    }
   };
 
   // 로그아웃
@@ -70,7 +76,7 @@ export default function MyInfo() {
   return (
     <>
       <HeaderComponent />
-      <div className="mb-[34px] clear-both max-w-[1200px] mx-auto">
+      <div className="mb-[34px] clear-both max-w-[1200px] mx-auto mt-[90px]">
         <div className="mb-[40px] w-full">
           <div className="w-full mt-[65px]">
             <h2 className="text-left text-white pt-[12px] pb-[10px] pl-[5%] font-semibold text-[1.25em] bg-[rgb(67,74,85)]">
@@ -178,6 +184,7 @@ export default function MyInfo() {
             </div>
           </div>
         </div>
+        <FooterComponent />
       </div>
     </>
   );

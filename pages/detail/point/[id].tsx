@@ -12,6 +12,7 @@ import { CommentSection } from "@/components/pointdetail/CommentSection";
 import axios from "axios";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 interface Props {
   store: Store;
@@ -34,7 +35,7 @@ const DetailPoint: NextPage<Props> = ({ store }) => {
   return (
     <Fragment>
       <HeaderComponent />
-      <main className="container flex-wrap mx-auto flex justify-center">
+      <main className="max-w-[1200px] flex-wrap mx-auto flex justify-center">
         <ContentSection store={store} userId={userId} />
         {store.accountId === "admin" ? (
           <CommentSection

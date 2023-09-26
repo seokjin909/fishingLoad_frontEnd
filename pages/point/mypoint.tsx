@@ -9,6 +9,7 @@ import UserMapSection from "../../components/userPoint/MapSection";
 import NoMarkerMapSection from "@/components/userPoint/NoMarkerMapSection";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 const Home = () => {
   const { initializeStores } = useStores();
@@ -43,7 +44,7 @@ const Home = () => {
   return (
     <Fragment>
       <HeaderComponent />
-      <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center">
+      <main className="h-[400px] container flex-wrap mx-auto flex justify-center items-center mt-[70px]">
         {stores?.length === 0 || stores === undefined ? (
           <>
             <NoMarkerMapSection />
@@ -56,6 +57,7 @@ const Home = () => {
           </>
         )}
         <PointsSection />
+        <FooterComponent />
       </main>
     </Fragment>
   );

@@ -1,10 +1,11 @@
 import { Fragment, useEffect, useState } from "react";
 import { Store } from "../../types/store";
 import { CommunitySection } from "@/components/community/CommunitySection";
-import CommunityHeader from "@/components/common/CommunityHeader";
+// import CommunityHeader from "@/components/common/CommunityHeader";
 import axios from "axios";
 import Pagination from "@/components/community/Pagination";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 const Community = () => {
   const [stores, setStores] = useState<Store[]>([]);
@@ -38,8 +39,8 @@ const Community = () => {
   return (
     <Fragment>
       <HeaderComponent />
-      <CommunityHeader />
-      <main className="container mx-auto flex items-center flex-col">
+      {/* <CommunityHeader /> */}
+      <main className="container mx-auto flex items-center flex-col mt-[70px]">
         <CommunitySection data={stores} />
         <Pagination
           setPage={setPage}
@@ -47,6 +48,7 @@ const Community = () => {
           totalPages={totalPages}
           totalItem={totalItem}
         />
+        <FooterComponent />
       </main>
     </Fragment>
   );

@@ -8,6 +8,7 @@ import useCurrentType from "@/hooks/useFilter";
 import PointsSection from "@/components/home/PointsSection";
 import { getPoint } from "./api/point/getPoint";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 interface Props {
   stores: Store[];
@@ -29,6 +30,7 @@ const Home: NextPage<Props> = ({ stores }: Props) => {
         <MapSection />
         <DetailSection />
         <PointsSection />
+        <FooterComponent />
       </main>
     </Fragment>
   );
