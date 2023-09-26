@@ -17,7 +17,7 @@ const Community = () => {
     const fetchData = async (page: number) => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/community?page=${page}&size=5&sortBy=createdTime&isAsc=false`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/community?page=${page}&size=10&sortBy=createdTime&isAsc=false`,
           { withCredentials: true },
         );
         if (response.status === 200) {
@@ -39,7 +39,6 @@ const Community = () => {
   return (
     <Fragment>
       <HeaderComponent />
-      {/* <CommunityHeader /> */}
       <main className="container mx-auto flex items-center flex-col mt-[70px]">
         <CommunitySection data={stores} />
         <Pagination

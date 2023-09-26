@@ -13,6 +13,7 @@ import { deletePostAPI } from "@/pages/api/post/deletePost";
 import { motion } from "framer-motion";
 import MapSection from "./MapSection";
 import FooterComponent from "../common/Footer";
+import MyModal from '../common/DeleteModal';
 
 interface Props {
   store: Store;
@@ -32,10 +33,8 @@ export const ContentSection = ({ store, userId }: Props) => {
 
     const splitFishType = store.fishtype?.split(",");
     setFishType(splitFishType);
-  }, [store.createdTime]);
-  console.log(fishType);
+  }, [store.createdTime, store.fishtype]);
 
-  // 게시글 좋아요 기능 ( 서버 쪽 이슈 )
   const LikePost = () => {
     if (userId === "") {
       alert("로그인이 필요한 기능입니다!");
@@ -53,7 +52,7 @@ export const ContentSection = ({ store, userId }: Props) => {
     const response = await deletePostAPI(store.id);
     if (response?.status === 200) {
       alert("게시글이 삭제되었습니다!");
-      router.push("/community");
+      router.push("/point/mypoint");
       return;
     } else {
       alert("API 통신에 에러가 발생하였습니다 💩");
@@ -84,15 +83,15 @@ export const ContentSection = ({ store, userId }: Props) => {
           <MapSection location={store.coordinates} />
         </div>
         <div className="border p-4">
-          <div className="flex gap-1 font-semibold text-2xl">
+          <div className="flex gap-1 justify-between font-semibold text-2xl">
             <p className="text-blue-600">
               {store.accountId === "admin" ? (
-                <>[ 포인트 ]</>
+                <>[ 포인트 ] {store.title}</>
               ) : (
-                <>[ 나만의 포인트 ]</>
+                <>[ 나만의 포인트 ] {store.title}</>
               )}
             </p>
-            {store.title}
+            <div><MyModal type='포인트' func={DeletePost}>삭제</MyModal></div>
           </div>
           <div className="mt-4 h-32 border overflow-y-auto rounded-md mb-[10px]">
             &nbsp;&nbsp;{store.contents}

@@ -1,6 +1,7 @@
 import { Store } from '@/types/store'
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
+import { AiFillHeart } from 'react-icons/ai';
 interface Props {
     data : Store;
     index : number;
@@ -33,8 +34,8 @@ const CommunityCard = ({data, index}:Props) => {
                 <td className="px-6 py-4">
                     {time}
                 </td>
-                <td className="px-6 py-4">
-                    {data.postLike}
+                <td className="px-6 py-4 flex items-center gap-1 text-red-500">
+                    <AiFillHeart/>{data.postLike} 
                 </td>
             </tr>
   )

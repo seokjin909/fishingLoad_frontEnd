@@ -38,4 +38,13 @@ export type Store = {
   postLike:number;
   postLikeUse:boolean;
   commentList : Comment[];
+  postImageList: Image[];
+  postImage? :string;
 };
+
+export type Image = {
+  id : number;
+  imagePath : string;
+  imageUrl: string;
+  imageUse : boolean;
+}

@@ -28,7 +28,6 @@ const DetailContent = ({ currentStore }: Props) => {
                   {currentStore.title}
                 </div>
                 <div>
-                {/* <BsDot/><AiOutlineHeart/> 좋아요 수 {currentStore.postLike}<BsDot/><FaRegCommentDots/>댓글 {currentStore.commentList.length} */}
                 </div>
               </div>
               <div className='flex'>
