@@ -6,7 +6,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { likePost } from "@/pages/api/post/likePost";
 import { useRouter } from "next/router";
 import { deletePostAPI } from "@/pages/api/post/deletePost";
@@ -45,9 +45,10 @@ export const ContentSection = ({ store, userId }: Props) => {
     }
   };
 
-  const UpdatePost = async () => {
-    router.push(`/post/update/${store.id}`);
-  };
+  // const UpdatePost = async () => {
+  //   router.push(`/post/update/${store.id}`);
+  // };
+
   const DeletePost = async () => {
     const response = await deletePostAPI(store.id);
     if (response?.status === 200) {
@@ -91,7 +92,10 @@ export const ContentSection = ({ store, userId }: Props) => {
                 <>[ 나만의 포인트 ] {store.title}</>
               )}
             </p>
-            <div><MyModal type='포인트' func={DeletePost}>삭제</MyModal></div>
+            {store.accountId === userId ? (<div><MyModal type='포인트' func={DeletePost}>삭제</MyModal></div>) : 
+            (<div className='text-red-400 text-2xl cursor-pointer' onClick={LikePost}>
+          {store.postLikeUse ? (<AiFillHeart />):(<AiOutlineHeart />)}
+          </div>)}
           </div>
           <div className="mt-4 h-32 border overflow-y-auto rounded-md mb-[10px]">
             &nbsp;&nbsp;{store.contents}
