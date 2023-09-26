@@ -1,6 +1,5 @@
 "use client";
 import axios from "axios";
-import { error } from "console";
 interface IData {
   userId: string;
   password: string;

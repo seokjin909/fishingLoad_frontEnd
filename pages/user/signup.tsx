@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
   const [userId, setUserId] = useState("");
@@ -19,7 +20,6 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [userVerifyPassword, setUserVerifyPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [profileImage, setProfileImage] = useState();
   const admin = false;
   const adminToken = "A1234";
   const [checkId, setCheckId] = useState(false);
@@ -48,10 +48,6 @@ export default function SignUp() {
       setEmail(event.currentTarget.value);
       validateEmail(email);
     }
-  };
-
-  const onChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setProfileImage(event.currentTarget.files);
   };
 
   const validateUserId = (userId: string) => {
@@ -89,10 +85,12 @@ export default function SignUp() {
   const checkBtn = async () => {
     const response = await checkUserId({ userId, email });
     if (response.status === 200) {
-      alert(response.data.message);
+      toast.info("사용가능한 ID 입니다🔥");
+      // alert(response.data.message);
       setCheckId(true);
     } else {
-      alert(response);
+      toast.error("중복된 ID입니다🔥");
+      // alert(response);
       setUserId("");
       setCheckId(false);
     }
@@ -110,10 +108,10 @@ export default function SignUp() {
 
       // 모든 필드가 유효한지 확인
       if (userIdError || passwordError || nicknameError || emailError) {
-        alert("입력값을 다시 확인하세요🤬");
+        toast.error("입력값을 다시 확인하세요🤬");
         return; // 하나라도 유효하지 않으면 제출을 중지합니다.
       } else if (userVerifyPassword !== password) {
-        alert("비밀번호를 확인하세요🤬");
+        toast.error("비밀번호를 확인하세요🤬");
         return;
       } else {
         const response = await userSignUp({
@@ -125,14 +123,14 @@ export default function SignUp() {
           adminToken,
         });
         if (response.status === 200) {
-          alert(response.data.message);
+          toast.success("회원가입 성공! 로그인 페이지로 이동합니다🎉");
           router.push("/user/login");
         } else {
-          alert(response);
+          toast.error("회원가입 실패, 다시 시도해주세요😢");
         }
       }
     } else {
-      alert("아이디 중복검사 안했어요..😥");
+      toast.error("아이디 중복검사 해주세요😥");
     }
   };
 
@@ -257,50 +255,6 @@ export default function SignUp() {
                           {emailError}
                         </span>
                       </td>
-                    </tr>
-                    <tr className="table-row align-middle border-inherit">
-                      <th className="bg-[#f9f9f9] pl-[30px] text-left py-[13px] px-[15px] align-top font-semibold text-[#666]">
-                        프로필 사진 업로드
-                      </th>
-                      {/* 이미지 업로드 */}
-                      <div className="flex items-center justify-center w-full border-none">
-                        <label className="flex flex-col items-center justify-center w-full h-64  rounded-lg cursor-pointer bg-gray-100 hover:bg-gray-200">
-                          <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                            <svg
-                              className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 20 16"
-                            >
-                              <path
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                              />
-                            </svg>
-                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                              <span className="font-semibold">
-                                Click to upload
-                              </span>
-                              or drag and drop
-                            </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                              SVG, PNG, JPG or GIF (MAX. 800x400px)
-                            </p>
-                          </div>
-                          <input
-                            onChange={onChangeImage}
-                            id="dropzone-file"
-                            type="file"
-                            accept="image/*"
-                            multiple
-                            className="hidden"
-                          />
-                        </label>
-                      </div>
                     </tr>
                   </tbody>
                 </table>

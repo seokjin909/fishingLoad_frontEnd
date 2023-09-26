@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
+import Image from "next/image";
+import { toast } from "react-toastify";
 
 export default function MyInfo() {
   const [data, setData]: any = useState();
@@ -40,7 +42,7 @@ export default function MyInfo() {
     // 토큰을 안갖고 잇으면 로그인 하고 와. 로그인페이지로 ㄱㄱ
     const token = localStorage.getItem("authorization");
     if (token === null || "") {
-      alert("로그인 하고 오세요.");
+      toast.info("로그인 후 이용가능합니다");
       router.replace("/user/login");
       return;
     } else {
@@ -53,10 +55,10 @@ export default function MyInfo() {
   const resignBtn = async () => {
     if (confirm("정말 탈퇴하시겠습니까?😥") === true) {
       const response = await resign();
-      alert(response?.data.message);
+      toast.warning(response?.data.message);
       router.push("/user/login");
     } else {
-      alert("계속 이용해주셔서 감사합니다.🔥");
+      toast.success("계속 이용해주셔서 감사합니다.🔥");
       return;
     }
   };
@@ -88,7 +90,7 @@ export default function MyInfo() {
               <h4 className="mb-[10px] text-[16px] font-semibold mt-[30px]">
                 환영합니다.&nbsp;&nbsp;{data?.userId}님
               </h4>
-              {data?.userId === undefined ? (
+              {data?.userId === null ? (
                 <button
                   onClick={logoutBtn}
                   className="py-[5px] h-8 px-[10px] min-w-[50px] text-[12px] font-semibold border border-gray-300 bg-[#aaa] bg-opacity-30 rounded-md mt-[5px] ml-[10px]"
@@ -105,8 +107,28 @@ export default function MyInfo() {
               )}
             </div>
             <div className="flex items-center justify-center mb-[50px]">
-              <img className="w-20 bg-slate-200 h-20 text-center shadow-lg rounded-xl mt-6" />
               <div className="flex items-center justify-center font-semibold text-lg mt-6 ml-4 space-x-5">
+                <div className="rounded-full bg-slate-200 shadow-lg w-[70px] h-[70px] overflow-hidden flex justify-center items-center">
+                  {data?.profil === null || undefined ? (
+                    <Image
+                      src="/profil.png"
+                      alt="profile"
+                      width={80}
+                      height={80}
+                      className="rounded-full"
+                      objectFit="cover"
+                    />
+                  ) : (
+                    <Image
+                      src={data?.profil}
+                      alt="profile"
+                      width={80}
+                      height={80}
+                      className="rounded-full"
+                      objectFit="cover"
+                    />
+                  )}
+                </div>
                 <span className="align-middle">{data?.nickname}&nbsp;님</span>
                 <Link href="/user/modifier">
                   <button className="py-[5px] h-8 px-[10px] flex items-center min-w-[50px] text-[12px] font-semibold border border-gray-300 bg-[#aaa] bg-opacity-30 rounded-md mt-[5px] ml-[10px] shadow-md hover:bg-[#778ECE] active:bg-[#778ECE] transition-all">

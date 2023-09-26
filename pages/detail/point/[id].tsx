@@ -38,13 +38,18 @@ const DetailPoint: NextPage<Props> = ({ store }) => {
       <main className="max-w-[1200px] flex-wrap mx-auto flex justify-center">
         <ContentSection store={store} userId={userId} />
         {store.accountId === "admin" ? (
-          <CommentSection
-            comment={store.commentList}
-            store={store}
-            userId={userId}
-          />
+          <>
+            <CommentSection
+              comment={store.commentList}
+              store={store}
+              userId={userId}
+            />
+            <FooterComponent />
+          </>
         ) : (
-          <></>
+          <>
+            <FooterComponent />
+          </>
         )}
       </main>
     </Fragment>

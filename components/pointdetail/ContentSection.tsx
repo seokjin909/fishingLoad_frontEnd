@@ -153,7 +153,6 @@ export const ContentSection = ({ store, userId }: Props) => {
           </motion.div>
         </div>
       </div>
-      <FooterComponent />
     </>
   );
 };

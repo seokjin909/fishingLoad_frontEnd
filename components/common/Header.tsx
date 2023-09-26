@@ -13,7 +13,7 @@ const HeaderComponent = () => {
   useEffect(() => {
     const token = localStorage.getItem("authorization");
     setIsLoggedIn(!!token);
-  }, [])
+  }, []);
 
   // 로그아웃 함수
   const handleLogout = () => {
@@ -59,7 +59,8 @@ const HeaderComponent = () => {
             <Image
               src="/logo/fish.png"
               className="mt-[20px]"
-              width={200}
+              priority
+              width={201}
               height={200}
               alt="logo"
             />

@@ -7,6 +7,7 @@ import { findPw } from "../api/find";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
+import { toast } from "react-toastify";
 
 export default function findPassword() {
   const [userId, setUserId] = useState("");
@@ -28,10 +29,10 @@ export default function findPassword() {
     if (response.status === 200) {
       const accessToken = response.headers.temporary_authorization;
       localStorage.setItem("authorization", accessToken);
-      alert(response.data.message);
+      toast.success(response.data.message);
       router.push("/user/changePW");
     } else {
-      alert(response);
+      toast.error(response);
       setUserId("");
       setEmail("");
     }
@@ -116,7 +117,7 @@ export default function findPassword() {
             </div>
           </form>
         </div>
-      <FooterComponent />
+        <FooterComponent />
       </div>
     </>
   );
