@@ -8,6 +8,14 @@
   margin: 0;
 }
 
+.common-button {
+  @apply transition-all px-3 py-1 bg-gray-200 rounded-full text-gray-600 hover:bg-gray-300;
+}
+
+.selected-button {
+  @apply px-3 py-1 bg-blue-500 rounded-full text-white;
+}
+
 html,
 body {
   height: 100%;

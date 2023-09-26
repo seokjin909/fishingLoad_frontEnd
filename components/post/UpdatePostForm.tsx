@@ -1,4 +1,4 @@
-import { addPost } from '@/pages/api/addpost';
+import { addPost } from '@/pages/api/post/addpost';
 import { updatePostAPI } from '@/pages/api/post/updatePost';
 import { Store } from '@/types/store';
 import { useRouter } from 'next/router';

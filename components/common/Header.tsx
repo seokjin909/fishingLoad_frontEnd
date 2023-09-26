@@ -6,18 +6,14 @@ import React, { useEffect, useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import Image from "next/image";
 
-// const BUTTON_CLASS =
-//   "transition-all cursor-pointer hover:scale-105 mx-1 hover:text-blue-300";
-
 const HeaderComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("authorization");
-    console.log(token);
     setIsLoggedIn(!!token);
-  }, []);
+  }, [])
 
   // 로그아웃 함수
   const handleLogout = () => {

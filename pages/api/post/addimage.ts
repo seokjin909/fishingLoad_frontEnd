@@ -1,23 +1,17 @@
 import axios from "axios";
 
-// 필수 컬럼 확인 후 수정
-interface insertForm {
-    title : string;
-    contents : string;
-    categoryId : number;
-}
-
-
-export const addPost = async (data: insertForm) => {
+export const addImage = async (formData:any) => {
   let token:any = "";
   try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post`,
-        data,
-        { headers : { 
-          Authorization : localStorage.getItem('authorization'), 
-          Authorization_Refresh: localStorage.getItem("authorization_refresh")
-        }, withCredentials: true},
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/image/user`,
+        formData,
+        {headers : {
+        "Content-Type": "multipart/form-data",
+        Authorization : localStorage.getItem('authorization'), 
+        Authorization_Refresh: localStorage.getItem("authorization_refresh")
+        },
+        withCredentials: true,}
       );
       if(response.headers.authorization){
         console.log("Access 토큰 재발급 🛠️");

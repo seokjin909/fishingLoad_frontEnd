@@ -17,6 +17,7 @@ export default function MyInfo() {
   const fetchInfo = async () => {
     try {
       const response = await getMyInfo();
+      console.log(response);
       setData(response?.data);
     } catch (error) {
       console.log(error);
