@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import { ContentSection } from "@/components/postdetail/ContentSection";
 import { CommentSection } from "@/components/postdetail/CommentSection";
-import CommunityHeader from "@/components/common/CommunityHeader";
 import axios from "axios";
 import { JwtPayload } from "jwt-decode";
 import jwtDecode from "jwt-decode";
@@ -75,7 +74,6 @@ const DetailPoint: NextPage<Props> = () => {
   return (
     <Fragment>
       <HeaderComponent />
-      <CommunityHeader />
       <main className="container w-full flex-col mx-auto flex justify-center items-center">
         <ContentSection store={stores} userId={userId} setStore={setStores} />
         <CommentSection

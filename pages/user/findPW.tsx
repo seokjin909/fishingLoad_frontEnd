@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { findPw } from "../api/find";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 export default function findPassword() {
   const [userId, setUserId] = useState("");
@@ -115,6 +116,7 @@ export default function findPassword() {
             </div>
           </form>
         </div>
+      <FooterComponent />
       </div>
     </>
   );

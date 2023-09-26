@@ -10,6 +10,7 @@ import {
   isValidPassword,
 } from "../api/validation";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 export default function Modifier() {
   const [password, setPassword] = useState("");
@@ -81,7 +82,7 @@ export default function Modifier() {
   return (
     <>
       <HeaderComponent />
-      <div className="mb-[34px] clear-both max-w-[1200px] mx-auto">
+      <div className="mb-[34px] clear-both max-w-[1200px] mx-auto mt-[90px]">
         <div className="mb-[40px] w-full">
           <div className="w-full mt-[65px]">
             <h2 className="text-left text-white pt-[12px] pb-[10px] pl-[5%] font-semibold text-[1.25em] bg-[rgb(67,74,85)]">
@@ -168,19 +169,8 @@ export default function Modifier() {
             </div>
           </form>
         </div>
+        <FooterComponent />
       </div>
     </>
   );
 }
-
-// <div>
-//   <form>
-//     비밀번호
-//     <input type="password" onChange={onPassword} value={password} />
-//     닉네임
-//     <input type="nickname" onChange={onNickname} value={nickname} />
-//     이메일
-//     <input type="email" onChange={onEmail} value={email} />
-//     <button onClick={modifierBtn}>수정하기</button>
-//   </form>
-// </div>

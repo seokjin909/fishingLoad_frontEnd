@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { findId } from "./../api/find";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 export default function findUserId() {
   const [email, setEmail] = useState("");
@@ -91,6 +92,7 @@ export default function findUserId() {
             </div>
           </form>
         </div>
+      <FooterComponent />
       </div>
     </>
   );

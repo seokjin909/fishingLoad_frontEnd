@@ -60,10 +60,6 @@ const HeaderComponent = () => {
         </div>
         <h1 className="mt-[40px] mx-auto mb-[25px] w-[250px]">
           <Link href="/" className="flex items-center justify-center h-[52px]">
-            {/* <span className="text-3xl">
-              FISHING LOAD
-              <GiFishingPole />
-            </span> */}
             <Image
               src="/logo/fish.png"
               className="mt-[20px]"
