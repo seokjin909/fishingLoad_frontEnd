@@ -15,7 +15,6 @@ export const loginFetcher = async (data: IData) => {
         withCredentials: true,
       },
     );
-    console.log(response);
     return response;
   } catch (error: any) {
     return error.response.data.message;

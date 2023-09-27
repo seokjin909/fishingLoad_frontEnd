@@ -12,6 +12,7 @@ import {
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 export default function Modifier() {
   const [password, setPassword] = useState("");
@@ -21,7 +22,7 @@ export default function Modifier() {
   const [passwordError, setPasswordError] = useState("");
   const [nicknameError, setNicknameError] = useState("");
   const [profileImage, setProfileImage] = useState("");
-
+  const [files, setFiles] = useState<any>();
   const router = useRouter();
   const onPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
@@ -35,7 +36,11 @@ export default function Modifier() {
 
   // 프로필 이미지 추가
   const onChangeImage = (event: any) => {
+    // if (!event.target.files) return; // 전달받은 이벤트 객체에 file 이 없다면 리턴.
     setProfileImage(event.target.files[0]);
+    const files = event.target.files;
+    const currentImageUrl = URL.createObjectURL(files[0]);
+    setFiles(currentImageUrl);
   };
 
   const validatePassword = (password: string) => {
@@ -181,7 +186,18 @@ export default function Modifier() {
                       </label>
                     </div>
                   </div>
-                  <div>미리보기</div>
+                  <div className="flex items-center justify-center mt-4 mb-4">
+                    {profileImage === "" ? (
+                      <div className="mx-auto mb-4">미리보기</div>
+                    ) : (
+                      <Image
+                        src={files}
+                        alt="profil"
+                        width={150}
+                        height={150}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="mt-[30px] text-center space-x-3">

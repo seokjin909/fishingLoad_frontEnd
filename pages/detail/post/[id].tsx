@@ -75,7 +75,7 @@ const DetailPoint: NextPage<Props> = () => {
   return (
     <Fragment>
       <HeaderComponent />
-      <main className="container w-full flex-col mx-auto flex justify-center items-center">
+      <main className="container w-[1200px] flex-col mx-auto flex justify-center items-center mt-[80px]">
         <ContentSection store={stores} userId={userId} setStore={setStores} />
         <CommentSection
           comment={stores.commentList}

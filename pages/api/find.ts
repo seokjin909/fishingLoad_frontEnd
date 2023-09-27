@@ -20,7 +20,6 @@ export const findId = async (data: IFindIdData) => {
       console.error("API 요청 실패");
     }
   } catch (error: any) {
-    console.log(error);
     return error.response.data.message;
   }
 };
