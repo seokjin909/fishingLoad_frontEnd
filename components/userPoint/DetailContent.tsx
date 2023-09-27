@@ -36,7 +36,7 @@ const DetailContent = ({ currentStore,state }: Props) => {
                   이름 <MdDriveFileRenameOutline />
                 </div>
                 <div>
-                  {currentStore.title}
+                {currentStore.title.length > 9 ? `${currentStore.title.slice(0,9)}..` : currentStore.title}
                 </div>
               </div>
               <div className='flex'>
@@ -44,7 +44,7 @@ const DetailContent = ({ currentStore,state }: Props) => {
                   설명 <SlSpeech />
                 </div>
                 <div>
-                  {currentStore.contents}
+                {currentStore.contents.length > 9 ? `${currentStore.contents.slice(0,9)}..` : currentStore.contents}
                 </div>
               </div>
               <div className='flex'>
@@ -52,7 +52,7 @@ const DetailContent = ({ currentStore,state }: Props) => {
                   위치 <FaMapLocationDot />
                 </div>
                 <div>
-                {currentStore.locationdate.length > 10 ? `${currentStore.locationdate.slice(0,7)}...` : currentStore.locationdate}
+                {currentStore.locationdate.length > 9 ? `${currentStore.locationdate.slice(0,9)}..` : currentStore.locationdate}
                 </div>
               </div>
               <button onClick={onClickHandler} className="absolute bottom-0 right-0 m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded">

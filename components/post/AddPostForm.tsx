@@ -16,6 +16,10 @@ const AddPostForm = () => {
     categoryId : 3
   })
 
+  const handleCancel = () => {
+    toast.info('취소되었습니다.');
+    router.push('/community');
+  }
   const handleAddImages = (event: any) => {
     if (files.length === 3) {
       toast.info('등록 가능한 이미지를 초과했습니다');
@@ -123,7 +127,7 @@ const AddPostForm = () => {
         </div>
     )}
     <div className='flex justify-center gap-10 mt-10'>
-          <button className='bg-white text-blue-500 rounded-md py-3 px-20 font-bold transition-all hover:bg-blue-600 hover:text-white' onClick={SubmitHandler}>취소하기</button>
+          <button className='bg-white text-blue-500 rounded-md py-3 px-20 font-bold transition-all hover:bg-blue-600 hover:text-white' onClick={handleCancel}>취소하기</button>
           <button className='bg-blue-500 text-white rounded-md py-3 px-20 font-bold transition-all hover:bg-blue-600' onClick={SubmitHandler}>등록하기</button>
           </div>
     </div>
