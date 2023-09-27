@@ -29,7 +29,6 @@ export const modifierUser = async (data: IModifier) => {
     }
     return response;
   } catch (error: any) {
-    console.log(error);
     if (error.headers?.authorization) {
       console.log("토큰 만료 및 API요청 에러");
       token = error.headers.authorization;
@@ -65,7 +64,6 @@ export const modifierUserProfile = async (formData: any) => {
     }
     return response;
   } catch (error: any) {
-    console.log(error);
     if (error.headers?.authorization) {
       console.log("토큰 만료 및 API요청 에러");
       token = error.headers.authorization;

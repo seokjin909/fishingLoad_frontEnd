@@ -2,12 +2,12 @@
 "use client";
 import axios from "axios";
 
-// 마이페이지
-export const getMyPage = async () => {
+// 게시글 정보
+export const getMyPage = async (page: number) => {
   let token: any = "";
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/account/mypage?page=1&size=5&sortBy=title&isAsc=true`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/account/mypage?page=${page}&size=5&sortBy=createdTime&isAsc=false`,
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
@@ -24,10 +24,11 @@ export const getMyPage = async () => {
     }
     return response;
   } catch (error: any) {
-    console.log(error);
     if (error.headers?.authorization) {
       console.log("토큰 만료 및 API요청 에러");
       token = error.headers.authorization;
+    } else {
+      token = localStorage.getItem("authorization");
     }
   } finally {
     localStorage.setItem("authorization", token);
@@ -56,7 +57,6 @@ export const resign = async () => {
     }
     return response;
   } catch (error: any) {
-    console.log(error);
     if (error.headers?.authorization) {
       console.log("토큰 만료 및 API요청 에러");
       token = error.headers.authorization;
@@ -68,7 +68,7 @@ export const resign = async () => {
   }
 };
 
-// 게시글 정보 불러오기
+// 마이페이지
 export const getMyInfo = async () => {
   let token: any = "";
   try {
@@ -90,7 +90,6 @@ export const getMyInfo = async () => {
     }
     return response;
   } catch (error: any) {
-    console.log(error);
     if (error.headers?.authorization) {
       console.log("토큰 만료 및 API요청 에러");
       token = error.headers.authorization;

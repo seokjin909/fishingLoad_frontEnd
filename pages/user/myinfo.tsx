@@ -10,34 +10,43 @@ import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
 import Image from "next/image";
 import { toast } from "react-toastify";
+import Pagination from "@/components/community/Pagination";
 
 export default function MyInfo() {
   const [data, setData]: any = useState();
-  const [page, setPage]: any = useState([]);
+  const [posts, setPosts]: any = useState([]);
+  const [totalItem, setTotalItem] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
   const router = useRouter();
 
   // 게시글 정보
   const fetchInfo = async () => {
     try {
       const response = await getMyInfo();
-      console.log(response);
       setData(response?.data);
     } catch (error) {
       console.log(error);
     }
   };
-  const fetchPage = async () => {
-    try {
-      const response = await getMyPage();
-      if (response?.status === 200) {
-        setPage(response?.data.content);
-      } else {
-        console.log("api 요청실패 ㅠ");
+  useEffect(() => {
+    const fetchPage = async (page: number) => {
+      try {
+        const response = await getMyPage(page);
+        if (response?.status === 200) {
+          setPosts(response?.data.content);
+          setTotalPages(response?.data.totalPages);
+          setTotalItem(response?.data.totalElements);
+        } else {
+          console.log("api 요청실패 ㅠ");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+    fetchPage(page);
+  }, [page]);
+
   useEffect(() => {
     // 토큰을 안갖고 잇으면 로그인 하고 와. 로그인페이지로 ㄱㄱ
     const token = localStorage.getItem("authorization");
@@ -47,7 +56,6 @@ export default function MyInfo() {
       return;
     } else {
       fetchInfo();
-      fetchPage();
     }
   }, []);
 
@@ -165,8 +173,8 @@ export default function MyInfo() {
                   </tr>
                 </thead>
                 <tbody>
-                  {page.length >= 1 ? (
-                    page.map((item: any) => {
+                  {posts.length >= 1 ? (
+                    posts.map((item: any) => {
                       return (
                         <tr key={item.id} className="bg-white border-b">
                           <th
@@ -203,6 +211,14 @@ export default function MyInfo() {
                   )}
                 </tbody>
               </table>
+              <div className="flex items-center justify-center mt-[10px]">
+                <Pagination
+                  page={page}
+                  setPage={setPage}
+                  totalItem={totalItem}
+                  totalPages={totalPages}
+                />
+              </div>
             </div>
           </div>
         </div>

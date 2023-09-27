@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface Props {
   page: number;
@@ -7,8 +7,10 @@ interface Props {
   totalItem: number;
 }
 
-const BUTTON_STYLE = "flex items-center justify-center px-3 h-8 leading-tight text-black bg-white rounded-md hover:bg-blue-600 hover:text-white ";
-const SELECTED_BUTTON_STYLE = "flex items-center justify-center px-3 h-8 leading-tight text-white bg-blue-600 rounded-md";
+const BUTTON_STYLE =
+  "flex items-center justify-center px-3 h-8 leading-tight text-black bg-white rounded-md hover:bg-blue-600 hover:text-white ";
+const SELECTED_BUTTON_STYLE =
+  "flex items-center justify-center px-3 h-8 leading-tight text-white bg-blue-600 rounded-md";
 
 const Pagination = ({ page, setPage, totalPages, totalItem }: Props) => {
   const renderPageButtons = () => {
@@ -24,17 +26,16 @@ const Pagination = ({ page, setPage, totalPages, totalItem }: Props) => {
         <li key={i}>
           <button
             className={`flex items-center justify-center px-3 h-8 leading-tight ${
-              page === i
-                ? SELECTED_BUTTON_STYLE
-                : BUTTON_STYLE
+              page === i ? SELECTED_BUTTON_STYLE : BUTTON_STYLE
             }`}
             onClick={() => setPage(i)}
           >
             {i}
           </button>
-        </li>
+        </li>,
       );
     }
+
     return buttons;
   };
 
