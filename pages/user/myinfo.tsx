@@ -75,7 +75,7 @@ export default function MyInfo() {
   const logoutBtn = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("authorization_refresh");
-    toast.success('로그아웃 처리되었습니다');
+    toast.success("로그아웃 처리되었습니다");
     router.push("/user/login");
   };
 
@@ -211,14 +211,18 @@ export default function MyInfo() {
                   )}
                 </tbody>
               </table>
-              <div className="flex items-center justify-center mt-[10px]">
-                <Pagination
-                  page={page}
-                  setPage={setPage}
-                  totalItem={totalItem}
-                  totalPages={totalPages}
-                />
-              </div>
+              {posts.length <= 4 ? (
+                <></>
+              ) : (
+                <div className="flex items-center justify-center mt-[10px]">
+                  <Pagination
+                    page={page}
+                    setPage={setPage}
+                    totalItem={totalItem}
+                    totalPages={totalPages}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
