@@ -75,6 +75,9 @@ const AddPostForm = () => {
     if (!insertForm.contents.trim().length) {
       return toast.info("내용을 입력하세요... 😂");
     }
+    if(files.length === 0) {
+      return toast.info("이미지를 추가하세요... 😂")
+    }
     try {
       const response = await addPost(formData);
       if(response?.status === 200) {

@@ -80,6 +80,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
     try {
       const response = await putComment(data.id);
       if (response?.status === 200) {
+        toast.success(response?.data.message);
         const updatedComments = comments.map((comment) => {
           if (comment.id === data.id) {
             const postLikeNum = comment.commentLike;
