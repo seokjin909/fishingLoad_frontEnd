@@ -11,6 +11,9 @@ export default function Document() {
           	strategy="beforeInteractive"
             type='text/javascript'
         	/>
+          <Script src="https://unpkg.com/@egjs/flicking/dist/flicking.pkgd.min.js" crossOrigin="anonymous"/>
+          <link rel="stylesheet" href="https://unpkg.com/@egjs/flicking/dist/flicking.css" crossOrigin="anonymous" />
+<link rel="stylesheet" href="https://unpkg.com/@egjs/flicking/dist/flicking-inline.css" crossOrigin="anonymous" />
           </Head>
       <body>
         <Main />

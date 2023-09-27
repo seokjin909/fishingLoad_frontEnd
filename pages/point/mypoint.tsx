@@ -10,6 +10,7 @@ import NoMarkerMapSection from "@/components/userPoint/NoMarkerMapSection";
 import { useRouter } from "next/router";
 import HeaderComponent from "@/components/common/Header";
 import FooterComponent from "@/components/common/Footer";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const { initializeStores } = useStores();
@@ -35,7 +36,7 @@ const Home = () => {
   useEffect(() => {
     const token = localStorage.getItem("authorization");
     if (token === null || "") {
-      alert("로그인이 필요한 서비스입니다.");
+      toast.info('로그인이 필요한 서비스입니다.');
       router.push("/user/login");
       return;
     }

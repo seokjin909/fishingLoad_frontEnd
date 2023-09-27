@@ -12,8 +12,9 @@ export default function PointCard({data}:Props) {
   }
 
   return (
-    <div className='h-[200px] border border-gray-300 cursor-pointer relative' onClick={onClcikHandler}>
+    <div className='h-[260px] border border-gray-300 cursor-pointer relative' onClick={onClcikHandler}>
       {data.postImage && <Image src={data.postImage} objectFit="cover" objectPosition='center' alt='대표 이미지' layout="fill"/>}
+      {!data.postImage && "이미지가 없습니다"}
       </div>
   )
 }

@@ -17,7 +17,7 @@ const DetailContent = ({ currentStore }: Props) => {
   }
   return (
       <div className="truncate">
-        {!currentStore && <div className='flex items-center font-thin'>좌측의 &nbsp;<p className='text-red-400 font-bold'>마커</p>를 선택해주세요 &nbsp;<FaMapMarkerAlt /></div>}
+        {!currentStore && <div className='flex items-center font-bold text-gray-500'>좌측의 &nbsp;<p className='text-red-400 font-bold'>마커</p>를 선택해주세요 &nbsp;<FaMapMarkerAlt /></div>}
         {currentStore && (
             <div>
               <div className='w-[300px] h-[300px] text-center relative'>
@@ -28,7 +28,7 @@ const DetailContent = ({ currentStore }: Props) => {
                   이름 <MdDriveFileRenameOutline />
                 </div>
                 <div>
-                  {currentStore.title}
+                  {currentStore.title.length > 13 ? `${currentStore.title.slice(0,13)}...` : currentStore.title}
                 </div>   
               </div>
               <div className='flex'>
@@ -36,7 +36,7 @@ const DetailContent = ({ currentStore }: Props) => {
                   설명 <SlSpeech />
                 </div>
                 <div>
-                  {currentStore.contents}
+                  {currentStore.contents.length > 13 ? `${currentStore.contents.slice(0,13)}...` : currentStore.contents}
                 </div>
               </div>
               <div className='flex'>
