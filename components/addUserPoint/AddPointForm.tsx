@@ -14,10 +14,11 @@ const SEA_FISHS = '우럭,광어,놀래미,삼치,농어,전갱이,고등어,볼
 
 const AddPointForm = () => {
 
+  // 1번이 바다, 2번이 민물;
   const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
   const [imageUrlLists, setImageUrlLists] = useState<string[]>([]);
-  const [selected, setSelected] = useState<number>(1);
+  const [selected, setSelected] = useState<number>(2);
   const [selectedFishTypes, setSelectedFishTypes] = useState<string[]>([]); // 선택한 어종들을 저장할 배열
 
   const [insertForm, setInsertForm] = useState({
@@ -127,6 +128,7 @@ const AddPointForm = () => {
     }
   }
 
+  // 카테고리 기준 변경
 
   return (
     <div className='mt-10'>
@@ -138,13 +140,13 @@ const AddPointForm = () => {
           <div className='gap-2 flex font-normal'>
             {selected === 1 ? (
               <>
-              <button className='selected-button'>#민물</button>
-              <button className="common-button" onClick={()=>handleCategoryChange(2)}>#바다</button>
+              <button className='common-button' onClick={()=>handleCategoryChange(2)}>#민물</button>
+              <button className="selected-button">#바다</button>
               </>
             ):(
               <>
-              <button className="common-button" onClick={()=>handleCategoryChange(1)}>#민물</button>
-              <button className='selected-button'>#바다</button>
+              <button className="selected-button" >#민물</button>
+              <button className='common-button' onClick={()=>handleCategoryChange(1)}>#바다</button>
               </>
             )}
           </div>
@@ -156,7 +158,7 @@ const AddPointForm = () => {
           </div>
           <div className='gap-2 flex flex-wrap'>
             {selected === 1 ? (
-            FRESH_WATER_FISHS.split(',').map((name) => {
+            SEA_FISHS.split(',').map((name) => {
               const isSelected = selectedFishTypes.includes(name);
               return (
                 <button
@@ -169,7 +171,7 @@ const AddPointForm = () => {
               );
             })
           ) : (
-            SEA_FISHS.split(',').map((name) => {
+            FRESH_WATER_FISHS.split(',').map((name) => {
               const isSelected = selectedFishTypes.includes(name);
               return (
                 <button
