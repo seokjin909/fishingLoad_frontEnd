@@ -7,12 +7,13 @@ import { BiSolidRightArrowCircle } from 'react-icons/bi';
 import { TiDelete } from 'react-icons/ti';
 
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 const FRESH_WATER_FISHS = '배스,쏘가리,붕어,잉어,가물치,강준치,메기,민물장어,송어,빙어,끄리,꺽지,누치,기타';
 const SEA_FISHS = '우럭,광어,놀래미,삼치,농어,전갱이,고등어,볼락,숭어,화열기,열기,쏨뱅이,장대,성대,전어,꼬치고기,감성돔,벵에돔,긴꼬리벵에돔,돌돔,갈치,참돔,방어,부시리,가자미,도다리,자바리,대구,민어,능성어,다금바리,백조기,문어,무늬오징어,갑오징어,쭈구미,한치,바다장어,호래기,기타';
 
 const AddPointForm = () => {
-  // react-hook-form
+
   const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
   const [imageUrlLists, setImageUrlLists] = useState<string[]>([]);
@@ -34,10 +35,9 @@ const AddPointForm = () => {
 
   const handleAddImages = (event: any) => {
     if (files.length === 3) {
-      alert('등록 가능한 이미지를 초과했습니다!');
+      toast.warning('등록 가능한 이미지를 초과했습니다!');
       return;
     }
-
     const imageFiles = event.target.files;
     const newFiles = [...files];
     const newImageUrlLists = [...imageUrlLists];
@@ -89,41 +89,44 @@ const AddPointForm = () => {
   }
 
   const SubmitHandler = async() => {
+    const fishtype = selectedFishTypes.join(',');
+    const updatedInsertForm = {
+      ...insertForm,
+      fishtype,
+    };
+
     if (!insertForm.title.trim().length) {
-      return alert("제목을 입력하세요... 😂");
+      return toast.info("제목을 입력하세요... 😂");
     }
     if (!insertForm.contents.trim().length) {
-      return alert("내용을 입력하세요... 😂");
+      return toast.info("내용을 입력하세요... 😂");
     }
     if (!insertForm.locationdate.trim().length){
-      return alert('주소를 입력하세요... 😂')
-    }
-    if(selectedFishTypes.length < 1) {
-      return alert('어종을 선택해주세요... 😂')
+      return toast.info('주소를 입력하세요... 😂')
     }
     if(files.length < 1) {
-      return alert('이미지를 추가해주세요... 😂')
+      return toast.info('이미지를 추가해주세요... 😂')
     }
+    if(!updatedInsertForm.fishtype.trim().length){
+      return toast.info('어종을 선택해주세요... 😂')
+    }
+    
 
     try {
-      const fishtype = selectedFishTypes.join(',');
-      setInsertForm((prevInsertForm) => ({
-        ...prevInsertForm,
-        fishtype,
-      }));
       const formData = new FormData();
-    formData.append('data', new Blob([JSON.stringify(insertForm)], { type: "application/json" }));
+    formData.append('data', new Blob([JSON.stringify(updatedInsertForm)], { type: "application/json" }));
     for(let i = 0; i < files.length; i++){
       formData.append("image", files[i]);
     }
       const response = await addPost(formData);
       if(response?.status !== 200) return;
-      alert("작성 완료!");
+      toast.success("등록 완료");
       router.replace('/point/mypoint');
     } catch(error) {
       console.log(error);
     }
   }
+
 
   return (
     <div className='mt-10'>
@@ -200,7 +203,7 @@ const AddPointForm = () => {
     <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
             </svg>
             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">버튼을 클릭하거나</span> 또는 드래그</p>
             <p className="text-xs text-gray-500">최대 3장까지 등록 가능합니다</p>

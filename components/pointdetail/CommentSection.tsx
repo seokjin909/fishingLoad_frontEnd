@@ -20,7 +20,7 @@ export const CommentSection = ({comment,store,userId}:Props) => {
   },[comment])
   
   return (
-    <div className='w-full border-t-2 border-gray-300 mb-4'>
+    <div className='w-[1200px] border-t-2 border-gray-300 mb-4 mt-10'>
       {!comments && <div className='py-4 font-thin'>댓글이 없습니다.</div> }
       {comments && (
         <div className='py-2'>

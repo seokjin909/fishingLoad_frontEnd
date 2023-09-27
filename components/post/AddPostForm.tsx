@@ -4,6 +4,7 @@ import { BiSolidRightArrowCircle } from 'react-icons/bi';
 import React, { useCallback,useState } from 'react'
 import Image from 'next/image';
 import { TiDelete } from 'react-icons/ti';
+import { toast } from 'react-toastify';
 
 const AddPostForm = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const AddPostForm = () => {
 
   const handleAddImages = (event: any) => {
     if (files.length === 3) {
-      alert('등록 가능한 이미지를 초과했습니다!');
+      toast.info('등록 가능한 이미지를 초과했습니다');
       return;
     }
 
@@ -69,16 +70,15 @@ const AddPostForm = () => {
       formData.append("image", files[i]);
     }
     if (!insertForm.title.trim().length) {
-      return alert("제목을 입력하세요... 😂");
+      return toast.info("제목을 입력하세요... 😂");
     }
     if (!insertForm.contents.trim().length) {
-      return alert("내용을 입력하세요... 😂");
+      return toast.info("내용을 입력하세요... 😂");
     }
-    
     try {
       const response = await addPost(formData);
       if(response?.status === 200) {
-        alert("작성 완료!");
+        toast.success("작성 완료");
         router.push('/community');
       }
     } catch(error) {

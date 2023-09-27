@@ -9,22 +9,29 @@ const PointsSection = () => {
   if (!stores) return null;
   return (
     <div
-      className="border border-gray-300 flex flex-col w-[1200px] h-[530px] p-4"
+      className="flex flex-col w-[1200px] h-[700px] mt-10"
     >
-      <div className='text-2xl font-thin'>가장 인기있는 포인트 🔥</div>
+      <div className='flex justify-between items-center'>
+      <div className='text-2xl font-bold'>가장 인기있는 포인트 🔥</div>
+      <button className='bg-white text-white rounded-md p-3 font-bold' disabled>모두보기</button>
+      </div>
       <div className='grid grid-cols-3 gap-4 py-2'>
-      {stores.slice(0,3).map((item) => {
-        return <PointCard key={item.id} image={item.title} />
-      }
-        )}
+      {stores
+        .sort((a, b) => b.postLike - a.postLike)
+        .slice(0, 3)
+        .map((item) => {
+          return <PointCard key={item.id} data={item} />;
+        })}
         </div>
-      <div className='text-2xl font-thin'>가장 최근에 등록된 포인트 🚀</div>
+      <div className='text-2xl font-bold mt-10'>가장 최근에 등록된 포인트 🚀</div>
       <div className='grid grid-cols-3 gap-4 py-2'>
-      {stores.slice(0,3).map((item) => {
-        return <PointCard key={item.id} image={item.title} />
-      }
-        )}
-        </div>
+      {stores
+        .sort((a, b) => b.id - a.id)
+        .slice(0, 3)
+        .map((item) => {
+          return <PointCard key={item.id} data={item} />;
+        })}
+      </div>
     </div>
   );
 };

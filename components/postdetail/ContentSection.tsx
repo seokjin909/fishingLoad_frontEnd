@@ -7,6 +7,7 @@ import { deletePostAPI } from '@/pages/api/post/deletePost';
 import MyModal from '../common/DeleteModal';
 import UpdateModal from '../common/UpdateModal';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 interface Props {
     store: Store;
@@ -17,6 +18,7 @@ interface Props {
 type fullDateString = string;
 
 export const ContentSection = ({store,userId,setStore}:Props) => {
+  console.log(store);
   const router = useRouter();
   const [time, setTime] = useState<string>();
     useEffect(()=>{
@@ -27,12 +29,13 @@ export const ContentSection = ({store,userId,setStore}:Props) => {
     // 게시글 좋아요 기능 ( 서버 쪽 이슈 )
     const LikePost = async() => {
       if(userId === "") {
-        alert("로그인이 필요한 기능입니다!");
+        toast.info('로그인이 필요한 서비스입니다.');
         router.push('/user/login');
         return;
       } else {
         const response = await likePost(store.id);
         if(response?.data.statusCode === 200) {
+          toast.success(response.data.message);
           const updatedStore = { ...store }; // store 객체를 복제합니다.
           if (store.postLikeUse) {
             // 이미 좋아요를 누른 상태였다면 감소
@@ -52,14 +55,16 @@ export const ContentSection = ({store,userId,setStore}:Props) => {
         router.push(`/post/update/${store.id}`);
     }
     const DeletePost = async() => {
-      const response = await deletePostAPI(store.id);
-      if(response?.status === 200) {
-        alert('게시글이 삭제되었습니다!');
-        router.push('/community');
-        return;
-      } else {
-        alert('API 통신에 에러가 발생하였습니다 💩');
-      }
+      try {
+        const response = await deletePostAPI(store.id);
+        if(response?.status === 200) {
+          toast.success('게시글이 삭제되었습니다');
+          router.push('/community');
+          return;
+        } 
+       } catch (error) {
+        console.log(error);
+       }
     }
 
   return (
@@ -87,9 +92,7 @@ export const ContentSection = ({store,userId,setStore}:Props) => {
         </div>
       </div>
       <div className='flex flex-col'>
-      {store.postImageList && store.postImageList.filter((item)=>{
-        item.imageUse === true
-      }).map((item)=> {
+      {store.postImageList && store.postImageList.map((item)=> {
         return <Image src={item.imageUrl} width={300} height={300} alt='게시글 이미지' key={item.imagePath}/>
       })}
       </div>

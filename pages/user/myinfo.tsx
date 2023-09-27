@@ -67,7 +67,7 @@ export default function MyInfo() {
   const logoutBtn = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("authorization_refresh");
-    // alert("로그인 페이지로 이동합니다");
+    toast.success('로그아웃 처리되었습니다');
     router.push("/user/login");
   };
 
