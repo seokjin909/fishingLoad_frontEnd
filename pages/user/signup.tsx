@@ -135,7 +135,7 @@ export default function SignUp() {
   return (
     <>
       <HeaderComponent />
-      <div className="mb-[34px] clear-both max-w-[1200px] mx-auto mt-[90px]">
+      <div className="mb-[34px] clear-both max-w-[1200px] mx-auto mt-[70px]">
         <div className="mb-[40px] w-full">
           <div className="w-full mt-[65px]">
             <h2 className="text-left text-white pt-[12px] pb-[10px] pl-[5%] font-semibold text-[1.25em] bg-[rgb(67,74,85)]">
