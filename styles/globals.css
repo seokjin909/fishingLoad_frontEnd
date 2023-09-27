@@ -16,6 +16,19 @@
   @apply px-3 py-1 bg-blue-500 rounded-full text-white;
 }
 
+.image-slider-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* 이미지의 높이에 맞게 조절하세요 */
+}
+
+.image-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 html,
 body {
   height: 100%;

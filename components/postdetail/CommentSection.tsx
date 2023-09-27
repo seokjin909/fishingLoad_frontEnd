@@ -12,12 +12,12 @@ export const CommentSection = ({comment,store,userId}:Props) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(()=>{
-    setComments(comment.sort((a,b)=>{
+    setComments(store.commentList.sort((a,b)=>{
       const dateA = a.id;
       const dateB = b.id;
       return dateA - dateB;
     }));
-  },[comment])
+  },[store.commentList])
   
   return (
     <div className='w-full border-t-2 border-gray-300 mb-4'>

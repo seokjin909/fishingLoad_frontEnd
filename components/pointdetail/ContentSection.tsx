@@ -6,7 +6,8 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import {PiFishSimpleLight} from "react-icons/pi";
 import { likePost } from "@/pages/api/post/likePost";
 import { useRouter } from "next/router";
 import { deletePostAPI } from "@/pages/api/post/deletePost";
@@ -14,15 +15,18 @@ import { motion } from "framer-motion";
 import MapSection from "./MapSection";
 import FooterComponent from "../common/Footer";
 import MyModal from '../common/DeleteModal';
+import { toast } from "react-toastify";
 
 interface Props {
   store: Store;
   userId: string;
+  setStore: React.Dispatch<React.SetStateAction<Store>>;
 }
 
 type fullDateString = string;
 
-export const ContentSection = ({ store, userId }: Props) => {
+export const ContentSection = ({ store, setStore, userId }: Props) => {
+  console.log("ContextSection",store);
   const router = useRouter();
   const [time, setTime] = useState<string>();
   const [fishType, setFishType] = useState<string[]>([]);
@@ -35,27 +39,39 @@ export const ContentSection = ({ store, userId }: Props) => {
     setFishType(splitFishType);
   }, [store.createdTime, store.fishtype]);
 
-  const LikePost = () => {
-    if (userId === "") {
-      alert("로그인이 필요한 기능입니다!");
-      router.push("/user/login");
+  const LikePost = async() => {
+    if(userId === "") {
+      toast.info('로그인이 필요한 서비스입니다.');
+      router.push('/user/login');
       return;
     } else {
-      const response = likePost(store.id);
+      const response = await likePost(store.id);
+      console.log(response);
+      if(response?.data.statusCode === 200) {
+        const updatedStore = { ...store }; // store 객체를 복제합니다.
+        if (store.postLikeUse) {
+          // 이미 좋아요를 누른 상태였다면 감소
+          updatedStore.postLike -= 1;
+        } else {
+          // 좋아요를 누르지 않은 상태였다면 증가
+          updatedStore.postLike += 1;
+        }
+        updatedStore.postLikeUse = !store.postLikeUse; // 상태를 토글합니다.
+        setStore(updatedStore);
+      }
     }
-  };
+  }
 
-  const UpdatePost = async () => {
-    router.push(`/post/update/${store.id}`);
-  };
   const DeletePost = async () => {
-    const response = await deletePostAPI(store.id);
-    if (response?.status === 200) {
-      alert("게시글이 삭제되었습니다!");
-      router.push("/point/mypoint");
-      return;
-    } else {
-      alert("API 통신에 에러가 발생하였습니다 💩");
+    try {
+      const response = await deletePostAPI(store.id);
+      if (response?.status === 200) {
+        toast.success("게시글이 삭제되었습니다");
+        router.push("/point/mypoint");
+        return;
+      } 
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -78,7 +94,7 @@ export const ContentSection = ({ store, userId }: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 mt-[70px] w-full">
+      <div className="grid grid-cols-2 gap-2 mt-[70px] w-[1200px]">
         <div className="">
           <MapSection location={store.coordinates} />
         </div>
@@ -91,7 +107,10 @@ export const ContentSection = ({ store, userId }: Props) => {
                 <>[ 나만의 포인트 ] {store.title}</>
               )}
             </p>
-            <div><MyModal type='포인트' func={DeletePost}>삭제</MyModal></div>
+            {store.accountId === userId ? (<div><MyModal type='포인트' func={DeletePost}>삭제</MyModal></div>) : 
+            (<div className='text-red-400 text-2xl cursor-pointer' onClick={LikePost}>
+          {store.postLikeUse ? (<AiFillHeart />):(<AiOutlineHeart />)}
+          </div>)}
           </div>
           <div className="mt-4 h-32 border overflow-y-auto rounded-md mb-[10px]">
             &nbsp;&nbsp;{store.contents}
@@ -102,10 +121,10 @@ export const ContentSection = ({ store, userId }: Props) => {
             {store.accountId === "admin" ? (
               <>
                 <BsDot />
-                <AiOutlineHeart /> 좋아요 수 {store.postLike}
+                <AiOutlineHeart /> 좋아요 : {store.postLike}
                 <BsDot />
-                <FaRegCommentDots />
-                댓글 {store.commentList.length}
+                <PiFishSimpleLight />
+                테마 : {store.category.name}
               </>
             ) : (
               <></>
@@ -122,7 +141,7 @@ export const ContentSection = ({ store, userId }: Props) => {
             variants={boxVariants}
             initial="start"
             animate="end"
-            className="flex justify-center gap-10 w-full text-center items-center h-[35%] bg-gradient-to-b from-white to-sky-500 rounded-md overflow-hidden"
+            className="flex justify-center gap-10 w-full text-center items-center h-[30%] bg-gradient-to-b from-white to-sky-500 rounded-md overflow-hidden"
           >
             {fishType.map((item, index) => {
               return (

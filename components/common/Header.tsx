@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 const HeaderComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -82,7 +83,7 @@ const HeaderComponent = () => {
                   className="py-[11px] px-[15px] block text-[1.1em] text-[#878787] cursor-pointer"
                   onClick={() => {
                     if (!isLoggedIn) {
-                      alert("로그인이 필요한 기능입니다!");
+                      toast.info('로그인이 필요한 서비스입니다.');
                       router.replace("/user/login");
                     } else {
                       router.push("/point/mypoint");

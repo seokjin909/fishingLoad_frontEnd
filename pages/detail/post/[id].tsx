@@ -9,6 +9,7 @@ import { JwtPayload } from "jwt-decode";
 import jwtDecode from "jwt-decode";
 import useSWR from "swr";
 import HeaderComponent from "@/components/common/Header";
+import FooterComponent from "@/components/common/Footer";
 
 interface Props {
   store: Store;
@@ -82,6 +83,7 @@ const DetailPoint: NextPage<Props> = () => {
           store={stores}
           userId={userId}
         />
+        <FooterComponent />
       </main>
     </Fragment>
   );

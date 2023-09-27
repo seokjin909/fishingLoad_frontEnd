@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import {
   AiFillHeart,
-  AiFillDelete,
   AiOutlineHeart,
 } from 'react-icons/ai';
 import { BiSolidPencil } from 'react-icons/bi';
 import { BsArrowReturnRight } from 'react-icons/bs';
-import { ChildComment, Comment, Store } from '@/types/store';
+import { Comment, Store } from '@/types/store';
 import MyModal from '../common/DeleteModal';
 import { updateComment } from '@/pages/api/comment/updateComment'; 
 import { deleteComment } from '@/pages/api/comment/deleteComment'; 
 import { putComment } from '@/pages/api/comment/putComment';
 import { postReplyComment } from '@/pages/api/comment/postReplyComment';
-import { comment } from 'postcss';
+import { toast } from 'react-toastify';
 
 interface Props {
   data: Comment;
@@ -25,6 +24,7 @@ interface Props {
 // store : 게시글 정보, data : 댓글 상세 정보, comments : 댓글 리스트 정보
 
 const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
+  console.log("CommentComp",data);
   const [isEditing, setIsEditing] = useState(false); 
   const [editedComment, setEditedComment] = useState(data.comment); 
 
@@ -36,7 +36,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
         comment: editedComment,
       });
       if (response?.status === 200) {
-        alert('댓글 수정 완료!');
+        toast.success('댓글 수정 완료');
         setIsEditing(false);
         const updatedComments = comments.map(comment => {
           if(comment.id === response.data.id) {
@@ -60,7 +60,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
     try {
       const response = await deleteComment(data.id);
       if (response?.status === 200) {
-        alert('댓글 삭제 완료!');
+        toast.success('댓글 삭제 완료');
         setComments((prevComments) =>
           prevComments.filter((comment) => comment.id !== data.id)
         );
@@ -75,7 +75,20 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
     try {
       const response = await putComment(data.id);
       if (response?.status === 200) {
-        alert('좋아요 처리되었습니다')
+        toast.success(response?.data.message);
+        const updatedComments = comments.map((comment) => {
+          if (comment.id === data.id) {
+            const postLikeNum = comment.commentLike;
+            const newCommentLike = comment.commentLikeUse ? postLikeNum - 1 : postLikeNum + 1;
+            return {
+              ...comment,
+              commentLike: newCommentLike,
+              commentLikeUse: !comment.commentLikeUse,
+            };
+          }
+          return comment;
+        });
+        setComments(updatedComments);
       }
     } catch (error) {
       console.log(error);
@@ -97,7 +110,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
   const replyComment = async () => {
     try {
       if(!replyText.trim().length) {
-        alert('댓글을 입력하세요 😂');
+        toast.info('댓글을 입력하세요 😂');
         return;
       }
       // 서버에 대댓글 데이터를 전송하는 API 호출 및 응답 처리
@@ -107,7 +120,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
         comment: replyText,
       });
       if (response?.status === 200) {
-        alert('대댓글 등록 완료!');
+        toast.success('댓글 등록 완료');
         const newComment: Comment = {
           createdTime: response.data.createdTime, // 수정: response.data.createTile -> response.data.createdTime
           modifiedTime: response.data.modifiedTime, // 수정: response.data.modifiedTIme -> response.data.modifiedTime
@@ -143,7 +156,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
       try {
         const response = await deleteComment(id);
         if (response?.status === 200) {
-          alert('댓글 삭제 완료!');
+          toast.success('댓글 삭제 완료');
           setComments((prevComments) => {
             const updatedComments = prevComments.map((comment) => ({
               ...comment,
@@ -176,7 +189,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
       });
 
       if (response?.status === 200) {
-        alert('대댓글 수정 완료!');
+        toast.success('댓글 수정 완료');
         setEditedChildCommentId(null);
 
         const updatedComments = comments.map(comment => {
@@ -248,8 +261,8 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
           </div>
         ) : (
           <div className='cursor-pointer'>
-            <AiFillHeart onClick={putCommentHandler} />
-          </div>
+          {data.commentLikeUse ? (<AiFillHeart onClick={putCommentHandler} />):(<AiOutlineHeart onClick={putCommentHandler} />)}
+        </div>
         )}
       </div>
       <div>
@@ -301,7 +314,7 @@ const CommentComp = ({ data, userId, setComments, comments,store }: Props) => {
                     )}
                   </>
                 ) : (
-                  <button>좋아요</button>
+                  <></>
                 )}
               </div>
             </div>

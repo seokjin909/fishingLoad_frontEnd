@@ -1,23 +1,25 @@
-import React from "react";
-import CommunityCard from "./CommunityCard";
-import { Store } from "@/types/store";
-import { useRouter } from "next/router";
-import { SlNote } from "react-icons/sl";
+import React from 'react'
+import CommunityCard from './CommunityCard'
+import { Store } from '@/types/store'
+import { useRouter } from 'next/router';
+import { SlNote } from 'react-icons/sl';
+import { toast } from 'react-toastify';
 
 interface Props {
   data: Store[];
 }
 
-export const CommunitySection = ({ data }: Props) => {
-  const router = useRouter();
-  const onClickHandler = () => {
-    const token = localStorage.getItem("authorization");
-    if (token === null) {
-      alert("로그인이 필요한 서비스입니다.");
-      router.push("/user/login");
-      return;
-    }
-    router.push("/post/addpost");
+export const CommunitySection = ({data}:Props) => {
+    const router = useRouter();
+    const onClickHandler = () => {
+        const token = localStorage.getItem('authorization');
+        if(token === null){
+            toast.info('로그인이 필요한 서비스입니다.');
+            router.push('/user/login');
+            return;
+        }
+        router.push('/post/addpost');
+
   };
   return (
     <div className="relative overflow-x-auto w-[1200px] mt-8">

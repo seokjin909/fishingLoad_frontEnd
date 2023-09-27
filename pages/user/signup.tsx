@@ -86,11 +86,9 @@ export default function SignUp() {
     const response = await checkUserId({ userId, email });
     if (response.status === 200) {
       toast.info("사용가능한 ID 입니다🔥");
-      // alert(response.data.message);
       setCheckId(true);
     } else {
       toast.error("중복된 ID입니다🔥");
-      // alert(response);
       setUserId("");
       setCheckId(false);
     }

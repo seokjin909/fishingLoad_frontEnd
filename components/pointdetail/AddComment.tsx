@@ -3,6 +3,7 @@ import { addComment } from '@/pages/api/comment/addComment';
 import { Comment, Store } from '@/types/store';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify';
 
 
 interface Props {
@@ -37,17 +38,17 @@ const AddComment = ({store,setComments, comments}:Props) => {
 
   const onSumbitHandler = async () => {
     if(token === ""){
-      alert('로그인이 필요한 기능입니다!');
+      toast.info('로그인이 필요한 서비스입니다.');
       router.push('/user/login');
       return;
     }
     try {
       if (!data.comment.trim().length) {
-        return alert("내용을 입력하세요... 😂");
+        return toast.info("내용을 입력하세요... 😂");
       }
       const response = await addComment(data);
       if(response?.status === 200) {
-        alert("등록 완료!");
+        toast.success("등록 완료");
         setData({
           comment : "",
           postId : store.id
