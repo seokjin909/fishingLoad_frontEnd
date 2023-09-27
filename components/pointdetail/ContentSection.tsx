@@ -46,8 +46,8 @@ export const ContentSection = ({ store, setStore, userId }: Props) => {
       return;
     } else {
       const response = await likePost(store.id);
-      console.log(response);
       if(response?.data.statusCode === 200) {
+        toast.success(response?.data.message);
         const updatedStore = { ...store }; // store 객체를 복제합니다.
         if (store.postLikeUse) {
           // 이미 좋아요를 누른 상태였다면 감소
