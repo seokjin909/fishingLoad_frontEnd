@@ -56,7 +56,7 @@ const HeaderComponent = () => {
           )}
         </div>
         <h1 className="mt-[40px] mx-auto mb-[25px] w-[250px]">
-          <Link href="/" className="flex items-center justify-center h-[52px]">
+          <Link href="/" className="flex items-center justify-center h-[30px]">
             <Image
               src="/logo/fish.png"
               className="mt-[20px]"

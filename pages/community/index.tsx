@@ -39,7 +39,7 @@ const Community = () => {
   return (
     <Fragment>
       <HeaderComponent />
-      <main className="container mx-auto flex items-center flex-col mt-[70px]">
+      <main className="container mx-auto flex items-center flex-col mt-[30px]">
         <CommunitySection data={stores} />
         <Pagination
           setPage={setPage}
