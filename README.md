@@ -19,7 +19,7 @@
   <th>김지원</th>
   <tr>
     <td><img width="200" height="200" src="https://github.com/seokjin909/fishingLoad_frontEnd/assets/111734939/75029f0e-d7ff-46b6-ab80-d990ed203dde"</td>
-    <td></td>
+    <td><img width="200" height="200" src="https://github.com/seokjin909/fishingLoad_frontEnd/assets/136064239/ef4792f8-9654-4564-9a6d-f57ff422a040" /></td>
   </tr>
   <tr>
     <td><a href="https://github.com/seokjin909">seokjin909</a></td>
